@@ -292,7 +292,7 @@ history: createWebHistory('/admin/')
 | `vuedraggable` 2.x             | `vuedraggable@^4`                         | 升级              |
 | `monaco-editor-webpack-plugin` | `vite-plugin-monaco-editor`               | 替换              |
 
-# 性能优化  ***
+# 性能优化   *******  ******
 
 - Tree Shaking：ES Module 支持
 - 按需导入：Element Plus 自动按需加载
