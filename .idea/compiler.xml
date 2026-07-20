@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for fastbee" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/org/springframework/boot/spring-boot-configuration-processor/3.5.11/spring-boot-configuration-processor-3.5.11.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/io/github/linpeilie/mapstruct-plus-processor/1.5.0/mapstruct-plus-processor-1.5.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/io/github/linpeilie/mapstruct-plus/1.5.0/mapstruct-plus-1.5.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/io/github/linpeilie/mapstruct-plus-object-convert/1.5.0/mapstruct-plus-object-convert-1.5.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/cn/easii/tutelary-repackage-javapoet/1.0.5/tutelary-repackage-javapoet-1.0.5.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$PROJECT_DIR$/../../../../../mvnrep/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="fastbee-bridge" />
+        <module name="coap-server" />
+        <module name="fastbee-common-media" />
+        <module name="fastbee-notify-web" />
+        <module name="fastbee-open-api" />
+        <module name="fastbee-mq" />
+        <module name="fastbee-ai" />
+        <module name="fastbee-system-service" />
+        <module name="fastbee-protocol-base" />
+        <module name="base-server" />
+        <module name="fastbee-social" />
+        <module name="fastbee-scada" />
+        <module name="boot-strap" />
+        <module name="http-server" />
+        <module name="fastbee-iot-data" />
+        <module name="fastbee-test" />
+        <module name="isup-server" />
+        <module name="sip-server" />
+        <module name="fastbee-admin" />
+        <module name="mqtt-broker" />
+        <module name="fastbee-common-extend" />
+        <module name="fastbee-framework" />
+        <module name="openys7" />
+        <module name="iot-server-core" />
+        <module name="fastbee-notify-core" />
+        <module name="dahuatech-icc" />
+        <module name="fastbee-generator" />
+        <module name="fastbee-common" />
+        <module name="fastbee-mqtt-client" />
+        <module name="fastbee-protocol-collect" />
+        <module name="fastbee-oauth-server" />
+        <module name="fastbee-oss" />
+        <module name="fastbee-quartz" />
+        <module name="fastbee-http" />
+        <module name="fastbee-iot-service" />
+        <module name="fastbee-modbus-tcp" />
+        <module name="onvif-server" />
+        <module name="fastbee-ruleEngine" />
+        <module name="fastbee-record" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base-server" options="-parameters" />
+      <module name="boot-strap" options="-parameters" />
+      <module name="coap-server" options="-parameters" />
+      <module name="dahuatech-icc" options="-parameters" />
+      <module name="fastbee" options="-parameters" />
+      <module name="fastbee-admin" options="-parameters" />
+      <module name="fastbee-ai" options="-parameters" />
+      <module name="fastbee-bridge" options="-parameters" />
+      <module name="fastbee-common" options="-parameters" />
+      <module name="fastbee-common-extend" options="-parameters" />
+      <module name="fastbee-common-media" options="-parameters" />
+      <module name="fastbee-framework" options="-parameters" />
+      <module name="fastbee-generator" options="-parameters" />
+      <module name="fastbee-http" options="-parameters" />
+      <module name="fastbee-iot-data" options="-parameters" />
+      <module name="fastbee-iot-service" options="-parameters" />
+      <module name="fastbee-media-api" options="-parameters" />
+      <module name="fastbee-modbus-tcp" options="-parameters" />
+      <module name="fastbee-mq" options="-parameters" />
+      <module name="fastbee-mqtt-client" options="-parameters" />
+      <module name="fastbee-notify" options="-parameters" />
+      <module name="fastbee-notify-core" options="-parameters" />
+      <module name="fastbee-notify-web" options="-parameters" />
+      <module name="fastbee-oauth-server" options="-parameters" />
+      <module name="fastbee-open-api" options="-parameters" />
+      <module name="fastbee-oss" options="-parameters" />
+      <module name="fastbee-plugs" options="-parameters" />
+      <module name="fastbee-protocol" options="-parameters" />
+      <module name="fastbee-protocol-base" options="-parameters" />
+      <module name="fastbee-protocol-collect" options="-parameters" />
+      <module name="fastbee-quartz" options="-parameters" />
+      <module name="fastbee-record" options="-parameters" />
+      <module name="fastbee-ruleEngine" options="-parameters" />
+      <module name="fastbee-scada" options="-parameters" />
+      <module name="fastbee-server" options="-parameters" />
+      <module name="fastbee-service" options="-parameters" />
+      <module name="fastbee-social" options="-parameters" />
+      <module name="fastbee-system-service" options="-parameters" />
+      <module name="fastbee-test" options="-parameters" />
+      <module name="http-server" options="-parameters" />
+      <module name="iot-server-core" options="-parameters" />
+      <module name="isup-server" options="-parameters" />
+      <module name="mqtt-broker" options="-parameters" />
+      <module name="onvif-server" options="-parameters" />
+      <module name="openys7" options="-parameters" />
+      <module name="sip-server" options="-parameters" />
+    </option>
+  </component>
+</project>
