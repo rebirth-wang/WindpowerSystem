@@ -40,8 +40,8 @@ nbdist/
 *.xml.versionsBackup
 *.swp
 
-fastbee-common/
-fastbee-framework/
+#fastbee-common/
+#fastbee-framework/
 
 own-*
 

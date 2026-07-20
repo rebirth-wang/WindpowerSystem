@@ -1,0 +1,22 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package com.fastbee.common.exception;
+
+public class UtilException extends RuntimeException {
+    private static final long E = 8247610319171014183L;
+
+    public UtilException(Throwable e) {
+        super(e.getMessage(), e);
+    }
+
+    public UtilException(String message) {
+        super(message);
+    }
+
+    public UtilException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
+}
