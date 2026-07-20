@@ -1,0 +1,62 @@
+﻿### 查询RuleDebugController分页列表 => 成功
+GET {{baseUrl}}/ruleview/debug/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增RuleDebugController => 成功
+POST {{baseUrl}}/ruleview/debug
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/startingNodes => 成功
+POST {{baseUrl}}/ruleview/debug/startingNodes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/status => 成功
+POST {{baseUrl}}/ruleview/debug/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/debug => 成功
+POST {{baseUrl}}/ruleview/debug/debug
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/log => 成功
+POST {{baseUrl}}/ruleview/debug/log
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改RuleDebugController => 成功
+PUT {{baseUrl}}/ruleview/debug
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除RuleDebugController => 成功
+DELETE {{baseUrl}}/ruleview/debug/1,2,3
+Authorization: Bearer {{token}}

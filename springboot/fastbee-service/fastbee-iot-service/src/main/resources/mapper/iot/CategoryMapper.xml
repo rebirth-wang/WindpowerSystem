@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.CategoryMapper">
+
+    <resultMap type="com.fastbee.iot.domain.Category" id="CategoryResult">
+        <result property="categoryId"    column="category_id"    />
+        <result property="categoryName"    column="category_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="isSys"    column="is_sys"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.IdAndName" id="CategoryShortResult">
+        <result property="id"    column="category_id"    />
+        <result property="name"    column="category_name"    />
+    </resultMap>
+
+    <sql id="selectCategoryVo">
+        select category_id, category_name, tenant_id, tenant_name, is_sys,order_num, create_time, update_time, remark from iot_category
+    </sql>
+
+    <select id="selectCategoryList" parameterType="com.fastbee.iot.model.vo.CategoryVO" resultMap="CategoryResult">
+        select c.category_id, c.category_name, c.tenant_id, c.tenant_name,
+        c.is_sys,c.order_num, c.create_time, c.update_time, c.remark
+        from iot_category c
+        <where>
+            c.del_flag = '0'
+            <if test="categoryVO.deptId != null and categoryVO.showSenior and !categoryVO.admin">
+                and ( c.tenant_id = #{categoryVO.tenantId}
+                or (c.tenant_id in (
+                SELECT de.dept_user_id
+                FROM sys_dept de
+                JOIN sys_dept d ON ${categoryVO.params.findInSetStr}
+                WHERE d.dept_id = #{categoryVO.deptId}
+                )
+                )
+                )
+            </if>
+            <if test="!categoryVO.showSenior and categoryVO.tenantId != null  and categoryVO.tenantId != 0 and !categoryVO.admin">
+                and c.tenant_id = #{categoryVO.tenantId}
+            </if>
+            <if test="categoryVO.categoryName != null  and categoryVO.categoryName != ''"> and c.category_name like concat('%', #{categoryVO.categoryName}, '%')</if>
+            <if test="categoryVO.tenantId != null  and categoryVO.tenantId != ''"> and (c.tenant_id = #{categoryVO.tenantId} or c.is_sys = 1)</if>
+        </where>
+        order by order_num
+    </select>
+
+    <select id="selectCategoryShortList" resultMap="CategoryShortResult">
+        select c.category_id, c.category_name
+        from iot_category c
+        <where>
+            c.del_flag = '0'
+            <!-- 处理非管理员用户 -->
+            <if test="!categoryVO.admin">
+                <if test="categoryVO.deptId != null and categoryVO.showSenior">
+                    and (c.tenant_id = #{categoryVO.tenantId}
+                    or c.tenant_id in (
+                    SELECT de.dept_user_id
+                    FROM sys_dept de
+                    WHERE CONCAT(',', (SELECT d.ancestors FROM sys_dept d WHERE d.dept_id = #{categoryVO.deptId}), ',') LIKE CONCAT('%,', de.dept_id, ',%')
+                    )
+                    )
+                </if>
+                <if test="!categoryVO.showSenior and categoryVO.tenantId != null and categoryVO.tenantId != 0">
+                    and c.tenant_id = #{categoryVO.tenantId}
+                </if>
+            </if>
+            <!-- 处理所有用户 -->
+            <if test="categoryVO.categoryName != null and categoryVO.categoryName != ''">
+                and c.category_name like concat('%', #{categoryVO.categoryName}, '%')
+            </if>
+            <if test="categoryVO.tenantId != null and categoryVO.tenantId != ''">
+                and (c.tenant_id = #{categoryVO.tenantId} or c.is_sys = 1)
+            </if>
+        </where>
+        order by c.order_num
+    </select>
+
+    <select id="productCountInCategorys" parameterType="String" resultType="int">
+        select count(1) from iot_product where category_id in
+        <foreach item="categoryId" collection="array" open="(" separator="," close=")">
+            #{categoryId}
+        </foreach>
+        and del_flag = '0'
+    </select>
+</mapper>

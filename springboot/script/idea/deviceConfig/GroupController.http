@@ -1,0 +1,52 @@
+﻿### 查询GroupController分页列表 => 成功
+GET {{baseUrl}}/iot/group/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/group/list
+Authorization: Bearer {{token}}
+
+### 新增GroupController => 成功
+POST {{baseUrl}}/iot/group
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/group/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改GroupController => 成功
+PUT {{baseUrl}}/iot/group
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/updateDeviceGroups => 成功
+PUT {{baseUrl}}/iot/group/updateDeviceGroups
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除GroupController => 成功
+DELETE {{baseUrl}}/iot/group/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{groupIds} => 成功
+DELETE {{baseUrl}}/iot/group/{groupIds}
+Authorization: Bearer {{token}}

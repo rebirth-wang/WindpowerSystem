@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.GoviewProjectMapper">
+
+    <resultMap type="com.fastbee.iot.domain.GoviewProject" id="GoviewProjectResult">
+        <result property="id"    column="id"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="state"    column="state"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="indexImage"    column="index_image"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+    </resultMap>
+
+    <sql id="selectGoviewProjectVo">
+        select id, project_name, state, create_time,update_time, create_by, del_flag, index_image, remarks, tenant_id, tenant_name from iot_goview_project
+    </sql>
+
+</mapper>

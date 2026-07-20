@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.FirmwareTaskDetailMapper">
+
+    <resultMap type="com.fastbee.iot.domain.FirmwareTaskDetail" id="FirmwareTaskDetailResult">
+    <result property="id"    column="id"    />
+    <result property="taskId"    column="task_id"    />
+    <result property="serialNumber"    column="serial_number"    />
+    <result property="upgradeStatus"    column="upgrade_status"    />
+    <result property="createTime"    column="create_time"    />
+    <result property="updateTime"    column="update_time"    />
+    <result property="detailMsg"    column="detail_msg"    />
+    <result property="messageId"    column="message_id"    />
+   </resultMap>
+
+    <resultMap type="com.fastbee.iot.domain.FirmwareTaskDetail" id="FirmwareTaskDetailResult2">
+        <result property="id"    column="id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="upgradeStatus"    column="upgrade_status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="detailMsg"    column="detail_msg"    />
+        <result property="messageId"    column="message_id"    />
+    </resultMap>
+
+    <sql id="selectFirmwareTaskDetailVo">
+        select id, task_id, serial_number, upgrade_status, create_time, update_time, detail_msg, message_id from iot_firmware_task_detail
+    </sql>
+
+
+    <!-- 根据固件id查询下属设备列表 -->
+    <select id="selectFirmwareTaskDetailListByFirmwareId" parameterType="com.fastbee.iot.model.FirmwareTaskDetailInput" resultType="com.fastbee.iot.model.FirmwareTaskDetailOutput">
+        SELECT
+            ftd.id,
+            ft.firmware_id AS 'firmwareId',
+            ftd.task_id AS 'taskId',
+            ft.task_name AS 'taskName',
+            d.device_name AS 'deviceName',
+            ftd.serial_number AS 'serialNumber',
+            ftd.message_id AS 'messageId',
+            d.firmware_version AS 'version',
+            ftd.upgrade_status AS 'upgradeStatus',
+            ftd.detail_msg AS 'detailMsg',
+            ftd.create_time AS 'createTime',
+            ftd.update_time AS 'updateTime'
+        FROM
+        iot_firmware_task_detail ftd
+        LEFT JOIN iot_firmware_task ft ON ftd.task_id = ft.id
+        LEFT JOIN iot_device d ON ftd.serial_number = d.serial_number
+        <where>
+            ft.firmware_id = #{firmwareTaskDetailInput.firmwareId}
+            and ft.del_flag = 0
+            and d.del_flag = '0'
+            <if test = "firmwareTaskDetailInput.taskId != null" >
+                AND ftd.task_id = #{firmwareTaskDetailInput.taskId,jdbcType=BIGINT}
+            </if>
+            <if test = "firmwareTaskDetailInput.deviceName != null and firmwareTaskDetailInput.deviceName != '' " >
+                AND d.device_name = #{firmwareTaskDetailInput.deviceName,jdbcType=VARCHAR}
+            </if>
+            <if test = "firmwareTaskDetailInput.serialNumber != null and firmwareTaskDetailInput.serialNumber != '' " >
+                AND ftd.serial_number = #{firmwareTaskDetailInput.serialNumber,jdbcType=VARCHAR}
+            </if>
+            <if test = "firmwareTaskDetailInput.upgradeStatus != null" >
+                AND ftd.upgrade_status = #{firmwareTaskDetailInput.upgradeStatus}
+            </if>
+        </where>
+    </select>
+
+    <!--固件升级设备统计-->
+    <select id="deviceStatistic" parameterType="com.fastbee.iot.model.FirmwareTaskDetailInput" resultType="com.fastbee.iot.model.FirmwareTaskDeviceStatistic">
+        SELECT
+            ftd.upgrade_status AS 'upgradeStatus',
+            count(ftd.id) AS 'deviceCount'
+        FROM
+            iot_firmware_task_detail ftd
+        LEFT JOIN iot_firmware_task ft ON ftd.task_id = ft.id
+        <where>
+            ft.firmware_id = #{firmwareId}
+            and ft.del_flag = 0
+            <if test = "taskId != null" >
+                AND ftd.task_id = #{taskId,jdbcType=BIGINT}
+            </if>
+        </where>
+        GROUP BY ftd.upgrade_status
+    </select>
+
+
+</mapper>

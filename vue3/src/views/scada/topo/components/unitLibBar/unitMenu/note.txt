@@ -1,0 +1,130 @@
+这是一个配置文件， 用于存储组件信息
+- title: 组名称
+- icon: 图标或者图片
+- open：开启或关闭组
+- items：组里面的组件
+    - text：组件名称或者描述
+    - icon：组件图标或者图片
+    - type: 组件类型、通过类型加载组件（唯一）
+    - component： 组件包含的数据模块是个数组类型
+    - info：组件信息
+        - data：数据绑定
+            - pcConfig: pc端数据
+                - bind: 绑定数据（对象）
+                    - id: 元件数据id
+                    - statusType: 状态类型（1：变量状态，2：设备状态）
+                    - dataType: 数据类型（1：设备数据，2：模拟数据，3：静态数据，4：动态数据，5：公共接口）
+                    - modelName: 模型名称
+                    - modelValue: 模型值
+                    - modelValues: 模型值（数组）
+                    - identifier: 模型id
+                    - identifiers: 模型id（数组）
+                    - modelTimes: 模型时间（数组）
+                    - modelType: 模型类型（数据类型）
+                    - simValue: 模拟值
+                    - simInterval: 模拟间隔(s)
+                    - modelMaps: 映射关系（数组）
+                    - filter: 是否开始数据处理（关闭：0，开启：1）
+                    - funValue: 数据处理函数
+                    - staticValue: 静态数据值
+                    - httpSetting: 动态数据（对象）
+                        - id: 请求标识
+                        - url: 请求地址
+                        - type: 请求类型（get，post，put）
+                        - method: 请求方式（普通请求：1、sql请求：2）
+                        - time: 请求时间间隔
+                        - unit: 请求时间单位（秒：s，分：m，时：h）
+                        - params: 请求参数（对象）
+                        - body": 请求body（对象）
+                            - type: body方式（none: 1, x-www-form-urlencoded: 2, json: 3）
+                            - value: 参数对象/字符串
+                        - headers: 请求头（对象）
+                    - httpSettingId: 动态数据id
+                    - httpFilter: 动态数据过函数
+                    - httpResults: 动态数据请求结果
+                    - sceneModelId: 场景id
+                    - sceneModelDeviceId: 场景设备id
+                    - sceneModelDeviceIds: 场景设备id（数组）
+                    - variableType: 场景变量类型
+                    - productId：产品id
+                    - serialNumber: 设备编号
+                    - statusConds: 状态条件/颜色条件（数组）
+                    - onlineUrl: 在线url
+                    - offlineUrl: 离线url
+                    - forbidUrl: 禁止url
+                    - inactiveUrl: 未激活url
+                    - warningUrl: 告警url
+                    - tableTitle: 表格名称
+                    - tableType: 表格类型（1: 实时数据，2: 历史数据）,
+                    - tableColumns: 表格列的配置
+                        - title: 名称
+                        - id: id值
+                        - visible: 是否显示
+                        - color: 颜色值
+                    - ezvizChannel: 萤石通道
+                    - ezvizToken: 萤石密钥
+                    - videoUrl: 视频url
+                    - imageUrl: 图片url
+                    - provinceCode: 省代码
+                    - cityCode: 市代码
+                    - districtCode: 区代码
+                    - longitude: 经度
+                    - latitude: 纬度
+                    - calcFormule: 运算变量公式
+                    - calcVariates: 运算变量数组
+                    - model3dType: 3d模型类型
+                    - model3dUrl: 3d模型url
+                    - orbitControls: 模型交互控制（1：右键拖动，2：模型缩放，3：模型旋转，4：自动旋转，5：FPS显示）
+                    - cameraX: 相机X轴
+                    - cameraY: 相机Y轴
+                    - cameraZ: 相机Z轴
+                    - filterData: 过滤器返回结果
+                    - warnLogType: 告警记录类型（1：全部设备，2：绑定设备） 
+                    - interaction: 交互值（数组）
+                        - triggerType: 触发事件
+                        - bindCompId: 绑定组件id
+                        - headers: 头参数（数组）
+                            - id: id
+                            - value: 值
+                        - params
+                            - id: id
+                            - value: 值
+                - event：事件（对象）
+                    - djAction: 是否开启点击事件
+                    - djType: 动作类型（1：操作变量，2：外部链接，3：组态界面，4：开关控制，5：组态页面）
+                    - comType: 组件类型
+                    - modelName: 模型名称
+                    - modelValue: 模型值
+                    - modelTip: 变量提示信息
+                    - identifier: 模型id
+                    - sceneModelId: 场景id
+                    - sceneModelDeviceId: 场景设备id
+                    - variableType: 场景变量类型
+                    - productId: 产品id
+                    - serialNumber: 设备编号
+                    - writeType: 写入类型
+                    - funValue: 数据处理函数
+                    - externalLink: 外部链接
+                    - scadaGuid: 组态guid
+                    - scadaName: 组态名称
+                    - openModel: 打开方式
+                    - windowWidth: 窗口宽度
+                    - windowHeight: 窗口高度
+                    - switchControl: 开关控制方式（1：0关1开，2：0开1关）
+                    - scadaIndexName: 组态页面名称
+                    - scadaIndex: 组态页面
+                    - passwordEnabled: 组件密码是否启用
+                    - passwordType: 密码类型 ( user:用户密码, custom:自定义密码 )
+                    - customPassword: 自定义密码
+                    - jhAction: 是否开启交互事件
+                    - interaction: 交互（数组）
+                        - triggerType: 触发事件（1：选择完成）
+                        - bindCompId: 绑定组件Id
+                        - params: 绑定参数（对象）
+                            - 参数名：参数值
+                        - header: 绑定参数（对象）
+                            - 参数名：参数值    
+                - action: 动作（对象）
+                    - switchValue: 开关动作值（开，关）
+            - mdConfig: 移动端数据
+        - style：样式

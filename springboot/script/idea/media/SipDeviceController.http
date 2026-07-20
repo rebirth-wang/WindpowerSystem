@@ -1,0 +1,55 @@
+﻿### 查询SipDeviceController分页列表 => 成功
+GET {{baseUrl}}/sip/device/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/sip/device/list
+Authorization: Bearer {{token}}
+
+### 查询/listchannel/{deviceId} => 成功
+GET {{baseUrl}}/sip/device/listchannel/{deviceId}
+Authorization: Bearer {{token}}
+
+### 查询/snap/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/device/snap/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 新增SipDeviceController => 成功
+POST {{baseUrl}}/sip/device
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/sip/device/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SipDeviceController => 成功
+PUT {{baseUrl}}/sip/device
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SipDeviceController => 成功
+DELETE {{baseUrl}}/sip/device/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{deviceIds} => 成功
+DELETE {{baseUrl}}/sip/device/{deviceIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/sipid/{sipId} => 成功
+DELETE {{baseUrl}}/sip/device/sipid/{sipId}
+Authorization: Bearer {{token}}

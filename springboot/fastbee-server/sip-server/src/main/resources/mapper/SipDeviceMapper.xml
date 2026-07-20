@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.sip.mapper.SipDeviceMapper">
+
+    <resultMap type="com.fastbee.sip.domain.SipDevice" id="SipDeviceResult">
+        <result property="deviceId" column="device_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="deviceSipId" column="device_sip_id"/>
+        <result property="deviceName" column="device_name"/>
+        <result property="manufacturer" column="manufacturer"/>
+        <result property="model" column="model"/>
+        <result property="firmware" column="firmware"/>
+        <result property="transport" column="transport"/>
+        <result property="streamMode" column="stream_mode"/>
+        <result property="onlineStatus" column="online_status"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="lastConnectTime" column="last_connect_time"/>
+        <result property="activeTime" column="active_time"/>
+        <result property="ip" column="ip"/>
+        <result property="port" column="port"/>
+        <result property="hostAddress" column="host_address"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectSipDeviceVo">
+        select device_id,
+               product_id,
+               product_name,
+               device_sip_id,
+               device_name,
+               manufacturer,
+               model,
+               firmware,
+               transport,
+               stream_mode,
+               online_status,
+               register_time,
+               last_connect_time,
+               active_time,
+               ip,
+               port,
+               host_address,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        from sip_device
+    </sql>
+
+    <select id="selectSipDeviceList" parameterType="com.fastbee.sip.domain.SipDevice" resultMap="SipDeviceResult">
+        <include refid="selectSipDeviceVo"/>
+        <where>
+            <if test="productId != null ">and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
+                '%')
+            </if>
+            <if test="deviceSipId != null  and deviceSipId != ''">and device_sip_id = #{deviceSipId}</if>
+            <if test="deviceName != null  and deviceName != ''">and device_name like concat('%', #{deviceName}, '%')
+            </if>
+            <if test="manufacturer != null  and manufacturer != ''">and manufacturer = #{manufacturer}</if>
+            <if test="model != null  and model != ''">and model = #{model}</if>
+            <if test="firmware != null  and firmware != ''">and firmware = #{firmware}</if>
+            <if test="transport != null  and transport != ''">and transport = #{transport}</if>
+            <if test="streamMode != null  and streamMode != ''">and stream_mode = #{streamMode}</if>
+            <if test="onlineStatus != null  and onlineStatus != ''">and online_status = #{onlineStatus}</if>
+            <if test="registerTime != null ">and register_time = #{registerTime}</if>
+            <if test="lastConnectTime != null ">and last_connect_time = #{lastConnectTime}</if>
+            <if test="activeTime != null ">and active_time = #{activeTime}</if>
+            <if test="ip != null  and ip != ''">and ip = #{ip}</if>
+            <if test="port != null ">and port = #{port}</if>
+            <if test="hostAddress != null  and hostAddress != ''">and host_address = #{hostAddress}</if>
+            and del_flag = '0'
+        </where>
+    </select>
+
+    <update id="updateSipDeviceStatus" parameterType="SipDevice">
+        update sip_device
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="onlineStatus != null">online_status = #{onlineStatus},</if>
+            <if test="lastConnectTime != null">last_connect_time = #{lastConnectTime},</if>
+            <if test="activeTime != null">active_time = #{activeTime},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="port != null">port = #{port},</if>
+            <if test="hostAddress != null">host_address = #{hostAddress},</if>
+        </trim>
+        where device_sip_id = #{deviceSipId}
+    </update>
+
+    <select id="selectOfflineSipDevice" parameterType="String" resultMap="SipDeviceResult">
+        <include refid="selectSipDeviceVo"/>
+        <where>
+            ${checkTimeCondition} and del_flag = '0'
+        </where>
+    </select>
+
+    <select id="selectSipDeviceBySipId" parameterType="String" resultMap="SipDeviceResult">
+        <include refid="selectSipDeviceVo"/>
+        where device_sip_id = #{deviceSipId} and del_flag = '0'
+    </select>
+
+    <delete id="deleteSipDeviceByByDeviceSipId" parameterType="String">
+        delete
+        from sip_device
+        where device_sip_id = #{deviceSipId}
+    </delete>
+</mapper>

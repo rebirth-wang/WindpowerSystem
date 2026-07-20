@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.scada.mapper.ScadaEchartMapper">
+
+    <resultMap type="ScadaEchart" id="ScadaEchartResult">
+        <result property="id"    column="id"    />
+        <result property="guid"    column="guid"    />
+        <result property="echartName"    column="echart_name"    />
+        <result property="echartType"    column="echart_type"    />
+        <result property="echartData"    column="echart_data"    />
+        <result property="echartImgae"    column="echart_imgae"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="sysFlag"    column="sys_flag"    />
+    </resultMap>
+
+    <sql id="selectScadaEchartVo">
+        select id, guid, echart_name, echart_type, echart_data, echart_imgae, tenant_id, tenant_name, create_by, create_time, update_by, update_time, del_flag, sys_flag from scada_echart
+    </sql>
+
+</mapper>

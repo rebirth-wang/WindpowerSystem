@@ -1,0 +1,5 @@
+export { setupNaive } from '@vb/plugins/naive'
+export { setupDirectives } from '@vb/plugins/directives'
+export { setupCustomComponents } from '@vb/plugins/customComponents'
+export { icon } from '@vb/plugins/icon'
+export { initFunction } from '@vb/plugins/initFunction'

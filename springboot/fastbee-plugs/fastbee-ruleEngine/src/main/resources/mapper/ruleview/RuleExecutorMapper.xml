@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.rule.mapper.RuleExecutorMapper">
+        <resultMap type="RuleExecutor" id="RuleExecutorResult">
+        <result property="id"    column="id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="executorId"    column="executor_id"    />
+        <result property="executorName"    column="executor_name"    />
+        <result property="ivyConfigId"    column="ivy_config_id"    />
+        <result property="executorType"    column="executor_type"    />
+        <result property="contextBeans"    column="context_beans"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectRuleExecutorVo">
+        select tenant_id, id, executor_id, executor_name, ivy_config_id, executor_type, context_beans, create_by, create_time, update_by, update_time, del_flag from rule_executor
+    </sql>
+
+
+
+    </mapper>

@@ -1,0 +1,43 @@
+/* jsplumb 样式*/
+.jtk-overlay {
+  cursor: pointer;
+  color: #4a4a4a;
+}
+
+.jtk-overlay.flowLabel,
+.jtk-overlay.aLabel.flowLabel {
+  padding: 4px 10px;
+  background-color: #fff;
+  color: #565758 !important;
+  border: 1px solid #e0e3e7;
+  border-radius: 5px;
+  line-height: 1;
+  z-index: 10;
+}
+
+.f-dot {
+  background-color: #1879ff;
+  border-radius: 10px;
+}
+
+.f-dot-hover {
+  background-color: red;
+}
+
+.f-rectangle {
+  background-color: #1879ff;
+}
+
+.f-rectangle-hover {
+  background-color: red;
+}
+
+.f-img {
+}
+
+.f-img-hover {
+}
+
+.f-drop-hover {
+  border: 1px dashed #1879ff;
+}

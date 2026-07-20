@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.scada.mapper.ScadaDeviceShareMapper">
+
+    <resultMap type="ScadaDeviceShare" id="ScadaDeviceShareResult">
+        <result property="id"    column="id"    />
+        <result property="guid"    column="guid"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="isShare"    column="is_share"    />
+        <result property="shareUrl"    column="share_url"    />
+        <result property="sharePass"    column="share_pass"    />
+        <result property="shareShortUrl"    column="share_short_url"    />
+    </resultMap>
+
+    <sql id="selectScadaDeviceShareVo">
+        select id, guid, serial_number, is_share, share_url, share_pass, share_short_url from scada_device_share
+    </sql>
+
+</mapper>

@@ -1,0 +1,47 @@
+﻿### 查询NewsCategoryController分页列表 => 成功
+GET {{baseUrl}}/iot/newsCategory/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/newsCategory/list
+Authorization: Bearer {{token}}
+
+### 查询/newsCategoryShortList => 成功
+GET {{baseUrl}}/iot/newsCategory/newsCategoryShortList
+Authorization: Bearer {{token}}
+
+### 新增NewsCategoryController => 成功
+POST {{baseUrl}}/iot/newsCategory
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/newsCategory/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改NewsCategoryController => 成功
+PUT {{baseUrl}}/iot/newsCategory
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除NewsCategoryController => 成功
+DELETE {{baseUrl}}/iot/newsCategory/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{categoryIds} => 成功
+DELETE {{baseUrl}}/iot/newsCategory/{categoryIds}
+Authorization: Bearer {{token}}

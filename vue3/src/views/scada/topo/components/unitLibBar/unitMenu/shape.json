@@ -1,0 +1,513 @@
+{
+  "title": "基本形状",
+  "icon": "shape",
+  "opened": false,
+  "items": [
+    {
+      "text": "三角形",
+      "icon": "triangle",
+      "type": "svg",
+      "info": {
+        "type": "triangle",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定", "形状类型"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 200
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "shapeType": "fill",
+          "borderWidth": 2,
+          "borderColor": "rgba(45,62,81,1)"
+        }
+      }
+    },
+    {
+      "text": "矩形",
+      "icon": "rectangle",
+      "type": "svg",
+      "info": {
+        "type": "rect",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定", "形状类型"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 200
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "radius": 0,
+          "shapeType": "fill",
+          "borderWidth": 2,
+          "borderColor": "rgba(45,62,81,1)"
+        }
+      }
+    },
+    {
+      "text": "圆形",
+      "icon": "circular",
+      "type": "svg",
+      "info": {
+        "type": "circular",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定", "形状类型"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 200
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "shapeType": "fill",
+          "borderWidth": 2,
+          "borderColor": "rgba(45,62,81,1)"
+        }
+      }
+    },
+    {
+      "text": "直线",
+      "icon": "straight_line",
+      "type": "svg",
+      "info": {
+        "type": "straight-line",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 100,
+            "y": 100,
+            "w": 300,
+            "h": 30
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "lineWidth": 2
+        }
+      }
+    },
+    {
+      "text": "线段",
+      "icon": "line_segment",
+      "type": "svg",
+      "info": {
+        "type": "line-segment",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 100,
+            "y": 100,
+            "w": 499,
+            "h": 150
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "lineWidth": 2,
+          "points": [
+            {
+              "x": 20,
+              "y": 10
+            },
+            {
+              "x": 70,
+              "y": 10
+            },
+            {
+              "x": 120,
+              "y": 10
+            },
+            {
+              "x": 170,
+              "y": 10
+            },
+            {
+              "x": 220,
+              "y": 10
+            },
+            {
+              "x": 270,
+              "y": 10
+            },
+            {
+              "x": 320,
+              "y": 10
+            },
+            {
+              "x": 370,
+              "y": 10
+            },
+            {
+              "x": 420,
+              "y": 10
+            },
+            {
+              "x": 470,
+              "y": 10
+            }
+          ]
+        }
+      }
+    },
+    {
+      "text": "曲线",
+      "icon": "curve",
+      "type": "svg",
+      "info": {
+        "dataType": 1,
+        "type": "bizier-curve",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 100,
+            "y": 100,
+            "w": 230,
+            "h": 130
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "lineWidth": 2,
+          "points": [
+            {
+              "x": 20,
+              "y": 20
+            },
+            {
+              "x": 20,
+              "y": 100
+            },
+            {
+              "x": 200,
+              "y": 100
+            },
+            {
+              "x": 200,
+              "y": 20
+            }
+          ]
+        }
+      }
+    },
+    {
+      "text": "竖线",
+      "icon": "vertical_line",
+      "type": "svg",
+      "info": {
+        "type": "vertical-line",
+        "componentShow": ["组件颜色", "组件填充", "参数绑定"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 100,
+            "y": 100,
+            "w": 30,
+            "h": 200
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(45,62,81,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "lineWidth": 2
+        }
+      }
+    },
+    {
+      "text": "表格",
+      "icon": "usr_table",
+      "type": "svg",
+      "info": {
+        "type": "usr-table",
+        "componentShow": ["组件颜色", "动画"],
+        "action": [],
+        "dataBind": {
+          "tableList": []
+        },
+        "dataAction": {
+          "xyAction": false,
+          "xzAction": false,
+          "ssAction": false,
+          "hdAction": false,
+          "maAction": false,
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "identifier": "",
+          "modelName": "",
+          "paramJudge": "",
+          "paramJudgeData": "",
+          "rotationSpeed": "中",
+          "duration": "",
+          "translateList": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 180
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(179,179,179,1)",
+          "textAlign": "center",
+          "fontSize": 14,
+          "fontFamily": "Arial",
+          "fontWeight": {
+            "id": "normal",
+            "text": "正常"
+          },
+          "fontStyle": {
+            "id": "normal",
+            "text": "正常"
+          },
+          "rowNum": 3,
+          "columnNum": 3
+        }
+      }
+    }
+  ]
+}

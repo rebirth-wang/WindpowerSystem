@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.SceneScriptMapper">
+
+    <resultMap type="SceneScript" id="SceneScriptResult">
+        <result property="scriptId" column="script_id"/>
+        <result property="sceneId" column="scene_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="source" column="source"/>
+        <result property="scriptPurpose"    column="script_purpose"/>
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="value" column="value"/>
+        <result property="operator" column="operator"/>
+        <result property="type" column="type"/>
+        <result property="deviceCount" column="device_count"/>
+        <result property="jobId" column="job_id"/>
+        <result property="cronExpression" column="cron_expression"/>
+        <result property="isAdvance" column="is_advance"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentName" column="parent_name"/>
+        <result property="arrayIndex" column="array_index"/>
+        <result property="arrayIndexName" column="array_index_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="notifyCount" column="notify_count"/>
+    </resultMap>
+
+    <sql id="selectSceneScriptVo">
+        select script_id,
+               scene_id,
+               product_id,
+               product_name,
+               source,
+               script_purpose,
+               id,
+               name,
+               value,
+               operator,
+               type,
+               device_count,
+               job_id,
+               cron_expression,
+               is_advance,
+               parent_id,
+               parent_name,
+               array_index,
+               array_index_name,
+               create_by,
+               create_time,
+               notify_count
+        from iot_scene_script
+    </sql>
+
+    <select id="selectSceneScriptList" parameterType="SceneScript" resultMap="SceneScriptResult">
+        <include refid="selectSceneScriptVo"/>
+        <where>
+            <if test="scriptId != null ">and script_id = #{scriptId}</if>
+            <if test="sceneId != null ">and scene_id = #{sceneId}</if>
+            <if test="productId != null ">and product_id = #{productId}</if>
+            <if test="productName != null ">and product_name = #{productName}</if>
+            <if test="source != null ">and source = #{source}</if>
+            <if test="scriptPurpose != null ">and script_purpose = #{scriptPurpose}</if>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="value != null  and value != ''">and value = #{value}</if>
+            <if test="operator != null  and operator != ''">and operator = #{operator}</if>
+            <if test="type != null ">and type = #{type}</if>
+            <if test="jobId != null ">and job_id = #{jobId}</if>
+            <if test="cronExpression != null  and cronExpression != ''">and cron_expression = #{cronExpression}</if>
+            <if test="isAdvance != null ">and is_advance = #{isAdvance}</if>
+            <if test="parentId != null  and parentId != ''">and parent_id = #{parentId}</if>
+            <if test="parentName != null  and parentName != ''">and parent_name like concat('%', #{parentName}, '%')
+            </if>
+            <if test="arrayIndex != null  and arrayIndex != ''">and array_index = #{arrayIndex}</if>
+            <if test="arrayIndexName != null  and arrayIndexName != ''">and array_index_name like concat('%',
+                #{arrayIndexName}, '%')
+            </if>
+            <if test="notifyCount != null ">and notify_count = #{notifyCount}</if>
+        </where>
+    </select>
+
+</mapper>

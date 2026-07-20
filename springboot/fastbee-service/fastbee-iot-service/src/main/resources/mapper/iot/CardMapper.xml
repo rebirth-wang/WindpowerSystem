@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.CardMapper">
+        <resultMap type="Card" id="CardResult">
+        <result property="id"    column="id"    />
+        <result property="accessNumber"    column="access_number"    />
+        <result property="iccid"    column="iccid"    />
+        <result property="imsi"    column="imsi"    />
+        <result property="msisdn"    column="msisdn"    />
+        <result property="imei"    column="imei"    />
+        <result property="operator"    column="operator"    />
+        <result property="cardStatus"    column="card_status"    />
+        <result property="totalData"    column="total_data"    />
+        <result property="dataUsed"    column="data_used"    />
+        <result property="dataRemaining"    column="data_remaining"    />
+        <result property="activateTime"    column="activate_time"    />
+        <result property="expireTime"    column="expire_time"    />
+        <result property="downTime"    column="down_time"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="cardPlatformId"    column="card_platform_id"    />
+        <result property="dataAlertThreshold"    column="data_alert_threshold"    />
+        <result property="notifyUsers"    column="notify_users"    />
+        <result property="dataPlan"    column="data_plan"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectCardVo">
+        select id, access_number, iccid, imsi, msisdn, imei, operator, card_status, total_data, data_used, data_remaining, activate_time, expire_time, down_time, device_id, card_platform_id, data_alert_threshold, notify_users, data_plan, tenant_id, tenant_name, create_by, create_time, update_by, update_time, del_flag from iot_card
+    </sql>
+    <select id="countCardOperatorGroup" resultType="com.fastbee.common.extend.core.domin.model.GroupCount">
+        select operator `key`, count(1) count
+        from iot_card
+        where del_flag = 0
+        group by operator
+    </select>
+    <select id="countCardStatusGroup" resultType="com.fastbee.common.extend.core.domin.model.GroupCount">
+        select card_status as `key`, count(1) count
+        from iot_card
+        where del_flag = 0
+        group by card_status
+    </select>
+    <select id="countCardPlatformGroup" resultType="com.fastbee.common.extend.core.domin.model.GroupCount">
+        select cp.platform `key`, count(1) count
+        from iot_card c join iot_card_platform cp on c.card_platform_id = cp.id
+        where c.del_flag = 0 and cp.del_flag = 0
+        group by cp.platform
+    </select>
+
+    <select id="selectCardAndPlatformList" resultType="com.fastbee.iot.model.vo.CardVO">
+        select c.id, c.access_number, c.iccid, c.imsi, c.msisdn, c.imei, c.operator, c.card_status, c.total_data, c.data_used, c.data_remaining, c.activate_time, c.expire_time, c.down_time, c.device_id, c.card_platform_id, c.data_alert_threshold, c.notify_users, c.data_plan, c.tenant_id, c.tenant_name, c.create_by, c.create_time, c.update_by, c.update_time, cp.platform
+        from iot_card c left join iot_card_platform cp
+        on c.card_platform_id = cp.id
+        <where>
+            c.del_flag = 0
+            and cp.del_flag = 0
+            <if test="cardVO.cardStatus != null">
+                and c.card_status = #{cardVO.cardStatus}
+            </if>
+        </where>
+    </select>
+
+</mapper>

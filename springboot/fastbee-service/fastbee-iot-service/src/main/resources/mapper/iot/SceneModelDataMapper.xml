@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.SceneModelDataMapper">
+
+    <resultMap type="SceneModelData" id="SceneModelDataResult">
+        <result property="id"    column="id"    />
+        <result property="sceneModelId"    column="scene_model_id"    />
+        <result property="sceneModelDeviceId"    column="scene_model_device_id"    />
+        <result property="variableType"    column="variable_type"    />
+        <result property="datasourceId"    column="datasource_id"    />
+        <result property="enable"    column="enable"    />
+        <result property="sourceName" column="source_name"/>
+        <result property="identifier" column="identifier"/>
+        <result property="sceneModelDeviceId" column="scene_model_device_id"/>
+        <result property="type" column="type"/>
+        <result property="unit" column="unit"/>
+    </resultMap>
+
+    <sql id="selectSceneModelDataVo">
+        select id, scene_model_id, scene_model_device_id, variable_type, datasource_id, enable, source_name, identifier, type, unit from scene_model_data
+    </sql>
+
+    <select id="selectSceneModelDataDTOList" resultType="com.fastbee.iot.model.scenemodel.SceneModelDataDTO">
+        select sd.id, sd.scene_model_id, sd.scene_model_device_id, sd.variable_type, sd.datasource_id, sd.enable, sd.source_name, sd.identifier, sd.type, sd.unit,
+        s.id as scene_model_device_id, s.name as scene_model_device_name, d.serial_number, d.product_id, d.is_shadow, d.status, d.device_id,
+        case when d.device_id is not null then d.create_by else s.create_by end as create_by
+        from scene_model_device s
+        left join iot_device d on s.cus_device_id = d.device_id and d.del_flag = '0'
+        left join scene_model_data sd on s.id = sd.scene_model_device_id
+        where s.scene_model_id = #{sceneModelData.sceneModelId}
+        and sd.scene_model_id = #{sceneModelData.sceneModelId}
+        and sd.del_flag = '0'
+        and s.del_flag = '0'
+        <if test="sceneModelData.variableType != null"> and sd.variable_type = #{sceneModelData.variableType}</if>
+        <if test="sceneModelData.sceneModelDeviceId != null "> and sd.scene_model_device_id = #{sceneModelData.sceneModelDeviceId}</if>
+        <if test="sceneModelData.sourceName != null  and sceneModelData.sourceName != ''"> and sd.source_name like concat('%', #{sceneModelData.sourceName}, '%')</if>
+        <if test="sceneModelData.enable != null "> and sd.enable = #{sceneModelData.enable}</if>
+    </select>
+
+    <select id="countNoEnableBySceneModelDeviceId" resultType="java.lang.Integer">
+        select count(id)
+        from scene_model_data
+        where del_flag = '0'
+        and scene_model_device_id = #{sceneModelDeviceId}
+        and enable = 0
+    </select>
+
+    <select id="selectSceneModelDeviceByDataIdList"
+            resultType="com.fastbee.iot.model.scenemodel.SceneModelDeviceDataDTO">
+        select s.id as scene_model_data_id, s.scene_model_device_id, sd.name as scene_model_device_name
+        from scene_model_data s join scene_model_device sd on s.scene_model_device_id = sd.id
+        where s.id in
+            <foreach collection="idList" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        and sd.del_flag = '0'
+        and s.del_flag = '0'
+    </select>
+    <select id="selectDeviceThingsModelById"
+            resultType="com.fastbee.iot.model.scenemodel.SceneDeviceThingsModelVO">
+        select s.identifier, d.serial_number, d.product_id
+        from scene_model_data s left join scene_model_device sd on s.scene_model_device_id = sd.id
+                                left join iot_device d on sd.cus_device_id = d.device_id
+        where s.id = #{id}
+        and s.del_flag = '0'
+        and sd.del_flag = '0'
+        and d.del_flag = '0'
+    </select>
+
+    <select id="selectInputTagDefaultValueById" resultType="java.lang.String">
+        select st.default_value
+        from scene_model_data s left join scene_model_tag st on s.datasource_id = st.id
+        where s.id = #{id}
+        and s.del_flag = '0'
+        and st.del_flag = '0'
+    </select>
+
+    <select id="checkIsApplyAliasFormule" resultType="java.lang.Integer">
+        select count(st.id)
+        from scene_model_data smd join scene_tag_points st on smd.id = st.scene_model_data_id
+        where smd.del_flag = '0'
+          and st.del_flag = '0'
+          and smd.datasource_id in
+              <foreach collection="datasourceIdList" item="datasourceId" open="(" separator="," close=")">
+                  #{datasourceId}
+              </foreach>
+          <if test="variableType != null">
+              and smd.variable_type = #{variableType}
+          </if>
+    </select>
+
+    <select id="selectSceneDeviceThingsModelList" resultType="com.fastbee.iot.domain.SceneModelData">
+        select distinct scene_model_id, scene_model_device_id
+        from scene_model_data
+        where variable_type = 1
+        and datasource_id = #{datasourceId}
+        and del_flag = '0'
+    </select>
+
+    <update id="updateSceneModelDataByDatasourceId">
+        update scene_model_data
+        set source_name = #{sourceName},
+            unit = #{unit}
+        where scene_model_id = #{sceneModelId}
+        and variable_type = #{variableType}
+        and datasource_id = #{datasourceId}
+    </update>
+
+    <delete id="phyDeleteBySceneModelIds">
+        delete from scene_model_data where scene_model_id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and del_flag = '1'
+    </delete>
+
+    <update id="restoreBySceneModelId">
+        update scene_model_data set del_flag = '0' where scene_model_id = #{sceneModelId}
+    </update>
+
+</mapper>

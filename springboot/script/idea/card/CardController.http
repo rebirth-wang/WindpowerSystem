@@ -1,0 +1,88 @@
+﻿### 查询CardController分页列表 => 成功
+GET {{baseUrl}}/iot/card/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/card/list
+Authorization: Bearer {{token}}
+
+### 新增CardController => 成功
+POST {{baseUrl}}/iot/card
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/card/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/syncInfo => 成功
+POST {{baseUrl}}/iot/card/syncInfo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/syncTrafficInfo => 成功
+POST {{baseUrl}}/iot/card/syncTrafficInfo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/syncStatus => 成功
+POST {{baseUrl}}/iot/card/syncStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/activate/{iccid} => 成功
+POST {{baseUrl}}/iot/card/activate/{iccid}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/suspend/{iccid} => 成功
+POST {{baseUrl}}/iot/card/suspend/{iccid}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改CardController => 成功
+PUT {{baseUrl}}/iot/card
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除CardController => 成功
+DELETE {{baseUrl}}/iot/card/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/iot/card/{ids}
+Authorization: Bearer {{token}}

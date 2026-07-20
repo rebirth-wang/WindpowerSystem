@@ -1,0 +1,38 @@
+﻿### 查询DashBoardController分页列表 => 成功
+GET {{baseUrl}}/bashBoard/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/stats => 成功
+GET {{baseUrl}}/bashBoard/stats
+Authorization: Bearer {{token}}
+
+### 查询/metrics => 成功
+GET {{baseUrl}}/bashBoard/metrics
+Authorization: Bearer {{token}}
+
+### 查询/matchsData => 成功
+GET {{baseUrl}}/bashBoard/matchsData
+Authorization: Bearer {{token}}
+
+### 新增DashBoardController => 成功
+POST {{baseUrl}}/bashBoard
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改DashBoardController => 成功
+PUT {{baseUrl}}/bashBoard
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除DashBoardController => 成功
+DELETE {{baseUrl}}/bashBoard/1,2,3
+Authorization: Bearer {{token}}

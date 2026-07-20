@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>fastbee mobile player</title>
+		<script src="./jquery-2.1.1.min.js"></script>
+		<script src="./jessibuca-pro/jessibuca-pro.js"></script>
+		<script src="./ZLMRTCClient.js"></script>
+		<script src="./lay-picker/lay-picker.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="./lay-picker/lay-picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="./mobilePlayer.css">
+	</head>
+
+	<body class="page">
+		<div class="root">
+			<div class="container-shell">
+				<div class="tabheader" id="tabHeader">
+					<div class="player">
+						<div id="container"></div>
+						<div class="tip" id="palyerTipe">未检测到推流，请前往 WEB 端开启或稍后再试</div>
+					</div>
+					<ul class="tab" id="tabMenu">
+						<li class="tablink active" onclick="handleOpenTab(event, 'monitor')">实时监控</li>
+						<li class="tablink" onclick="handleOpenTab(event, 'playback')">录像回放</li>
+					</ul>
+				</div>
+				<div class="tabcontent" id="tabContent">
+					<div id="monitor" class="tabpane">
+						<div class="monitor">
+							<div class="direction-btn-group">
+								<div class="circle">
+									<button class="btn top" onclick="handlePTZ('up')">
+										<img src="./img/top.png" height="22px" width="22px" />
+									</button>
+									<button class="btn right" onclick="handlePTZ('right')">
+										<img src="./img/right.png" height="22px" width="22px" />
+									</button>
+									<button class="btn bottom" onclick="handlePTZ('down')">
+										<img src="./img/bottom.png" height="22px" width="22px" />
+									</button>
+									<button class="btn left" onclick="handlePTZ('left')">
+										<img src="./img/left.png" height="22px" width="22px" />
+									</button>
+									<button class="btn center">
+										<img id="livePlayImg" src="./img/play.png" height="22px" width="22px" onclick="handleLivePlay()"/>
+										<img id="liveStopImg" src="./img/stop.png" height="22px" width="22px" onclick="handleLiveStop()"/>
+									</button>
+								</div>
+							</div>
+
+							<div class="bottom-btn-group">
+								<button class="btn">
+									<img src="./img/plus.png" height="24px" width="24px" onclick="handleZoom(1)"/>
+								</button>
+								<button class="btn">
+									<img src="./img/minus.png" height="24px" width="24px" onclick="handleZoom(2)"/>
+								</button>
+							</div>
+						</div>
+
+						<div class="footer-bar">
+							<div class="bar-item" onclick="handleLiveScreenshot()">
+								<div class="icon">
+									<img src="./img/screenshot.png" height="24px" width="24px" />
+								</div>
+								<div class="text">截图</div>
+							</div>
+							<div class="bar-item" onclick="handleLiveRecord()">
+								<div class="icon">
+									<img id="liveStartRecordImg" src="./img/start_record.png" height="24px" width="24px" />
+									<img id="liveStopRecordImg" src="./img/stop_record.png" height="24px" width="24px" />
+								</div>
+								<div class="text">录像</div>
+							</div>
+							<div class="bar-item" onclick="handleTalk()">
+								<div class="icon center">
+									<img id="startTalkImg" src="./img/startTalk.png" height="24px" width="24px" />
+									<img id="loadingImg" src="./img/loading.gif" height="24px" width="24px" />
+									<img id="stopTalkImg" src="./img/stop_talk.png" height="24px" width="24px" />
+								</div>
+								<div class="text">对讲</div>
+							</div>
+							<div class="bar-item" onclick="handleQualityd()">
+								<div class="icon">
+									<img src="./img/definition.png" height="24px" width="24px" />
+								</div>
+								<div class="text">画质</div>
+							</div>
+							<div class="bar-item" onclick="handleVolume()">
+								<div class="icon">
+									<img src="./img/volume.png" height="24px" width="24px" />
+								</div>
+								<div class="text">音量</div>
+							</div>
+						</div>
+					</div>
+					
+					<div id="playback" class="tabpane">
+						<div class="playback">
+							<div class="tool-bar">
+								<div class="date-picker" id="datePicker">
+									<img src="./img/calendar.png" height="18px" width="18px" />
+									<span id="dateValue">今天</span>
+								</div>
+								<div class="btn-group">
+									<img id="memoryGroupImg" src="./img/memory_active.png" height="18px" width="18px" onclick="handleMemory()" />
+									<img id="cloudGroupImg" src="./img/cloud.png" height="18px" width="18px" onclick="handleCloud()"/>
+								</div>
+							</div>
+							<div class="back-content" id="backContent">
+								<div style="display: none;" class="history-list" id="backPlayHistoryList">
+									<div class="service-title" onclick="handleCloudService()">
+										<span id="cloudService">服务器</span>
+										<img id="cloudServiceImg" src="./img/drop.png" height="16px" width="16px"/>
+									</div>
+									<div class="list" id="backPlayHistoryItem"></div>
+								</div>
+								<div style="display: inline-block;" class="memory-list" id="backPlayMemoryList">
+									<input style="width: 90px; text-align: center; padding: 0;" class="fb-input" id="startTimePicker" type="text" placeholder="开始时间" autocomplete='off' readonly/>
+									<sapn style="font-size: 14px; margin: 0 3px;">至</sapn>
+									<input style="width: 90px; text-align: center; padding: 0;" class="fb-input" id="endTimePicker" type="text" placeholder="结束时间" autocomplete='off' readonly/>
+									<button style="margin-left: 8px;" class="fb-btn" onclick="handleMemoryToCloud()">转存</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="footer-bar" id="footerBar">
+							<div class="bar-item" onclick="handleLiveScreenshot()">
+								<div class="icon">
+									<img src="./img/screenshot.png" height="24px" width="24px" />
+								</div>
+								<div class="text">截图</div>
+							</div>
+							<div class="bar-item">
+								<div class="icon center">
+									<img id="backPlayImg" src="./img/play_white.png" height="24px" width="24px" onclick="handleBackPlay()"/>
+									<img id="backStopImg" src="./img/stop_white.png" height="24px" width="24px" onclick="handleBackStop()"/>
+								</div>
+								<div class="text">播放</div>
+							</div>
+							<div class="bar-item" onclick="handleBackRecord()">
+								<div class="icon">
+									<img id="backStartRecordImg" src="./img/start_record.png" height="24px" width="24px" />
+									<img id="backStopRecordImg" src="./img/stop_record.png" height="24px" width="24px" />
+								</div>
+								<div class="text">录像</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 清晰度弹框 -->
+				<div id="qualityModal" class="quality-modal" onclick="handleQualityModal()">
+					<div class="modal-content">
+						<div style="text-align: center; font-size: 17px; font-weight: 500;">画质</div>
+						<div class="radio-group">
+							<div class="item" onclick="handleQualityModalItem(event, '普清')">
+								<sapn>普清</sapn>
+								<input type="radio" name="qualityRadio" value="普清">
+							</div>
+							<div class="item" onclick="handleQualityModalItem(event, '高清')">
+								<sapn>高清</sapn>
+								<input type="radio" name="qualityRadio" value="高清">
+							</div>
+							<div class="item" onclick="handleQualityModalItem(event, '超清')">
+								<sapn>超清</sapn>
+								<input type="radio" name="qualityRadio" value="超清">
+							</div>
+							<div class="item" onclick="handleQualityModalItem(event, '4K')">
+								<sapn>4K</sapn>
+								<input type="radio" name="qualityRadio" value="4K">
+							</div>
+							<div class="item" onclick="handleQualityModalItem(event, '8K')">
+								<sapn>8K</sapn>
+								<input type="radio" name="qualityRadio" value="8K">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 声音弹框 -->
+				<div id="volumeModal" class="quality-modal" onclick="handleVolumeModal()">
+					<div class="modal-content">
+						<div style="text-align: center; font-size: 17px; font-weight: 500;">音量</div>
+						<div class="range-wrap">
+							<div class="value" id="volumeValue">50%</div>
+							<input id="volumeRange" style="width: 100%;" type="range" min="0" max="1" step="0.1">
+							<div class="value-range">
+								<span>0%</span>
+								<span>100%</span>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- 云服务器弹框 -->
+				<div id="cloudServiceModal" class="quality-modal" onclick="handleCloudServiceModal()">
+					<div class="modal-content">
+						<div style="text-align: center; font-size: 17px; font-weight: 500;">服务器</div>
+						<div class="radio-group" id="cloudServiceModalItem"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="./mobilePlayer.js"></script>
+	<script type="text/javascript">
+		let $container = document.getElementById('container');
+		let $livePlayImg = document.getElementById('livePlayImg');
+		let $liveStopImg = document.getElementById('liveStopImg');
+		let $liveStartRecordImg = document.getElementById('liveStartRecordImg');
+		let $liveStopRecordImg = document.getElementById('liveStopRecordImg');
+		let $qualityModal = document.getElementById('qualityModal');
+		let $volumeModal = document.getElementById('volumeModal');
+		let $volumeRange = document.getElementById('volumeRange');
+		let $volumeValue = document.getElementById('volumeValue');
+		let $startTalkImg = document.getElementById('startTalkImg');
+		let $loadingImg = document.getElementById('loadingImg');
+		let $stopTalkImg = document.getElementById('stopTalkImg');
+		let $palyerTipe = document.getElementById('palyerTipe');
+		let $backPlayImg = document.getElementById('backPlayImg');
+		let $backStopImg = document.getElementById('backStopImg');
+		let $backStartRecordImg = document.getElementById('backStartRecordImg');
+		let $backStopRecordImg = document.getElementById('backStopRecordImg');
+		let $cloudServiceModal = document.getElementById('cloudServiceModal');
+		let $footerBar = document.getElementById('footerBar');
+		let $backContent = document.getElementById('backContent');
+		let $tabHeader = document.getElementById('tabHeader');
+		let $tabContent = document.getElementById('tabContent');
+		let $tabMenu = document.getElementById('tabMenu');
+
+		const SERVER_API_URL = 'https://iot.fastbee.cn';
+		const BASE_API = '/prod-api';
+		let showOperateBtns = true; // 是否显示操作按钮
+		let jessibuca = null;
+		let tabName = 'monitor';
+		let rotate = 90; // 屏幕旋转
+		let playUrl = null;  // 播放 url
+		let playTimes = null;
+		let data = null; // 数据
+		let isPlaylive = false; // 是否实时播放
+		let isPlayback = false;
+		let isPlayvod = false;
+		let isRecord = false;  // 是否录制
+		let quality = '高清'; // 分辨率
+		let volume = '0.5'; // 音量
+		let isTalk =  false; // 对讲
+		let broadcastRtc = null;
+		let backPlayHistoryList = []; // 回放列表
+		let backPlayIndex = 0;
+		let isCloud = false; // 本地或云端
+		let vodChannel = ''; // 云端频道
+		let cloudService = 'fastbee';
+		let cloudServiceList = [];
+		let playliveStreamId = ''; // 直播视频流 Id
+		let playbackStreamId = ''; // 录播视频流 Id
+		let isUrlStreaming = false; // 是否为 URL 拉流模式
+
+		// tab 栏切换
+		function handleOpenTab(evt, tab) {
+			// URL 拉流模式下不允许切换 Tab
+			if (isUrlStreaming) {
+				console.log('URL 拉流模式下禁止切换 Tab');
+				return;
+			}
+			// 防止事件冒泡
+			if (evt) {
+				evt.stopPropagation();
+			}
+			let tabcontent = document.getElementsByClassName("tabpane");
+			for (let i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			let tablinks = document.getElementsByClassName("tablink");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			document.getElementById(tab).style.display = "block";
+			evt.currentTarget.className += " active";
+			tabName = tab;
+
+			destroy();
+			if (tabName === 'monitor') {
+				playlive();
+			} else {
+				if (backPlayIndex === 0) {
+					createDatePicker();
+					createTimePicker();
+					getCloudService();
+					backPlayIndex++;
+				}
+				if (!isCloud) {
+					getPlayTimes();
+				} else {
+					createBackPlayList();
+				}
+			}
+
+			if (isCloud) {
+				$footerBar.style.display = 'none';
+				$backContent.style.marginBottom = '0px';
+			} else {
+				$footerBar.style.display = 'flex';
+				$backContent.style.marginBottom = '70px';
+			}
+		}
+
+		function replay() {
+			if (isUrlStreaming) {
+				// URL 拉流模式下重新播放
+				if (data && data.videoUrl) {
+					playUrlStream(data.videoUrl);
+				}
+				return;
+			}
+			if (jessibuca) {
+				jessibuca.destroy().then(()=>{
+					create();
+				});
+			} else {
+				create();
+			}
+			if (tabName === 'monitor') {
+				playlive();
+			} else {
+				getPlayTimes();
+			}
+		}
+
+		function playlive() {
+			$palyerTipe.style.display = 'none';
+			const { deviceSipId, channelSipId } = data;
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/player/play/${deviceSipId}/${channelSipId}`, {
+				method: 'GET'
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					if (res.data) {
+						const playUrl = res.data.playurl;
+						playliveStreamId = res.data.streamId;
+						jessibuca.play(playUrl).then(() => {
+							console.log('playlive success');
+						}).catch((e) => {
+							console.log('playlive error', e);
+						})
+					} else {
+						$palyerTipe.innerText = '未检测到推流，请稍后再试';
+						$palyerTipe.style.display = 'inline-block';
+					}
+				}
+			}).catch(err => console.log('sip.player.play', err))
+		}
+
+		function playback() {
+			if (isPlayback) {
+				const params = {
+					start: playTimes ? playTimes[0].start : null,
+					end: playTimes ? playTimes[0].end :null
+				};
+				$palyerTipe.style.display = 'none';
+				const { deviceSipId, channelSipId } = data;
+				fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/player/playback/${deviceSipId}/${channelSipId}`, {
+					method: 'GET',
+					params: params,
+				}).then(res => {
+					return res.json()	
+				}).then(res => {
+					if (res.code === 200) {
+						if (res.data) {
+							const playUrl = res.data.playurl;
+							playbackStreamId = res.data.streamId;
+							jessibuca.playback(playUrl, {
+								playList: playTimes,
+								fps: 20, //FPS（定频(本地设置)生效）
+								showControl: true,
+								showRateBtn: true,
+								isUseFpsRender: true, // 是否使用固定的fps渲染，如果设置的fps小于流推过来的，会造成内存堆积甚至溢出
+								isCacheBeforeDecodeForFpsRender: false, // rfs渲染时，是否在解码前缓存数据
+								supportWheel: true, // 是否支持滚动轴切换精度。
+								rateConfig: [
+									{ label: '正常', value: 1 },
+									{ label: '2倍', value: 2 },
+									{ label: '4倍', value: 4 },
+									{ label: '8倍', value: 8 },
+								],
+							}).then(() => {
+								console.log('playback success');
+							}).catch((e) => {
+								console.log('playback error', e);
+							})
+						} else {
+							$palyerTipe.innerText = '未检测到推流，请稍后再试';
+							$palyerTipe.style.display = 'inline-block';
+						}
+					}
+				}).catch(err => console.log('sip.player.play', err))
+			} else {
+				jessibuca.playbackResume()
+			}
+		}
+
+		function playVod() {
+			if (!vodChannel) {
+				$palyerTipe.style.display = 'inline-block';
+				$palyerTipe.innerText = '未选择视频段！';
+				setTimeout(() => {
+					$palyerTipe.style.display = 'none';
+				}, 3000)
+				return
+			}
+			if (isPlayvod) {
+				const { deviceSipId, channelSipId } = data;
+				const date = $("#dateValue").text();
+				const recordApi = getRecordApi();
+				const playUrl = `${recordApi}/file/download/rtp/gb_playrecord_${deviceSipId}_${channelSipId}/${date}/${vodChannel}`;
+				// jessibuca.playVod(playUrl, {
+				// 	controlType: 'simple',
+				// 	showRateBtn: true,
+				// 	supportWheel: true,
+				// 	showPerformance: false,
+				// 	rateConfig: [
+				// 		{label: '正常', value: 1},
+				// 		{label: '2倍', value: 2},
+				// 		{label: '3倍', value: 3}
+				// 	],
+				// 	useWCS: false,
+				// 	useMSE: true,
+				// 	useSIMD: false,
+				// }).then(() => {
+				// 	console.log('playvod success');
+				// }).catch((e) => {
+				// 	console.log('playvod error', e);
+				// })
+				// 兼容性问题先使用play
+				jessibuca.play(playUrl).then(() => {
+					console.log('playvod success');
+				}).catch((e) => {
+					console.log('playvod error', e);
+				})
+			} else {
+				jessibuca.playVodResume();
+			}
+		}
+
+		function create() {
+			// URL 拉流模式下，判断是否为 MP4
+			let isUrlStreamMp4 = false;
+			if (isUrlStreaming && data && data.videoUrl) {
+				isUrlStreamMp4 = data.videoUrl.toLowerCase().endsWith('.mp4');
+			}
+			
+			jessibuca = new JessibucaPro({
+				container: $container,
+				videoBuffer: 0.2, // 缓存时长
+				decoder: './jessibuca-pro/decoder-pro.js',
+				useMSE: isUrlStreaming ? (isUrlStreamMp4 ? true : false) : true,
+				useMThreading: true,
+				isResize: false,
+				isFullResize: false,
+				forceNoOffscreen: true,
+				useWebFullScreen: true,
+				useVideoRender: true,
+				useCanvasRender: false,
+				isNotMute: false,
+				isLive: isUrlStreaming ? (!isUrlStreamMp4 ? true : false) : (tabName === 'playback' && isCloud ? false : true),  // URL 拉流时 MP4 为非直播，流媒体为直播
+				autoPlay: isUrlStreaming ? true : (tabName === 'playback' && isCloud ? true : false),
+				text: "",
+				loadingText: "加载中",
+				debug: false,
+				debugLevel: 'debug',
+				showBandwidth: showOperateBtns && !isUrlStreaming, // URL 拉流模式下不显示网速
+				qualityConfig: ['普清', '高清', '超清', '4K', '8K'],
+				defaultStreamQuality: quality,
+				operateBtns: {
+					fullscreen: showOperateBtns,
+					screenshot: false,
+					play: showOperateBtns,
+					audio: false,
+					quality: false,
+				},
+				extendOperateBtns: [{
+					name: '横竖屏切换',
+					index: 3,
+					icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAYAAAAehFoBAAAEGUlEQVR4AeyZS0gVURjH9eouWpQZQYuEFj3ISsfXooUWSES4iAgyElRS0kWKQQsDdZFEhZWUgYlFZi0qJFykJCpGSL4K6YYtelBBoQghgm6ut9833jPNnavd29R4h0jO/37nfHMev/nmzDkzoydmBf78fr9nZGQkF11Hk8PDw7V2h3UUGLCjALaMjo5+A7AblaHE2NjYSayt5CgwYPegKkeJyEhEXBsbG9tkOH4j4ygwHCdQSOJEihYWFj4S+QauQHJIhV84HAVOS0trAa56ufGJdCXHxgG/jI0oGcA00jjbfOZdrR3RvpDLvM86qqZp9YBdMfmbyE8jI3G8grFf0n674VwmowNT+TSNRqjTTkRq7Ij2rVzmHvoSILr6mdLT0yvp8y6eF0S9HJtJ/bPY10il3bT3EiyZ88oXYmW52YP3Ivpb6STRLrF2RqSPx8XF7Rc/0O84iXNYmb83xKfEicmqUqjKVisRPm9x9lO2I5otJqJXtJgL/k1JSfke7ImJAboMyFKzn/atXKkcs0/lBXiLKlCxjg5y7IjLaY5K5uDgYJLqN5wl+s2MGWup1zs0NJRu8cUI8DqTUyJrKkaezcjIuG2uHR8fHzGwakekd6m8WI/Hc8fr9W6QvJIAq3zULZEe5yoXmEC2zs/PB00vVwELKDdjG5FulbyIEyjq7u5eJXmR64AFCrUjlTYnJCQYS50rgTVN6yWyXYoYW8yqUYX6XAkMoKSH8hPQTuwllOw6YDadg+gL87gFwKCEr9N1wEC9Z03/FEQaKPh8vi7XAaempr4BTLbwkAizLg+4DliCmZWVNcPOJ8/SFZR9SFIvvq+uBBY6EYBXWS0k2l7sM/G5GlgA2Uh6AN+B1V9cHQPm5ulj3fT/gT7wbPyY9vIIKuy6lgXWj0b3J4mTzgNBXqE0rJ7cDKwDyg/LnPFC4CSwvGpVc7OcYdAqdIqBy4laCSrCX4Dy8R+hfIhjeZQPoFx8e9ErpNJhlXEMmIEHeCao52a5wE3TgBp5Zm7CdxPdwt+G7uN/QLmDY52Un6Cn+PpoL2/UOicntJb5nC0Fx4Clcyf0H9iJqJr7/HcjPDExsZoXwrXms41GPqIIc4dem52dnZmbm5tm55EvONFg1ccMCwxsNsuKfF7SG/BzDJ++r5Nf8RQWGNgaK9VSPmsdp8phgVnA66yDL+Wz1nGqHBaYnacfwGYFQHQf4XPvlBBQAEv58riGV5T1bKPGvi7HVlphI6yA5Msj71tTqhwtGwRMBKO+zoYLhAB7VSXmaiNLVrZdqX6UtduPtKMP/ekMK2mKaal/WfUA+Vw8AW3kpuqzq0AfurHbh6mdsZzC2KF3yo8H8qCv3/hcl5iqxiolU0I+28vXb/nXwVu30BLVz0RbIruNlWlUcf0AAAD///ci/IwAAAAGSURBVAMA1NVUqJLMAfEAAAAASUVORK5CYII=',
+					iconHover: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAYAAAAehFoBAAAEGUlEQVR4AeyZS0gVURjH9eouWpQZQYuEFj3ISsfXooUWSES4iAgyElRS0kWKQQsDdZFEhZWUgYlFZi0qJFykJCpGSL4K6YYtelBBoQghgm6ut9833jPNnavd29R4h0jO/37nfHMev/nmzDkzoydmBf78fr9nZGQkF11Hk8PDw7V2h3UUGLCjALaMjo5+A7AblaHE2NjYSayt5CgwYPegKkeJyEhEXBsbG9tkOH4j4ygwHCdQSOJEihYWFj4S+QauQHJIhV84HAVOS0trAa56ufGJdCXHxgG/jI0oGcA00jjbfOZdrR3RvpDLvM86qqZp9YBdMfmbyE8jI3G8grFf0n674VwmowNT+TSNRqjTTkRq7Ij2rVzmHvoSILr6mdLT0yvp8y6eF0S9HJtJ/bPY10il3bT3EiyZ88oXYmW52YP3Ivpb6STRLrF2RqSPx8XF7Rc/0O84iXNYmb83xKfEicmqUqjKVisRPm9x9lO2I5otJqJXtJgL/k1JSfke7ImJAboMyFKzn/atXKkcs0/lBXiLKlCxjg5y7IjLaY5K5uDgYJLqN5wl+s2MGWup1zs0NJRu8cUI8DqTUyJrKkaezcjIuG2uHR8fHzGwakekd6m8WI/Hc8fr9W6QvJIAq3zULZEe5yoXmEC2zs/PB00vVwELKDdjG5FulbyIEyjq7u5eJXmR64AFCrUjlTYnJCQYS50rgTVN6yWyXYoYW8yqUYX6XAkMoKSH8hPQTuwllOw6YDadg+gL87gFwKCEr9N1wEC9Z03/FEQaKPh8vi7XAaempr4BTLbwkAizLg+4DliCmZWVNcPOJ8/SFZR9SFIvvq+uBBY6EYBXWS0k2l7sM/G5GlgA2Uh6AN+B1V9cHQPm5ulj3fT/gT7wbPyY9vIIKuy6lgXWj0b3J4mTzgNBXqE0rJ7cDKwDyg/LnPFC4CSwvGpVc7OcYdAqdIqBy4laCSrCX4Dy8R+hfIhjeZQPoFx8e9ErpNJhlXEMmIEHeCao52a5wE3TgBp5Zm7CdxPdwt+G7uN/QLmDY52Un6Cn+PpoL2/UOicntJb5nC0Fx4Clcyf0H9iJqJr7/HcjPDExsZoXwrXms41GPqIIc4dem52dnZmbm5tm55EvONFg1ccMCwxsNsuKfF7SG/BzDJ++r5Nf8RQWGNgaK9VSPmsdp8phgVnA66yDL+Wz1nGqHBaYnacfwGYFQHQf4XPvlBBQAEv58riGV5T1bKPGvi7HVlphI6yA5Msj71tTqhwtGwRMBKO+zoYLhAB7VSXmaiNLVrZdqX6UtduPtKMP/ekMK2mKaal/WfUA+Vw8AW3kpuqzq0AfurHbh6mdsZzC2KF3yo8H8qCv3/hcl5iqxiolU0I+28vXb/nXwVu30BLVz0RbIruNlWlUcf0AAAD///ci/IwAAAAGSURBVAMA1NVUqJLMAfEAAAAASUVORK5CYII=',
+					iconTitle: '横竖屏切换',
+					click: () => {
+						jessibuca.setRotate(rotate);
+						if (rotate == 90) {
+							rotate = 0
+						} else if (rotate == 0) {
+							rotate = 90
+						}
+					}
+				}],
+			});
+
+			jessibuca.on("start", function() {
+				console.log('start render')
+			})
+			jessibuca.on("play", function(flag) {
+				if (tabName === 'monitor') {
+					$livePlayImg.style.display = 'none';
+					$liveStopImg.style.display = 'inline-block';
+				} else {
+					$backPlayImg.style.display = 'none';
+					$backStopImg.style.display = 'inline-block';
+				}
+				console.log('play')
+			})
+			jessibuca.on('timeUpdate', (value) => {
+				// console.log('timeUpdate', value);
+			})
+			jessibuca.on("pause", function(flag) {
+				if (tabName === 'monitor') {
+					$livePlayImg.style.display = 'inline-block';
+					$liveStopImg.style.display = 'none';
+				} else {
+					$backPlayImg.style.display = 'inline-block';
+					$backStopImg.style.display = 'none';
+				}
+				console.log('pause')
+			})
+			jessibuca.on('error', function(error) {
+				console.log('error', error)
+			})
+			jessibuca.on('streamQualityChange', (value) => {
+				console.log('streamQualityChange', value);
+			})
+			jessibuca.on("fullscreen", function(flag) {
+				console.log('is fullscreen', flag)
+			})
+			jessibuca.on('playbackSeek', (data) => {
+				jessibuca.setPlaybackStartTime(data.ts);
+			})
+
+			$livePlayImg.style.display = 'inline-block';
+			$liveStopImg.style.display = 'none';
+			$liveStartRecordImg.style.display = 'inline-block';
+			$liveStopRecordImg.style.display = 'none';
+			$volumeValue.innerHTML = volume * 100 + '%';
+			$volumeRange.innerHTML = volume;
+			$volumeRange.style.backgroundSize =  volume * 100 + '% 100%';
+			jessibuca.setVolume(volume);
+			$startTalkImg.style.display = 'inline-block';
+			$loadingImg.style.display = 'none';
+			$stopTalkImg.style.display = 'none';
+			$palyerTipe.style.display = 'none';
+			$backPlayImg.style.display = 'inline-block';
+			$backStopImg.style.display = 'none';
+			$backStartRecordImg.style.display = 'inline-block';
+			$backStopRecordImg.style.display = 'none';
+		}
+
+		// URL 拉流播放（兼容 MP4 和流媒体）
+		function playUrlStream(url) {
+			if (!url) return;
+			$palyerTipe.style.display = 'none';
+			// 判断是否为 MP4 格式
+			const isMp4 = url && url.toLowerCase().endsWith('.mp4');
+			if (jessibuca) {
+				// MP4 播放逻辑
+				if (isMp4) {
+					jessibuca.play(url, {
+						isLive: false, // 标记为点播
+						autoPlay: true,
+					}).then(() => {
+						console.log('playUrlStream MP4 success');
+					}).catch((e) => {
+						console.log('playUrlStream MP4 error', e);
+						$palyerTipe.innerText = '播放失败，请检查视频地址';
+						$palyerTipe.style.display = 'inline-block';
+					});
+				} else {
+					// 流媒体播放逻辑
+					jessibuca.play(url).then(() => {
+						console.log('playUrlStream success');
+					}).catch((e) => {
+						console.log('playUrlStream error', e);
+						$palyerTipe.innerText = '未检测到推流，请稍后再试';
+						$palyerTipe.style.display = 'inline-block';
+					});
+				}
+			}
+		}
+
+		// 默认打开直播
+		if (getQueryParam('data')) {
+			const str = getQueryParam('data');
+			// 多层容错解析 JSON
+			let parsedData = null;
+			try {
+				parsedData = JSON.parse(str);
+			} catch (e) {
+				console.warn('JSON 解析失败，尝试降级解析:', e);
+				try {
+					const decoded = decodeURIComponent(str);
+					parsedData = JSON.parse(decoded.replace(/'/g, '"'));
+				} catch (e2) {
+					console.warn('二次解析失败，尝试深度格式化:', e2);
+					const formatted = str.replace(/([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g, '$1"$2":');
+					parsedData = JSON.parse(formatted);
+				}
+			}
+			
+			if (parsedData) {
+				data = parsedData;
+
+				console.log('解析到的数据:', data);
+				console.log('flag 值:', data.flag);
+				console.log('videoUrl 值:', data.videoUrl);
+				
+				// 判断是否为 URL 拉流模式
+				if (data.flag === '1') {
+					isUrlStreaming = true;
+					console.log('进入 URL 拉流模式');
+					// 检查是否有 videoUrl
+					if (!data.videoUrl) {
+						console.warn('未提供 videoUrl 字段');
+					}
+					if ($tabMenu) {
+						$tabMenu.style.display = 'none';
+					} else {
+						console.warn('tabMenu 未找到');
+					}
+					//防止误触
+					const tabLinks = document.querySelectorAll('.tablink');
+					tabLinks.forEach(link => {
+						link.removeAttribute('onclick');
+						link.style.cursor = 'default';
+						link.style.pointerEvents = 'none'; // 禁用所有鼠标事件
+					});
+					// 初始化播放器
+					create();
+					// 如果有 videoUrl，则播放视频
+					if (data.videoUrl) {
+						setTimeout(() => {
+							playUrlStream(data.videoUrl);
+						}, 1000);
+					} else {
+						console.warn('未提供 videoUrl，仅初始化播放器但不播放视频');
+						$palyerTipe.innerText = '未提供视频地址 (videoUrl)';
+						$palyerTipe.style.display = 'inline-block';
+					}
+				} else {
+					// 正常模式
+					create();
+					setTimeout(() => {
+						playlive();
+					}, 1000);
+				}
+			} else {
+				console.error('无法解析 URL 参数 data');
+				$palyerTipe.innerText = '数据格式错误';
+				$palyerTipe.style.display = 'inline-block';
+			}
+		}
+
+		function pause() {
+			if (!jessibuca || typeof jessibuca.pause !== 'function') {
+				console.warn('播放器未初始化或 pause 方法不存在');
+				return;
+			}
+			jessibuca.pause();
+		}
+
+		function vodPause() {
+			if (!jessibuca || typeof jessibuca.playVodPause !== 'function') {
+				console.warn('播放器未初始化或 playVodPause 方法不存在');
+				return;
+			}
+			jessibuca.playVodPause();
+		}
+
+		function destroy() {
+			isPlaylive = false;
+			isPlayback = false;
+			isPlayvod = false;
+			if (jessibuca) {
+				jessibuca.destroy().then(() => {
+					create();
+				});
+			} else {
+				create();
+			}
+		}
+
+		function handleLivePlay() {
+			isPlaylive = true;
+			playlive();
+		}
+
+		function handleLiveStop() {
+			isPlaylive = false;
+			pause();
+		}
+
+		function handlePTZ(key) {
+			const { deviceSipId, channelSipId } = data;
+			let params = {};
+			if (key === 'up') {
+				params = {
+					leftRight: 0,
+					upDown: 1,
+				}
+			} else if (key === 'down') {
+				params = {
+					leftRight: 0,
+					upDown: 2,
+				}
+			} else if (key === 'left') {
+				params = {
+					leftRight: 2,
+					upDown: 0,
+				}
+			} else if (key === 'right') {
+				params = {
+					leftRight: 1,
+					upDown: 0,
+				}
+			}
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/ptz/direction/${deviceSipId}/${channelSipId}`, {
+				method: 'POST',
+				body: JSON.stringify(params)
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					console.log('ptz ' + key)
+				}
+			}).catch(err => console.log('ptz', err))
+		}
+
+		function handleZoom(key) {
+			const { deviceSipId, channelSipId } = data;
+			let params = {
+				inOut: key,
+				scaleSpeed: 30
+			};
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/ptz/scale/${deviceSipId}/${channelSipId}`, {
+				method: 'POST',
+				body: JSON.stringify(params)
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					console.log('zoom ' + key)
+				}
+			}).catch(err => console.log('zoom', err))
+			setTimeout(() => {
+				params = {
+					inOut: 0,
+					scaleSpeed: 30
+				};
+				fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/ptz/scale/${deviceSipId}/${channelSipId}`, {
+					method: 'POST',
+					body: JSON.stringify(params)
+				}).then(res => {
+					if (res.code === 200) {
+						console.log('zoom ' + key)
+					}
+				}).catch(err => console.log('zoom', err))
+			}, 800)
+		}
+
+		function handleLiveScreenshot() {
+			if (!jessibuca || typeof jessibuca.screenshot !== 'function') {
+				console.warn('播放器未初始化或 screenshot 方法不存在');
+				return;
+			}
+			let { deviceSipId, channelSipId } = data;
+			const timestamp = new Date().getTime();
+			const filename = deviceSipId + channelSipId + '-' + timestamp;
+			jessibuca.screenshot(filename, "png", 0.92);
+		}
+
+		function handleLiveRecord() {
+			if (!jessibuca || typeof jessibuca.isPlaying !== 'function') {
+				console.warn('播放器未初始化或 isPlaying 方法不存在');
+				return;
+			}
+			
+			if (jessibuca.isPlaying()) {
+				isRecord = isRecord ? false : true;
+				if (isRecord) {
+					let { deviceSipId, channelSipId } = data;
+					const timestamp = new Date().getTime();
+					const filename = deviceSipId + channelSipId + '-' + timestamp;
+					jessibuca.startRecord(filename);
+					$liveStartRecordImg.style.display = 'none';
+					$liveStopRecordImg.style.display = 'inline-block';
+				} else {
+					jessibuca.stopRecordAndSave();
+					$liveStartRecordImg.style.display = 'inline-block';
+					$liveStopRecordImg.style.display = 'none';
+				}
+			}
+		}
+
+		// 画质
+		function handleQualityd() {
+			$qualityModal.style.display = 'block';
+			const radioGroup = document.getElementsByName("qualityRadio");
+			for(let i=0; i < radioGroup.length; i++){
+				if (radioGroup[i].value === quality){
+					radioGroup[i].checked = true;
+					break;
+				}
+			}		
+		}
+
+		// 画质弹框
+		function handleQualityModal() {
+			$qualityModal.style.display = 'none';
+		}
+		function handleQualityModalItem(event, key) {
+			const radioGroup = document.getElementsByName("qualityRadio");
+			for(let i=0; i < radioGroup.length; i++){
+				if (radioGroup[i].value === key){
+					radioGroup[i].checked = true;
+					quality = key;
+					break;
+				}
+			}
+			event.stopPropagation();
+			replay();
+			$qualityModal.style.display = 'none';
+		}
+
+		// 音量
+		function handleVolume() {
+			if (!jessibuca || typeof jessibuca.setVolume !== 'function') {
+				console.warn('播放器未初始化或 setVolume 方法不存在');
+				return;
+			}
+			$volumeModal.style.display = 'block';
+			jessibuca.setVolume(0)
+		}
+
+		// 音量弹框
+		function handleVolumeModal() {
+			$volumeModal.style.display = 'none';
+		}
+		
+		// 音量调节
+		$volumeRange.addEventListener('input', function(event) {
+			if (!jessibuca || typeof jessibuca.setVolume !== 'function') {
+				return;
+			}
+			$volumeValue.innerHTML = event.target.value * 100 + '%';
+			volume = event.target.value;
+			$volumeRange.style.backgroundSize =  event.target.value * 100 + '% 100%';
+			jessibuca.setVolume(volume)
+		});
+
+		window.setPlaybackStartTime = function(curTime) {
+			console.log("setPlaybackStartTime")
+			jessibuca.setPlaybackStartTime(curTime)
+		}
+
+		// 对讲
+		function handleTalk() {
+			isTalk = isTalk ? false : true;
+			if (isTalk) {
+				const { deviceSipId, channelSipId } = data;
+				fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/talk/getPushUrl/${deviceSipId}/${channelSipId}`, {
+					method: 'GET'
+				}).then(res => {
+					return res.json()	
+				}).then(res => {
+					if (res.code === 200) {
+						let streamInfo = res.data;
+						if (document.location.protocol.includes("https")) {
+							startwebrtc(streamInfo.rtcs)
+						} else {
+							startwebrtc(streamInfo.rtc)
+						}
+					}
+				}).catch(err => console.log('pushurl', err))
+			} else {
+				broadcastRtc.close();
+				$startTalkImg.style.display = 'inline-block';
+				$loadingImg.style.display = 'none';
+				$stopTalkImg.style.display = 'none';
+			}
+		}
+
+		// 获取推流鉴权Key
+		function startwebrtc(url) {
+			broadcastRtc = new ZLMRTCClient.Endpoint({
+				debug: true, // 是否打印日志
+				zlmsdpUrl: url, //流地址
+				simulecast: false,
+				useCamera: false,
+				audioEnable: true,
+				videoEnable: false,
+				recvOnly: false,
+			})
+			broadcastRtc.on(ZLMRTCClient.Events.WEBRTC_NOT_SUPPORT, (e) => {
+				console.error('不支持webrtc', e)
+			});
+			broadcastRtc.on(ZLMRTCClient.Events.WEBRTC_ICE_CANDIDATE_ERROR, (e) => {
+				console.error('ICE 协商出错')
+			});
+			broadcastRtc.on(ZLMRTCClient.Events.WEBRTC_OFFER_ANWSER_EXCHANGE_FAILED, (e) => {
+				console.error('offer anwser 交换失败', e)
+			});
+			broadcastRtc.on(ZLMRTCClient.Events.WEBRTC_ON_CONNECTION_STATE_CHANGE, (e) => {
+				console.log('状态改变', e)
+				if (e === "connecting") {
+					$startTalkImg.style.display = 'none';
+					$loadingImg.style.display = 'inline-block';
+					$stopTalkImg.style.display = 'none';
+				} else if (e === "connected") {
+					$startTalkImg.style.display = 'none';
+					$loadingImg.style.display = 'none';
+					$stopTalkImg.style.display = 'inline-block';
+					let { deviceSipId, channelSipId } = data;
+					fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/talk/broadcast/${deviceSipId}/${channelSipId}`, {
+						method: 'GET'
+					}).then(res => {
+						return res.json()	
+					}).then(res => {
+						if (res.code === 200) {
+							console.log("开始推流！");
+						}
+					}).catch(err => console.log('pushurl', err))
+				}
+			});
+			broadcastRtc.on(ZLMRTCClient.Events.CAPTURE_STREAM_FAILED, (e) => {
+				console.log('捕获流失败', e)
+			});
+		}
+		
+		// 日期选择
+		function createDatePicker() {
+			let layDate = lay_picker_date.getDateTime();
+			layPicker.init({
+				elem: '#datePicker', // 绑定元素
+				type: 2, // 类型2微信效果， 类型3自定义，不设置则默认效果
+				title: '日期选择',
+				radius: 15,
+				options: 'date',
+				onSuccess: function(index, elem){ // 渲染成功回调
+					const {year, month, day} = layDate;
+					layPicker.setValue(index, [
+						{value: year},
+						{value: month},
+						{value: day}, 
+					])
+					const value = year + '-' + month + '-' + day;
+					$("#dateValue").text(value);
+				},
+				onConfirm: function(index, value, result){ // 点击确认回调
+					$("#dateValue").text(value)
+					if (!isCloud) {
+						getPlayTimes();
+					} else {
+						createBackPlayList();
+					}
+				},
+			})
+		}
+
+		// 本地录像
+		function handleMemory() {
+			const memoryGroupImg = document.getElementById('memoryGroupImg');
+			const cloudGroupImg = document.getElementById('cloudGroupImg');
+			memoryGroupImg.src = './img/memory_active.png'; 
+			cloudGroupImg.src = './img/cloud.png';
+			isCloud = false;
+			const backPlayHistoryList = document.getElementById('backPlayHistoryList');
+			backPlayHistoryList.style.display = 'none';
+			const backPlayMemoryList = document.getElementById('backPlayMemoryList');
+			backPlayMemoryList.style.display = 'flex';
+			$footerBar.style.display = 'flex';
+			$backContent.style.marginBottom = '70px';
+			destroy();
+			getPlayTimes();
+		}
+
+		// 云端录像
+		function handleCloud() {
+			const memoryGroupImg = document.getElementById('memoryGroupImg');
+			const cloudGroupImg = document.getElementById('cloudGroupImg');
+			memoryGroupImg.src = './img/memory.png'; 
+			cloudGroupImg.src = './img/cloud_active.png';
+			isCloud = true;
+			const backPlayHistoryList = document.getElementById('backPlayHistoryList');
+			backPlayHistoryList.style.display = 'flex';
+			const backPlayMemoryList = document.getElementById('backPlayMemoryList');
+			backPlayMemoryList.style.display = 'none';
+			$footerBar.style.display = 'none';
+			$backContent.style.marginBottom = '0px';
+			const date = $("#dateValue").text();
+			destroy();
+			createBackPlayList();
+		}
+
+		// 时间选择
+		function createTimePicker() {
+			let layDate = lay_picker_date.getDateTime();
+			const { hours, seconds, minutes } = layDate;
+			layPicker.init({
+				elem: '#startTimePicker', // 绑定元素
+				type: 2, // 类型2微信效果， 类型3自定义，不设置则默认效果
+				title: '开始时间',
+				radius: 15,
+				options: 'timesecond',
+				onSuccess: function(index, elem){ // 渲染成功回调
+					layPicker.setValue(index, [
+						{value: '00'},
+						{value: '00'},
+						{value: '00'}, 
+					])
+					const value = '00:00:00';
+					$("#startTimePicker").val(value);
+				},
+				onConfirm: function(index, value, result){ // 点击确认回调
+					$("#startTimePicker").val(value)
+				},
+			});
+			layPicker.init({
+				elem: '#endTimePicker', // 绑定元素
+				type: 2, // 类型2微信效果， 类型3自定义，不设置则默认效果
+				title: '结束时间',
+				radius: 15,
+				options: 'timesecond',
+				onSuccess: function(index, elem){ // 渲染成功回调
+					layPicker.setValue(index, [
+						{value: hours},
+						{value: minutes},
+						{value: seconds}, 
+					])
+					const value = hours + ':' + minutes + ':' + seconds;
+					$("#endTimePicker").val(value);
+				},
+				onConfirm: function(index, value, result){ // 点击确认回调
+					$("#endTimePicker").val(value)
+				},
+			})
+		}
+
+		// 获取回放时间
+		function getPlayTimes() {
+			const date = $("#dateValue").text();
+			const start = new Date(`${date} 00:00:00`).getTime();
+			const end = new Date(`${date} 23:59:59`).getTime();
+			$palyerTipe.style.display = 'none';
+			const { deviceSipId, channelSipId } = data;
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/record/devquery/${deviceSipId}/${channelSipId}?start=${start}&end=${end}`, {
+				method: 'GET'
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					if (res.data) {
+						if (res.data.recordItems && res.data.recordItems.length !== 0) {
+							playTimes = res.data.recordItems;
+							isPlayback = true;
+							playback();
+						} else {
+							$palyerTipe.innerText = '暂无录像内容';
+							$palyerTipe.style.display = 'inline-block';
+						}
+					} else {
+						$palyerTipe.innerText = '请检查设备是否支持录像！';
+						$palyerTipe.style.display = 'inline-block';
+					}
+				}
+			}).catch(err => console.log('sip.record.devquery', err))
+		}
+
+		// 转成云存储
+		function handleMemoryToCloud() {
+			const date = $("#dateValue").text();
+			const startTime = $("#startTimePicker").text();
+			const endTime = $("#endTimePicker").text();
+			const start = new Date(`${date} ${startTime}`).getTime();
+			const end = new Date(`${date} ${endTime}`).getTime();
+			const speed = 4;
+			const { deviceSipId, channelSipId } = data;
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/record/download/${deviceSipId}/${channelSipId}?start=${start}&end=${end}&speed=${speed}`, {
+				method: 'GET'
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					$palyerTipe.style.display = 'inline-block';
+					$palyerTipe.innerText = '已转成到服务器，请到云端录像查看！';
+					setTimeout(() => {
+						$palyerTipe.style.display = 'none';
+					}, 3000)
+				}
+			}).catch(err => console.log('sip.record.download', err))
+		}
+
+		// 本地录像回放录屏
+		function handleBackRecord() {
+			if (jessibuca.isPlaying()) {
+				isRecord = isRecord ? false : true;
+				if (isRecord) {
+					let { deviceSipId, channelSipId } = data;
+					const timestamp = new Date().getTime();
+					const filename = deviceSipId + channelSipId + '-' + timestamp;
+					jessibuca.startRecord(filename);
+					$backStartRecordImg.style.display = 'none';
+					$backStopRecordImg.style.display = 'inline-block';
+				} else {
+					jessibuca.stopRecordAndSave();
+					$backStartRecordImg.style.display = 'inline-block';
+					$backStopRecordImg.style.display = 'none';
+				}
+			}
+		}
+
+		// 本地录像播放
+		function handleBackPlay() {
+			if (!isCloud) {
+				isPlayback = true;
+				playback();
+			} else {
+				isPlayvod = true;
+				playVod();
+				$backPlayImg.style.display = 'none';
+				$backStopImg.style.display = 'inline-block';
+			}
+		}
+
+		function handleBackStop() {
+			if (!isCloud) {
+				isPlayback = false;
+				pause();
+			} else {
+				isPlayvod = false;
+				vodPause();
+				$backPlayImg.style.display = 'inline-block';
+				$backStopImg.style.display = 'none';
+			}
+		}
+
+		// 获取云端服务器
+		function getCloudService() {
+			const template = document.getElementById('cloudServiceModalItem');
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/mediaserver/list?pageNum=1&pageSize=9999`, {
+				method: 'GET'
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					cloudServiceList = res.rows;
+					if (cloudServiceList && cloudServiceList.length !==0) {
+						cloudService = cloudServiceList[0].serverId;
+						$("#cloudService").text(cloudService);
+						const list = cloudServiceList.map(item => `
+							<div class="item" onclick="handleCloudServiceModalItem(event)">
+								<sapn>${item.serverId}</sapn>
+								<input type="radio" name="cloudServiceRadio" value="${item.serverId}">
+							</div>
+						`).join(''); 
+						template.innerHTML = list;
+					} else {
+						const text =`
+							<div class="empty-data">
+								<img src="./img/empty_data.png" height="70px" width="70px" />
+								<span>数据为空</span>
+							</div>`;
+						template.innerHTML = text;
+					}
+				}
+			}).catch(err => console.log('sip.mediaserver.list', err))
+		}
+
+		// 选择云端服务器
+		function handleCloudService() {
+			$cloudServiceModal.style.display = 'block';
+			const radioGroup = document.getElementsByName("cloudServiceRadio");
+			for(let i=0; i < radioGroup.length; i++){
+				if (radioGroup[i].value === cloudService){
+					radioGroup[i].checked = true;
+					break;
+				}
+			}		
+		}
+
+		// 云端服务器弹框
+		function handleCloudServiceModal() {
+			$cloudServiceModal.style.display = 'none';
+		}
+		function handleCloudServiceModalItem(event) {
+			const itemElement = event.currentTarget;
+    		const serverId = itemElement.dataset.serverId;
+			const radioGroup = document.getElementsByName("cloudServiceRadio");
+			for(let i=0; i < radioGroup.length; i++){
+				if (radioGroup[i].value === serverId){
+					radioGroup[i].checked = true;
+					cloudService = key;
+					break;
+				}
+			}
+			$("#cloudService").text(cloudService);
+			createBackPlayList();
+			event.stopPropagation();
+			$cloudServiceModal.style.display = 'none';
+		}
+
+		// 回放列表
+		function createBackPlayList() {
+			const template = document.getElementById('backPlayHistoryItem');
+			const date = $("#dateValue").text();
+			const { deviceSipId, channelSipId } = data;
+			const startTime = `${date} 00:00:00`;
+			const endTime = `${date} 23:59:59`;
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/record/serverRecord/channel/list?serverId=${cloudService}&deviceId=${deviceSipId}&channelId=${channelSipId}&startTime=${startTime}&endTime=${endTime}&pageNum=1&pageSize=9999`, {
+				method: 'GET'
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					if (res.data.list && res.data.list.length !== 0) {
+						const list = res.data.list.map(item => `
+							<div class="item" onclick="handleVodPlayItem(this)" data-item="${item}">
+								<div class="left">
+									<img src="./img/people.png" height="22px" width="22px" />
+									<div class="title">
+										<div class="name">画面变化</div>
+										<div class="time">${item.substring(0, 17)}</div>
+									</div>
+								</div>
+								<div class="right">
+									<img src="./img/download.png" height="18px" width="18px" data-item="${item}" onclick="handleVodPlayDownload(this,event)"/>
+									<img style="margin-left: 10px" src="./img/upload.png" height="18px" width="18px" data-item="${item}" onclick="handleVodPlayUpload(this,event)"/>
+								</div>
+							</div>
+						`).join(''); 
+						template.innerHTML = list;
+					} else {
+						const text =`
+							<div class="empty-data">
+								<img src="./img/empty_data.png" height="70px" width="70px" />
+								<span>数据为空</span>
+							</div>`;
+						template.innerHTML = text;
+					}
+				}
+			}).catch(err => console.log('sip.record.download', err))
+		}
+
+		// 回放视频
+		function handleVodPlayItem(element) {
+			const listItems = document.querySelectorAll('#backPlayHistoryItem .item');
+			listItems.forEach(function(li) {
+				li.classList.remove('selected');
+			});
+			element.classList.add('selected');
+			
+			const item = element.dataset.item;
+			vodChannel = item;
+			isPlayvod = true;
+			playVod();
+		}
+
+		// 云端回放下载
+		function handleVodPlayDownload(element,event) {
+			event.stopPropagation();
+			const item = element.dataset.item;
+			const { deviceSipId, channelSipId } = data;
+			const date = $("#dateValue").text();
+			const recordApi = getRecordApi();
+			const url = `${recordApi}/download.html?url=file/download/rtp/gb_playrecord_${deviceSipId}_${channelSipId}/${date}/${item}`
+			window.open(url,' blank');
+		}
+
+		// 云端回放上传到OSS
+		function handleVodPlayUpload(element,event) {
+			event.stopPropagation();
+			const item = element.dataset.item;
+			$palyerTipe.style.display = 'none';
+			const date = $("#dateValue").text();
+			const { deviceSipId, channelSipId } = data;
+			const recordApi = getRecordApi();
+            const file = `/rtp/gb_playrecord_${deviceSipId}_${channelSipId}/${date}/${item}`;
+			fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/record/upload?recordApi=${recordApi}&file=${file}`, {
+				method: 'GET',
+			}).then(res => {
+				return res.json()	
+			}).then(res => {
+				if (res.code === 200) {
+					$palyerTipe.innerText = '已上传OSS';
+				} else {
+					$palyerTipe.innerText = '上传OSS失败';
+				}
+				$palyerTipe.style.display = 'inline-block';
+				setTimeout(() => {
+					$palyerTipe.style.display = 'none';
+				}, 3000)
+			}).catch(err => console.log('sip.record.upload', err))
+		}
+
+		// 获取 Record Api
+		function getRecordApi() {
+			const item = cloudServiceList.find(item => item.serverId === cloudService);
+			if (item.protocol == 'http') {
+                return 'http://' + item.ip + ':' + item.recordPort;
+            } else if (item.protocol == 'https') {
+                return 'https://' + item.domainAlias + ':' + item.recordPort;
+            }
+		}
+
+		// 获取url中query参数
+		function getQueryParam(name) {
+			let regex  = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			let results = window.location.search.substr(1).match(regex );
+			if (results != null) {
+				return decodeURIComponent(results[2]);
+			}
+			return null;
+		}
+
+		// 数据请求
+		function fetchDatas(url, options = {}) {
+			const { tk } = data;
+			const { timeout = 8000 } = options;
+			const controller = new AbortController();
+			const { signal } = controller;
+			const source = setTimeout(() => controller.abort(), timeout);
+			return fetch(url, { 
+				...options, 
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + tk
+				}, 
+				signal
+			}).finally(() => clearTimeout(source));
+		}
+
+		// 关闭页面销毁播放器
+		window.addEventListener('beforeunload', function (e) {
+			const { deviceSipId, channelSipId } = data;
+			if (playliveStreamId) {
+				fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/player/closeStream/${deviceSipId}/${channelSipId}/${playliveStreamId}`, {
+					method: 'GET'
+				}).then(res => {
+					return res.json();
+				}).then(res => {
+					console.log(res.data);
+				}).catch(err => console.log('playlive.closeStream', err));
+			}
+			if (playbackStreamId) {
+				fetchDatas(`${SERVER_API_URL}${BASE_API}/sip/player/closeStream/${deviceSipId}/${channelSipId}/${playbackStreamId}`, {
+					method: 'GET'
+				}).then(res => {
+					return res.json();
+				}).then(res => {
+					console.log(res.data);
+				}).catch(err => console.log('playback.closeStream', err));
+			}
+			jessibuca.destroy();
+		});
+	</script>
+</html>

@@ -1,0 +1,82 @@
+﻿### 查询SocialLoginController分页列表 => 成功
+GET {{baseUrl}}/auth/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/render/{source} => 成功
+GET {{baseUrl}}/auth/render/{source}
+Authorization: Bearer {{token}}
+
+### 查询/callback/{source} => 成功
+GET {{baseUrl}}/auth/callback/{source}
+Authorization: Bearer {{token}}
+
+### 查询/checkBindId/{bindId} => 成功
+GET {{baseUrl}}/auth/checkBindId/{bindId}
+Authorization: Bearer {{token}}
+
+### 查询/getErrorMsg/{errorId} => 成功
+GET {{baseUrl}}/auth/getErrorMsg/{errorId}
+Authorization: Bearer {{token}}
+
+### 查询/login/{loginId} => 成功
+GET {{baseUrl}}/auth/login/{loginId}
+Authorization: Bearer {{token}}
+
+### 新增SocialLoginController => 成功
+POST {{baseUrl}}/auth
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/bind/login => 成功
+POST {{baseUrl}}/auth/bind/login
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/bind/register => 成功
+POST {{baseUrl}}/auth/bind/register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/sms/login => 成功
+POST {{baseUrl}}/auth/sms/login
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/ssoLogin => 成功
+POST {{baseUrl}}/auth/ssoLogin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SocialLoginController => 成功
+PUT {{baseUrl}}/auth
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SocialLoginController => 成功
+DELETE {{baseUrl}}/auth/1,2,3
+Authorization: Bearer {{token}}

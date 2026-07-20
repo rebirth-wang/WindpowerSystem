@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ReportRecordsMapper">
+    <resultMap type="ReportRecords" id="ReportRecordsResult">
+        <result property="id"    column="id"    />
+        <result property="reportId"    column="report_id"    />
+        <result property="reportFilePath"    column="report_file_path"    />
+        <result property="state"    column="state"    />
+        <result property="timeCycle"    column="time_cycle"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectReportRecordsVo">
+        select id, report_id, report_file_path, state, time_cycle, create_time, del_flag from report_records
+    </sql>
+
+    <select id="selectReportRecordsPage" resultType="com.fastbee.iot.model.vo.ReportRecordsVO">
+        select re.id, re.report_id, re.report_file_path, re.state, re.time_cycle, re.create_time, re.del_flag, r.name as reportName, r.data_type
+        FROM report_records re join report r on re.report_id = r.id
+        <where>
+            re.del_flag = 0 and r.del_flag = 0
+            <if test="reportRecordsVO.dataType != null "> and r.data_type = #{reportRecordsVO.dataType}</if>
+            <if test="reportRecordsVO.reportName != null  and reportRecordsVO.reportName != ''"> and r.name like concat('%', #{reportRecordsVO.reportName}, '%')</if>
+            <if test="reportRecordsVO.params.dataScope != null  and reportRecordsVO.params.dataScope != ''">
+                and ${reportRecordsVO.params.dataScope}
+            </if>
+        </where>
+        order by re.create_time desc
+    </select>
+
+
+</mapper>

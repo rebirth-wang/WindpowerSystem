@@ -1,0 +1,74 @@
+﻿### 查询CommonPlayerController分页列表 => 成功
+GET {{baseUrl}}/common/player/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/play => 成功
+GET {{baseUrl}}/common/player/play
+Authorization: Bearer {{token}}
+
+### 查询/play/stop => 成功
+GET {{baseUrl}}/common/player/play/stop
+Authorization: Bearer {{token}}
+
+### 查询/getUrl/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/common/player/getUrl/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/playback/query => 成功
+GET {{baseUrl}}/common/player/playback/query
+Authorization: Bearer {{token}}
+
+### 查询/playback => 成功
+GET {{baseUrl}}/common/player/playback
+Authorization: Bearer {{token}}
+
+### 查询/playback/stop => 成功
+GET {{baseUrl}}/common/player/playback/stop
+Authorization: Bearer {{token}}
+
+### 查询/closeStream/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/common/player/closeStream/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/closeStreamDirect/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/common/player/closeStreamDirect/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/playback/pause => 成功
+GET {{baseUrl}}/common/player/playback/pause
+Authorization: Bearer {{token}}
+
+### 查询/playback/resume => 成功
+GET {{baseUrl}}/common/player/playback/resume
+Authorization: Bearer {{token}}
+
+### 查询/playback/seek => 成功
+GET {{baseUrl}}/common/player/playback/seek
+Authorization: Bearer {{token}}
+
+### 查询/playback/speed => 成功
+GET {{baseUrl}}/common/player/playback/speed
+Authorization: Bearer {{token}}
+
+### 新增CommonPlayerController => 成功
+POST {{baseUrl}}/common/player
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改CommonPlayerController => 成功
+PUT {{baseUrl}}/common/player
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除CommonPlayerController => 成功
+DELETE {{baseUrl}}/common/player/1,2,3
+Authorization: Bearer {{token}}

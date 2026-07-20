@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.SceneModelTagMapper">
+
+    <resultMap type="SceneModelTag" id="SceneModelTagResult">
+        <result property="id"    column="id"    />
+        <result property="sceneModelId"    column="scene_model_id"    />
+        <result property="name"    column="name"    />
+        <result property="unit"    column="unit"    />
+        <result property="dataType"    column="data_type"    />
+        <result property="defaultValue"    column="default_value"    />
+        <result property="isReadonly"    column="is_readonly"    />
+        <result property="storage"    column="storage"    />
+        <result property="variableType"    column="variable_type"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="cycleExecuted"    column="cycle_executed"    />
+        <result property="formule"    column="formule"    />
+        <result property="aliasFormule"    column="alias_formule"    />
+        <result property="cycleType"    column="cycle_type"    />
+        <result property="cycle"    column="cycle"    />
+        <result property="isSceneAttribute"    column="is_scene_attribute"    />
+    </resultMap>
+
+    <sql id="selectSceneModelTagVo">
+        select id, scene_model_id, name, unit, data_type, default_value, is_readonly, storage, variable_type, del_flag, create_by, create_time, update_by, update_time, remark, cycle_executed, formule, alias_formule, cycle_type, cycle, is_scene_attribute from scene_model_tag
+    </sql>
+
+    <select id="selectSceneModelTagById" parameterType="Long" resultType="com.fastbee.iot.model.vo.SceneModelTagVO">
+        select smt.id, smt.scene_model_id, smt.name, smt.unit, smt.data_type, smt.default_value, smt.is_readonly, smt.storage, smt.variable_type, smt.del_flag,
+               smt.create_by, smt.create_time, smt.update_by, smt.update_time, smt.remark, smt.cycle_executed, smt.formule, smt.alias_formule, smt.cycle_type, smt.cycle, smt.is_scene_attribute,
+               smd.id scene_model_device_id, d.enable
+        from scene_model_tag smt left join scene_model_device smd on smt.scene_model_id = smd.scene_model_id and smt.variable_type = smd.variable_type
+        left join scene_model_data d on smt.scene_model_id = d.scene_model_id and smt.id = d.datasource_id
+        where smt.id = #{id}
+        and smt.del_flag = '0'
+        and smd.del_flag = '0'
+        and d.del_flag = '0'
+    </select>
+
+    <select id="checkName" resultType="com.fastbee.iot.domain.SceneModelTag">
+        <include refid="selectSceneModelTagVo"/>
+        where name = #{name}
+        and variable_type = #{variableType}
+        and del_flag = '0'
+        and scene_model_id = #{sceneModelId}
+        <if test="id != null">
+            and id != #{id}
+        </if>
+    </select>
+
+    <select id="selectSceneModelTagAndTenantById" resultType="com.fastbee.iot.model.vo.SceneModelTagVO">
+        select smt.id, smt.scene_model_id, smt.name, smt.unit, smt.data_type, smt.default_value, smt.is_readonly, smt.storage, smt.variable_type, smt.del_flag,
+               smt.create_by, smt.create_time, smt.update_by, smt.update_time, smt.remark, smt.cycle_executed, smt.formule, smt.alias_formule, smt.cycle_type, smt.cycle, smt.is_scene_attribute,
+               sm.tenant_id, smd.id scene_model_device_id
+        from scene_model_tag smt left join scene_model_device smd on smt.scene_model_id = smd.scene_model_id and smt.variable_type = smd.variable_type
+            left join scene_model sm on smt.scene_model_id = sm.scene_model_id
+        where smt.id = #{id}
+          and smt.del_flag = '0'
+          and smd.del_flag = '0'
+          and sm.del_flag = '0'
+    </select>
+
+    <select id="selectEnableTagBySceneModelId" resultType="com.fastbee.iot.domain.SceneModelTag">
+        select smt.*
+        from scene_model_tag smt join scene_model_data smd on smt.id = smd.datasource_id
+        where smd.variable_type = 3 and smt.variable_type = 3
+          and smt.scene_model_id = #{sceneModelId}
+          and smd.scene_model_id = #{sceneModelId}
+          and smd.enable = 1
+          and smd.del_flag = '0'
+    </select>
+
+    <delete id="phyDeleteBySceneModelIds">
+        delete from scene_model_tag where scene_model_id in
+        <foreach item="sceneModelId" collection="list" open="(" separator="," close=")">
+            #{sceneModelId}
+        </foreach>
+        and del_flag = '1'
+    </delete>
+
+    <update id="restoreBySceneModelId">
+        update scene_model_tag
+        set del_flag = '0'
+        where scene_model_id = #{sceneModelId}
+    </update>
+</mapper>

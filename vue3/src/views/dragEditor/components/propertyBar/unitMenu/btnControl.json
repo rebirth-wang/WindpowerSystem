@@ -1,0 +1,11 @@
+{
+  "title": "按钮控制",
+  "items": [
+    {
+      "text": "按钮控制1",
+      "type": "btn-control-1",
+      "img": "components/btnControl/btn1.png",
+      "name": "btnControl1"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "title": "交互元件",
+  "icon": "interaction",
+  "opened": false,
+  "items": [
+    {
+      "text": "下拉框",
+      "icon": "base/select.png",
+      "type": "static",
+      "info": {
+        "type": "select",
+        "componentShow": ["参数绑定", "交互"],
+        "action": ["click"],
+        "dataBind": {
+          "dataType": 3,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "echartData": "",
+          "staticValue": "[\n  {\n    \"label\": \"选项1\",\n    \"value\": \"选项1\"\n  },\n  {\n    \"label\": \"选项2\",\n    \"value\": \"选项2\"\n  },\n  {\n    \"label\": \"选项3\",\n    \"value\": \"选项3\"\n  }\n]",
+          "modelMaps": [],
+          "interaction": {
+            "triggerTypes": [{ "id": 1, "name": "选择完成" }],
+            "queryResults": [{ "id": "data", "name": "选择项" }]
+          }
+        },
+        "dataEvent": {
+          "jhAction": false,
+          "interaction": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 36
+          },
+          "backColor": "rgba(255, 255, 255, 1)",
+          "borderRadius": "5",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "text": "请选择",
+          "textAlign": "left",
+          "fontSize": 14,
+          "fontFamily": "Arial",
+          "borderWidth": 1,
+          "borderColor": "rgba(192, 196, 204, 1)",
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "fontWeight": "normal",
+          "fontStyle": "normal"
+        }
+      }
+    }
+  ]
+}

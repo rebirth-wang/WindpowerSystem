@@ -1,0 +1,91 @@
+import { watch } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useRoute } from 'vue-router'
+import throttle from 'lodash/throttle'
+import i18n from '@/lang'
+import { useChartEditStore } from '@vb/store/modules/chartEditStore/chartEditStore'
+import { EditCanvasTypeEnum } from '@vb/store/modules/chartEditStore/chartEditStore.d'
+import { useSync } from '@vb/views/chart/hooks/useSync.hook'
+import { ChartEnum } from '@vb/enums/pageEnum'
+import { SavePageEnum } from '@vb/enums/editPageEnum'
+import { goDialog } from '@vb/utils'
+
+const { updateComponent, dataSyncUpdate } = useSync()
+const chartEditStore = useChartEditStore()
+
+export const syncData = () => {
+  goDialog({
+    message: i18n.global.t('visualBigScreen.management-674210-1633'),
+    isMaskClosable: true,
+    transformOrigin: 'center',
+    onPositiveCallback: async () => {
+      ElMessage.success(i18n.global.t('visualBigScreen.management-674210-1640'))
+      dataSyncUpdate && (await dataSyncUpdate())
+      dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo() }))
+    }
+  })
+}
+
+// 同步数据到预览页
+export const syncDataToPreview = () => {
+  dispatchEvent(new CustomEvent(SavePageEnum.CHART_TO_PREVIEW, { detail: chartEditStore.getStorageInfo() }))
+}
+
+// 侦听器更新
+const useSyncUpdateHandle = () => {
+  // 定义侦听器变量
+  let timer: any
+
+  // 更新处理
+  const updateFn = (e: any) => {
+    ElMessage.success(i18n.global.t('visualBigScreen.management-674210-1645'))
+    updateComponent(e!.detail, true)
+  }
+
+  // 页面关闭处理
+  const closeFn = () => {
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.IS_CODE_EDIT, false)
+  }
+
+  // 开启侦听
+  const use = () => {
+    // 定时同步数据（暂不开启）
+    // timer = setInterval(() => {
+    //   // 窗口激活并且处于工作台
+    //   document.hasFocus() && syncData()
+    // }, editToJsonInterval)
+
+    // 失焦同步数据
+    addEventListener('blur', syncDataToPreview)
+
+    // 监听编辑器保存事件 刷新工作台图表
+    addEventListener(SavePageEnum.JSON, updateFn)
+
+    // 监听编辑页关闭
+    addEventListener(SavePageEnum.CLOSE, throttle(closeFn, 1000))
+  }
+
+  // 关闭侦听
+  const unUse = () => {
+    // clearInterval(timer)
+    removeEventListener('blur', syncDataToPreview)
+    removeEventListener(SavePageEnum.JSON, updateFn)
+  }
+
+  // 路由变更时处理
+  const watchHandler = (toName: any, fromName: any) => {
+    if (fromName == ChartEnum.CHART_HOME_NAME) {
+      unUse()
+    }
+    if (toName == ChartEnum.CHART_HOME_NAME) {
+      use()
+    }
+  }
+
+  return watchHandler
+}
+
+export const useSyncUpdate = () => {
+  const routerParamsInfo = useRoute()
+  watch(() => routerParamsInfo.name, useSyncUpdateHandle(), { immediate: true })
+}

@@ -1,0 +1,51 @@
+﻿### 查询AppVersionController分页列表 => 成功
+GET {{baseUrl}}/iot/version/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/version/list
+Authorization: Bearer {{token}}
+
+### 查询/latest => 成功
+GET {{baseUrl}}/iot/version/latest
+Authorization: Bearer {{token}}
+
+### 查询/apkLatest => 成功
+GET {{baseUrl}}/iot/version/apkLatest
+Authorization: Bearer {{token}}
+
+### 新增AppVersionController => 成功
+POST {{baseUrl}}/iot/version
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/version/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改AppVersionController => 成功
+PUT {{baseUrl}}/iot/version
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除AppVersionController => 成功
+DELETE {{baseUrl}}/iot/version/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/iot/version/{ids}
+Authorization: Bearer {{token}}

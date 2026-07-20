@@ -1,0 +1,74 @@
+﻿### 查询PlayerController分页列表 => 成功
+GET {{baseUrl}}/sip/player/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/getBigScreenUrl/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/player/getBigScreenUrl/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/play/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/player/play/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/getUrl/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/player/getUrl/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/pushing/{deviceId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/pushing/{deviceId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/screenshot/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/player/screenshot/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/playback/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/player/playback/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/closeStream/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/closeStream/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/closeStreamDirect/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/closeStreamDirect/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/playbackPause/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/playbackPause/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/playbackReplay/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/playbackReplay/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/playbackSeek/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/playbackSeek/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 查询/playbackSpeed/{deviceId}/{channelId}/{streamId} => 成功
+GET {{baseUrl}}/sip/player/playbackSpeed/{deviceId}/{channelId}/{streamId}
+Authorization: Bearer {{token}}
+
+### 新增PlayerController => 成功
+POST {{baseUrl}}/sip/player
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改PlayerController => 成功
+PUT {{baseUrl}}/sip/player
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除PlayerController => 成功
+DELETE {{baseUrl}}/sip/player/1,2,3
+Authorization: Bearer {{token}}

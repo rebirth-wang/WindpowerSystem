@@ -1,0 +1,11 @@
+{
+  "title": "多状态控制",
+  "items": [
+    {
+      "text": "多状态控制1",
+      "type": "mul-status-control-1",
+      "img": "components/mulStatusControl/btn1.png",
+      "name": "mulStatusControl1"
+    }
+  ]
+}

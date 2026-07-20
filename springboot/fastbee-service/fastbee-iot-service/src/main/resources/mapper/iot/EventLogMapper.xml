@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.EventLogMapper">
+
+    <resultMap type="com.fastbee.iot.domain.EventLog" id="EventLogResult">
+        <result property="logId"    column="log_id"    />
+        <result property="identify"    column="identify"    />
+        <result property="modelName"    column="model_name"    />
+        <result property="logType"    column="log_type"    />
+        <result property="logValue"    column="log_value"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="isMonitor"    column="is_monitor"    />
+        <result property="mode"    column="mode"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEventLogVo">
+        select log_id, identify, model_name, log_type, log_value, device_id, device_name, serial_number, is_monitor, mode, user_id, user_name, tenant_id, tenant_name, create_by, create_time, remark from iot_event_log
+    </sql>
+
+
+    <select id="listHistory" resultType="com.fastbee.iot.model.HistoryModel">
+        select log_value as value,
+        create_time as time,
+        identify as identify
+        from iot_event_log
+        <where>
+            <if test="serialNumber != null and serialNumber != ''">
+                and serial_number = #{serialNumber}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != '' and params.endTime != null and params.endTime != ''">
+                and create_time between #{params.beginTime} and #{params.endTime}
+            </if>
+            <if test="identityList != null and identityList != ''">
+                and identify in
+                <foreach collection="identityList" item="identify" open="(" separator="," close=")">
+                    #{identify}
+                </foreach>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectEventLogCount" parameterType="com.fastbee.iot.domain.Device" resultType="Long">
+        select count(1) AS eventCount
+        from iot_event_log
+        <where>
+            log_type = 3
+            <if test="device.tenantId != null and device.tenantId != 0"> and user_id = #{device.tenantId}</if>
+            <if test="device.createBy != null and device.createBy != ''"> AND create_by = #{device.createBy}</if>
+        </where>
+    </select>
+</mapper>

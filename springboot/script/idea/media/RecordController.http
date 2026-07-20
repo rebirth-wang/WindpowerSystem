@@ -1,0 +1,70 @@
+﻿### 查询RecordController分页列表 => 成功
+GET {{baseUrl}}/sip/record/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/start/{stream} => 成功
+GET {{baseUrl}}/sip/record/start/{stream}
+Authorization: Bearer {{token}}
+
+### 查询/stop/{stream} => 成功
+GET {{baseUrl}}/sip/record/stop/{stream}
+Authorization: Bearer {{token}}
+
+### 查询/file/{stream}/{period} => 成功
+GET {{baseUrl}}/sip/record/file/{stream}/{period}
+Authorization: Bearer {{token}}
+
+### 查询/upload => 成功
+GET {{baseUrl}}/sip/record/upload
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/list
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/date/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/date/list
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/stream/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/stream/list
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/app/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/app/list
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/file/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/file/list
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/channel/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/channel/list
+Authorization: Bearer {{token}}
+
+### 查询/serverRecord/device/list => 成功
+GET {{baseUrl}}/sip/record/serverRecord/device/list
+Authorization: Bearer {{token}}
+
+### 新增RecordController => 成功
+POST {{baseUrl}}/sip/record
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改RecordController => 成功
+PUT {{baseUrl}}/sip/record
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除RecordController => 成功
+DELETE {{baseUrl}}/sip/record/1,2,3
+Authorization: Bearer {{token}}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.system.mapper.SysLogininforMapper">
+
+	<resultMap type="SysLogininfor" id="SysLogininforResult">
+		<id     property="infoId"        column="info_id"           />
+		<result property="userName"      column="user_name"         />
+		<result property="status"        column="status"            />
+		<result property="ipaddr"        column="ipaddr"            />
+		<result property="loginLocation" column="login_location"    />
+		<result property="browser"       column="browser"           />
+		<result property="os"            column="os"                />
+		<result property="msg"           column="msg"               />
+		<result property="loginTime"     column="login_time"        />
+	</resultMap>
+
+	<insert id="insertLogininfor" parameterType="SysLogininfor">
+		insert into sys_logininfor (user_name, status, ipaddr, login_location, browser, os, msg, login_time)
+		values (#{userName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, CURRENT_TIMESTAMP)
+	</insert>
+
+	<select id="selectLogininforList" parameterType="SysLogininfor" resultMap="SysLogininforResult">
+		select info_id, user_name, ipaddr, login_location, browser, os, status, msg, login_time from sys_logininfor
+		<where>
+			<if test="ipaddr != null and ipaddr != ''">
+				AND ipaddr like concat('%', #{ipaddr}, '%')
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND user_name like concat('%', #{userName}, '%')
+			</if>
+			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+				and date_format(login_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+			</if>
+			<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+				and date_format(login_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+			</if>
+		</where>
+		order by info_id desc
+	</select>
+
+	<delete id="deleteLogininforByIds" parameterType="Long">
+ 		delete from sys_logininfor where info_id in
+ 		<foreach collection="array" item="infoId" open="(" separator="," close=")">
+ 			#{infoId}
+        </foreach>
+ 	</delete>
+
+    <update id="cleanLogininfor">
+        truncate table sys_logininfor
+    </update>
+
+	<select id="getUserCount" resultType="hashmap">
+		<if test="@com.fastbee.framework.mybatis.helper.DataBaseHelper@isMySql()">
+			select a.login_time as datetime, COALESCE(b.count,0) as user_count from (
+				SELECT curdate() as login_time union all
+					SELECT date_sub(curdate(), interval 1 day) as login_time
+					union all
+					SELECT date_sub(curdate(), interval 2 day) as login_time
+					union all
+					SELECT date_sub(curdate(), interval 3 day) as login_time
+					union all
+					SELECT date_sub(curdate(), interval 4 day) as login_time
+					union all
+					SELECT date_sub(curdate(), interval 5 day) as login_time
+					union all
+					SELECT date_sub(curdate(), interval 6 day) as login_time
+			) a left join (
+				select date(login_time) as datetime, count(DISTINCT ipaddr) as count
+					from sys_logininfor
+					where `status` = 0
+					group by date(login_time)
+			) b on a.login_time = b.datetime;
+		</if>
+		<if test="@com.fastbee.framework.mybatis.helper.DataBaseHelper@isSqlServer()">
+			SELECT a.login_time AS datetime, COALESCE(b.count, 0) AS user_count
+			FROM (
+			SELECT CAST(GETDATE() AS DATE) AS login_time UNION ALL
+			SELECT CAST(DATEADD(DAY, -1, GETDATE()) AS DATE) AS login_time UNION ALL
+			SELECT CAST(DATEADD(DAY, -2, GETDATE()) AS DATE) AS login_time UNION ALL
+			SELECT CAST(DATEADD(DAY, -3, GETDATE()) AS DATE) AS login_time UNION ALL
+			SELECT CAST(DATEADD(DAY, -4, GETDATE()) AS DATE) AS login_time UNION ALL
+			SELECT CAST(DATEADD(DAY, -5, GETDATE()) AS DATE) AS login_time UNION ALL
+			SELECT CAST(DATEADD(DAY, -6, GETDATE()) AS DATE) AS login_time
+			) a LEFT JOIN (
+			SELECT CAST(login_time AS DATE) AS datetime, COUNT(DISTINCT ipaddr) AS count
+			FROM sys_logininfor
+			WHERE [status] = 0
+			GROUP BY CAST(login_time AS DATE)
+			) b ON a.login_time = b.datetime;
+		</if>
+		<if test="@com.fastbee.framework.mybatis.helper.DataBaseHelper@isPostgerSql()">
+			<!-- PostgreSQL-specific SQL -->
+			SELECT a.login_time AS datetime, COALESCE(b.count, 0) AS user_count
+			FROM (
+			SELECT CURRENT_DATE AS login_time UNION ALL
+			SELECT CURRENT_DATE - INTERVAL '1 day' AS login_time UNION ALL
+			SELECT CURRENT_DATE - INTERVAL '2 days' AS login_time UNION ALL
+			SELECT CURRENT_DATE - INTERVAL '3 days' AS login_time UNION ALL
+			SELECT CURRENT_DATE - INTERVAL '4 days' AS login_time UNION ALL
+			SELECT CURRENT_DATE - INTERVAL '5 days' AS login_time UNION ALL
+			SELECT CURRENT_DATE - INTERVAL '6 days' AS login_time
+			) a
+			LEFT JOIN (
+			SELECT DATE(login_time) AS datetime, COUNT(DISTINCT ipaddr) AS count
+			FROM sys_logininfor
+			WHERE status = 0
+			GROUP BY DATE(login_time)
+			) b ON a.login_time = b.datetime;
+		</if>
+		<if test="@com.fastbee.framework.mybatis.helper.DataBaseHelper@isOracle()">
+			<!-- Oracle-specific SQL -->
+			SELECT TO_CHAR(a.login_time, 'yyyy-mm-dd') AS "datetime", COALESCE(b.count, 0) AS user_count
+			FROM (
+			SELECT TRUNC(SYSDATE) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 1 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 2 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 3 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 4 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 5 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 6 AS login_time FROM DUAL
+			) a
+			LEFT JOIN (
+			SELECT TRUNC(login_time) AS datetime, COUNT(DISTINCT ipaddr) AS count
+			FROM sys_logininfor
+			WHERE status = 0
+			GROUP BY TRUNC(login_time)
+			) b ON a.login_time = b.datetime;
+		</if>
+		<if test="@com.fastbee.framework.mybatis.helper.DataBaseHelper@isDm()">
+			<!-- 达梦数据库-specific SQL -->
+			SELECT TO_CHAR(a.login_time, 'yyyy-mm-dd') AS "datetime", COALESCE(b.count, 0) AS user_count
+			FROM (
+			SELECT TRUNC(SYSDATE) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 1 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 2 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 3 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 4 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 5 AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(SYSDATE) - 6 AS login_time FROM DUAL
+			) a
+			LEFT JOIN (
+			SELECT TRUNC(login_time) AS datetime, COUNT(DISTINCT ipaddr) AS count
+			FROM sys_logininfor
+			WHERE status = 0
+			GROUP BY TRUNC(login_time)
+			) b ON a.login_time = b.datetime;
+		</if>
+		<if test="@com.fastbee.framework.mybatis.helper.DataBaseHelper@isKingbase()">
+			<!-- 人大金仓数据库-specific SQL -->
+			SELECT TO_CHAR(a.login_time, 'yyyy-mm-dd') AS "datetime", COALESCE(b.count, 0) AS user_count
+			FROM (
+			SELECT TRUNC(CURRENT_DATE) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(CURRENT_DATE - INTERVAL '1' DAY) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(CURRENT_DATE - INTERVAL '2' DAY) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(CURRENT_DATE - INTERVAL '3' DAY) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(CURRENT_DATE - INTERVAL '4' DAY) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(CURRENT_DATE - INTERVAL '5' DAY) AS login_time FROM DUAL UNION ALL
+			SELECT TRUNC(CURRENT_DATE - INTERVAL '6' DAY) AS login_time FROM DUAL
+			) a
+			LEFT JOIN (
+			SELECT TRUNC(login_time) AS datetime, COUNT(DISTINCT ipaddr) AS count
+			FROM sys_logininfor
+			WHERE status = 0
+			GROUP BY TRUNC(login_time)
+			) b ON a.login_time = b.datetime;
+		</if>
+
+	</select>
+
+</mapper>

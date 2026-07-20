@@ -1,0 +1,62 @@
+﻿### 查询RuleParserController分页列表 => 成功
+GET {{baseUrl}}/ruleview/parser/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增RuleParserController => 成功
+POST {{baseUrl}}/ruleview/parser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/jsonToEL => 成功
+POST {{baseUrl}}/ruleview/parser/jsonToEL
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/jsonToEL2 => 成功
+POST {{baseUrl}}/ruleview/parser/jsonToEL2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/elToJson => 成功
+POST {{baseUrl}}/ruleview/parser/elToJson
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/getRetryExceptions => 成功
+POST {{baseUrl}}/ruleview/parser/getRetryExceptions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改RuleParserController => 成功
+PUT {{baseUrl}}/ruleview/parser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除RuleParserController => 成功
+DELETE {{baseUrl}}/ruleview/parser/1,2,3
+Authorization: Bearer {{token}}

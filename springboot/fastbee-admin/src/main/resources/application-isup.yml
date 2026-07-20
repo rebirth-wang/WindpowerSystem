@@ -1,0 +1,42 @@
+hik:
+  platform:
+    pushAddress: http://127.0.0.1:9080/iot/event/HK/callback
+    ttsServer: http://localhost:3000/api/v1/tts/generateJson
+  isup:
+    listenIp: 192.168.0.103
+    # 服务器地址端口（公网对接填入公网地址和端口）
+    extendIp: 192.168.0.103
+    # ISUP5.0登录秘钥
+    isupKey: abc12345
+    # 报警服务器打印事件模式
+    # file=事件保存到文件中
+    # console=事件打印在控制台上
+    eventInfoPrintType: file
+    cmsPort: 7660
+    dasPort: 7660
+    smsPort: 7661
+    smsBackPort: 7662
+    voiceSmsPort: 7663
+    alarmServer:
+      # 报警服务器类型：
+      # 0-只支持UDP协议上报
+      # 1-支持UDP、TCP两种协议上报（ISUP4.0）
+      # 2-MQTT(ISUP5.0) (MQTT复用TCP的端口)
+      type: 2
+      listenTcpPort: 7664
+      listenUdpPort: 7665
+    picServer:
+      # 图片存储服务器类型：
+      # 0-Tomcat
+      # 1-VRB
+      # 2-云存储
+      # 3-KMS
+      # 4-ISUP5.0
+      type: 2
+      listenPort: 6120
+      kmsUserName: admin
+      kmsPassword: 123456789
+      accessKey: accessKey@123456789
+      secretKey: secretKey@123456789
+
+

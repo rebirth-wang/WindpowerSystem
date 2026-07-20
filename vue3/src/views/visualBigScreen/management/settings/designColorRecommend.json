@@ -1,0 +1,30 @@
+[
+  {
+    "CMYK": [70, 54, 0, 5],
+    "RGB": [72, 111, 242],
+    "hex": "#486ff2",
+    "name": "visualBigScreen.management-674210-1105",
+    "pinyin": "shenhailan"
+  },
+  {
+    "CMYK": [62, 0, 21, 16],
+    "RGB": [81, 214, 169],
+    "hex": "#51d6a9",
+    "name": "visualBigScreen.management-674210-1102",
+    "pinyin": "bikonlv"
+  },
+  {
+    "CMYK": [73, 17, 20, 1],
+    "RGB": [102, 169, 201],
+    "hex": "#66a9c9",
+    "name": "visualBigScreen.management-674210-1103",
+    "pinyin": "jianshilan"
+  },
+  {
+    "CMYK": [4, 13, 67, 0],
+    "RGB": [248, 223, 114],
+    "hex": "#f8df72",
+    "name": "visualBigScreen.management-674210-1104",
+    "pinyin": "molihuang"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "editor.formatOnSave": true, // 保存自动格式化
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // 设置默认格式工具为prettier
+  "eslint.enable": true, // 开启eslint检查
+  "eslint.probe": ["javascript", "javascriptreact", "vue", "html"],
+  "i18n-ally.localesPaths": ["src/lang"], // 防止找到不路径
+  "i18n-ally.keystyle": "flat",
+  "i18n-ally.sourceLanguage": "zh-CN", // 源文件
+  "i18n-ally.displayLanguage": "zh-CN",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

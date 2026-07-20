@@ -1,0 +1,34 @@
+﻿### 查询ReportRecordsController分页列表 => 成功
+GET {{baseUrl}}/data/center/report/records/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/data/center/report/records/list
+Authorization: Bearer {{token}}
+
+### 新增ReportRecordsController => 成功
+POST {{baseUrl}}/data/center/report/records
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改ReportRecordsController => 成功
+PUT {{baseUrl}}/data/center/report/records
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ReportRecordsController => 成功
+DELETE {{baseUrl}}/data/center/report/records/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/data/center/report/records/{ids}
+Authorization: Bearer {{token}}

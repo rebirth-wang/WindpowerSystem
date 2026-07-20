@@ -1,0 +1,73 @@
+﻿### 查询ThingsModelController分页列表 => 成功
+GET {{baseUrl}}/iot/model/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/model/list
+Authorization: Bearer {{token}}
+
+### 查询/permList/{productId}/{deviceId}/{userId} => 成功
+GET {{baseUrl}}/iot/model/permList/{productId}/{deviceId}/{userId}
+Authorization: Bearer {{token}}
+
+### 查询/listModbus => 成功
+GET {{baseUrl}}/iot/model/listModbus
+Authorization: Bearer {{token}}
+
+### 查询/write => 成功
+GET {{baseUrl}}/iot/model/write
+Authorization: Bearer {{token}}
+
+### 新增ThingsModelController => 成功
+POST {{baseUrl}}/iot/model
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/model/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/import => 成功
+POST {{baseUrl}}/iot/model/import
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/temp => 成功
+POST {{baseUrl}}/iot/model/temp
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ThingsModelController => 成功
+PUT {{baseUrl}}/iot/model
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ThingsModelController => 成功
+DELETE {{baseUrl}}/iot/model/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{modelIds} => 成功
+DELETE {{baseUrl}}/iot/model/{modelIds}
+Authorization: Bearer {{token}}

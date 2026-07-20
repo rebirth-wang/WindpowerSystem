@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.rule.mapper.RuleTriggerMapper">
+        <resultMap type="RuleTrigger" id="RuleTriggerResult">
+        <result property="id"    column="id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="ruleId"    column="rule_id"    />
+        <result property="triggerType"    column="trigger_type"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="productId"    column="product_id"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="operator"    column="operator"    />
+        <result property="value"    column="value"    />
+        <result property="cronExpression"    column="cron_expression"    />
+        <result property="customExpression"    column="custom_expression"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="deviceStatus"    column="device_status"    />
+        <result property="triggerParams"    column="trigger_params"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectRuleTriggerVo">
+        select id, tenant_id, rule_id, trigger_type, serial_number, product_id, model_id, operator, value, cron_expression, custom_expression, order_num, device_status, trigger_params, create_by, create_time, update_by, update_time, del_flag, remark from iot_rule_trigger
+    </sql>
+
+
+
+    </mapper>

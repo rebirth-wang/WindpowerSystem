@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.sip.mapper.SipConfigMapper">
+
+    <resultMap type="com.fastbee.sip.domain.SipConfig" id="SipConfigResult">
+        <result property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="enabled" column="enabled"/>
+        <result property="isdefault" column="isdefault"/>
+        <result property="seniorSdp" column="senior_sdp"/>
+        <result property="domainAlias" column="domain_alias"/>
+        <result property="serverSipid" column="server_sipid"/>
+        <result property="password" column="password"/>
+        <result property="ip" column="ip"/>
+        <result property="port" column="port"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectSipConfigVo">
+        select id,
+               product_id,
+               product_name,
+               enabled,
+               isdefault,
+               senior_sdp,
+               domain_alias,
+               server_sipid,
+               password,
+               ip,
+               port,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        from sip_config
+    </sql>
+
+    <select id="selectSipConfigList" parameterType="SipConfig" resultMap="SipConfigResult">
+        <include refid="selectSipConfigVo"/>
+        <where>
+            <if test="productId != null ">and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
+                '%')
+            </if>
+            <if test="enabled != null ">and enabled = #{enabled}</if>
+            <if test="isdefault != null ">and isdefault = #{isdefault}</if>
+            <if test="seniorSdp != null ">and senior_sdp = #{seniorSdp}</if>
+            <if test="domainAlias != null  and domainAlias != ''">and domain_alias = #{domainAlias}</if>
+            <if test="serverSipid != null  and serverSipid != ''">and server_sipid = #{serverSipid}</if>
+            <if test="password != null  and password != ''">and password = #{password}</if>
+            <if test="ip != null  and ip != ''">and ip = #{ip}</if>
+            <if test="port != null ">and port = #{port}</if>
+            and del_flag = '0'
+        </where>
+    </select>
+
+    <select id="selectSipConfigByProductId" parameterType="Long" resultMap="SipConfigResult">
+        <include refid="selectSipConfigVo"/>
+        where product_id = #{productId} and del_flag = '0'
+    </select>
+
+    <update id="resetDefaultSipConfig">
+        update sip_config
+        set isdefault = 0
+        where isdefault = 1
+    </update>
+
+</mapper>

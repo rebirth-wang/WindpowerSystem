@@ -1,0 +1,52 @@
+﻿### 查询ProductAuthorizeController分页列表 => 成功
+GET {{baseUrl}}/iot/authorize/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/authorize/list
+Authorization: Bearer {{token}}
+
+### 新增ProductAuthorizeController => 成功
+POST {{baseUrl}}/iot/authorize
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/authorize/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行addProductAuthorizeByNum => 成功
+POST {{baseUrl}}/iot/authorize/addProductAuthorizeByNum
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ProductAuthorizeController => 成功
+PUT {{baseUrl}}/iot/authorize
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ProductAuthorizeController => 成功
+DELETE {{baseUrl}}/iot/authorize/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{authorizeIds} => 成功
+DELETE {{baseUrl}}/iot/authorize/{authorizeIds}
+Authorization: Bearer {{token}}

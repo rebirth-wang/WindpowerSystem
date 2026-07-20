@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.FunctionLogMapper">
+
+    <resultMap type="com.fastbee.iot.domain.FunctionLog" id="FunctionLogResult">
+        <result property="id"    column="id"    />
+        <result property="identify"    column="identify"    />
+        <result property="funType"    column="fun_type"    />
+        <result property="funValue"    column="fun_value"    />
+        <result property="messageId"    column="message_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="mode"    column="mode"    />
+        <result property="userId"    column="user_id"    />
+        <result property="resultMsg"    column="result_msg"    />
+        <result property="resultCode"    column="result_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="showValue" column="show_value"/>
+        <result property="modelName" column="model_name"/>
+        <result property="replyTime" column="reply_time"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.FunctionLogVO" id="FunctionLogVOResult">
+        <result property="id"    column="id"    />
+        <result property="identify"    column="identify"    />
+        <result property="funType"    column="fun_type"    />
+        <result property="funValue"    column="fun_value"    />
+        <result property="messageId"    column="message_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="mode"    column="mode"    />
+        <result property="userId"    column="user_id"    />
+        <result property="resultMsg"    column="result_msg"    />
+        <result property="resultCode"    column="result_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="showValue" column="show_value"/>
+        <result property="modelName" column="model_name"/>
+        <result property="replyTime" column="reply_time"/>
+    </resultMap>
+
+    <sql id="selectFunctionLogVo">
+        select id, identify, fun_type, fun_value, message_id, device_name, serial_number, mode, user_id, result_msg, result_code, create_by,
+               create_time, remark,show_value,model_name,reply_time from iot_function_log
+    </sql>
+
+    <select id="selectFunctionLogList" resultMap="FunctionLogVOResult">
+        <include refid="selectFunctionLogVo"/>
+        <where>
+            <if test="functionLogVO.prefixIdentify != null  and functionLogVO.prefixIdentify != ''"> and identify like concat(#{functionLogVO.prefixIdentify},'%')</if>
+            <if test="functionLogVO.identify != null  and functionLogVO.identify != ''"> and identify = #{functionLogVO.identify}</if>
+            <if test="functionLogVO.funValue != null  and functionLogVO.funValue != ''"> and fun_value = #{functionLogVO.funValue}</if>
+            <if test="functionLogVO.messageId != null  and functionLogVO.messageId != ''"> and message_id = #{functionLogVO.messageId}</if>
+            <if test="functionLogVO.deviceName != null  and functionLogVO.deviceName != ''"> and device_name like concat('%', #{functionLogVO.deviceName}, '%')</if>
+            <if test="functionLogVO.serialNumber != null  and functionLogVO.serialNumber != ''"> and serial_number = #{functionLogVO.serialNumber}</if>
+            <if test="functionLogVO.mode != null "> and mode = #{functionLogVO.mode}</if>
+            <if test="functionLogVO.userId != null "> and user_id = #{functionLogVO.userId}</if>
+            <if test="functionLogVO.resultMsg != null  and functionLogVO.resultMsg != ''"> and result_msg = #{functionLogVO.resultMsg}</if>
+            <if test="functionLogVO.resultCode != null "> and result_code = #{functionLogVO.resultCode}</if>
+            <if test="functionLogVO.beginTime != null and functionLogVO.endTime != null">
+                and create_time between #{functionLogVO.beginTime} and #{functionLogVO.endTime}
+            </if>
+            <if test="functionLogVO.modelName != null">and model_name = #{functionLogVO.modelName}</if>
+            <if test="functionLogVO.funType != null">and fun_type = #{functionLogVO.funType}</if>
+        </where>
+        order by create_time DESC
+    </select>
+
+    <delete id="deleteFunctionLogByPreIdentify" parameterType="FunctionLog">
+        delete from iot_function_log where identify like concat(#{prefixIdentify},'%') and serial_number = #{serialNumber}
+    </delete>
+
+    <update id="updateFuncLogBatch" parameterType="com.fastbee.iot.domain.FunctionLog">
+        update iot_function_log l
+        set l.result_msg = #{resultMsg},
+            l.result_code = #{resultCode},
+            l.reply_time = #{replyTime}
+        where l.id in
+            <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+    </update>
+
+    <select id="listHistory" parameterType="com.fastbee.iot.domain.FunctionLog" resultType="com.fastbee.iot.model.HistoryModel">
+        select create_time as time,
+        fun_value as value,
+        identify as identify,
+        model_name as moderName
+        from iot_function_log
+        <where>
+            <if test="serialNumber != null and serialNumber != ''">
+                and serial_number = #{serialNumber}
+            </if>
+            <if test="beginTime != null and endTime != null">
+                and create_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="identifyList != null and identifyList != ''">
+                and identify in
+                <foreach collection="identifyList" item="identify" open="(" separator="," close=")">
+                    #{identify}
+                </foreach>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="countThingsModelInvoke" resultType="com.fastbee.iot.model.vo.ThingsModelLogCountVO">
+        select identify identifier, min(model_name) modelName, count(identify) counts
+        from iot_function_log
+        where fun_type = 1
+        <if test="dataCenterParam.serialNumber != null and dataCenterParam.serialNumber != ''">
+            and serial_number = #{dataCenterParam.serialNumber}
+        </if>
+        <if test="beginTime != null and endTime != null ">
+            and create_time between #{beginTime} and #{endTime}
+        </if>
+        group by identify
+    </select>
+
+    <select id="selectFunctionLogCount" parameterType="com.fastbee.iot.domain.Device" resultType="Long">
+        select count(1) AS functionCount
+        from iot_function_log
+        <where>
+            fun_type = 2
+            <if test="device.tenantId != null and device.tenantId != 0"> and user_id = #{device.tenantId}</if>
+            <if test="device.createBy != null and device.createBy != ''"> AND create_by = #{device.createBy}</if>
+        </where>
+    </select>
+</mapper>

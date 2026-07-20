@@ -1,0 +1,35 @@
+﻿### 查询SysRegisterController分页列表 => 成功
+GET {{baseUrl}}/unknown/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增SysRegisterController => 成功
+POST {{baseUrl}}/unknown
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/register => 成功
+POST {{baseUrl}}/unknown/register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysRegisterController => 成功
+PUT {{baseUrl}}/unknown
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysRegisterController => 成功
+DELETE {{baseUrl}}/unknown/1,2,3
+Authorization: Bearer {{token}}

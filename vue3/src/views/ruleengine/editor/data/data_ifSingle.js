@@ -1,0 +1,118 @@
+let dataIfSingle = {
+  nodes: [
+    {
+      id: 'start_cvuysazlc4',
+      type: 'start',
+      name: '开始节点',
+      ico: 'VideoPlay',
+      style: {},
+      left: '279px',
+      top: '217px',
+      state: 'success',
+    },
+    {
+      id: 'devTrigger_ze9rksumbd',
+      type: 'devTrigger',
+      name: '设备变量触发',
+      ico: 'Upload',
+      style: {},
+      data: {
+        debug: 0,
+        deviceId: 'DEVICE99999999',
+        productId: 41,
+        type: 1,
+        modelId: 'co2',
+      },
+      left: '540px',
+      top: '228px',
+      state: 'success',
+    },
+    {
+      id: 'condition_bherjfucl2',
+      type: 'condition',
+      name: '条件',
+      ico: 'Connection',
+      style: {},
+      data: {
+        debug: 0,
+        expressions: [
+          {
+            from: 'condition_bherjfucl2',
+            to: 'devExecute_wlncqv0l2f',
+            lineValue: null,
+            operator: '!=',
+            value: '23',
+          },
+        ],
+        type: 1,
+        modelId: 'co2',
+        triggerType: 1,
+      },
+      left: '829px',
+      top: '228px',
+      state: 'success',
+    },
+    {
+      id: 'devExecute_wlncqv0l2f',
+      type: 'devExecute',
+      name: '设备变量执行',
+      ico: 'Download',
+      style: {},
+      data: {
+        debug: 0,
+        cond: 1,
+        deviceId: 'DEVICE99999999',
+        type: 2,
+        modelId: 'switch',
+        value: '0',
+      },
+      left: '1170px',
+      top: '229px',
+      state: 'success',
+    },
+    {
+      id: 'end_7m8474v9jp',
+      type: 'end',
+      name: '结束节点',
+      ico: 'VideoPause',
+      style: {},
+      left: '1439px',
+      top: '235px',
+      state: 'success',
+    },
+  ],
+  lines: [
+    {
+      from: 'start_cvuysazlc4',
+      to: 'devTrigger_ze9rksumbd',
+      label: '',
+      type: 'common',
+      value: '',
+    },
+    {
+      from: 'devTrigger_ze9rksumbd',
+      to: 'condition_bherjfucl2',
+      label: '',
+      type: 'common',
+      value: '',
+    },
+    {
+      from: 'condition_bherjfucl2',
+      to: 'devExecute_wlncqv0l2f',
+      label: 'true',
+      type: 'true',
+      value: null,
+    },
+    {
+      from: 'devExecute_wlncqv0l2f',
+      to: 'end_7m8474v9jp',
+      label: '',
+      type: 'common',
+      value: '',
+    },
+  ],
+};
+
+export function getDataIfSingle() {
+  return dataIfSingle;
+}

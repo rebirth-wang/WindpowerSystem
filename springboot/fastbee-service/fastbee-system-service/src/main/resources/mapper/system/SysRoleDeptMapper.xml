@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.system.mapper.SysRoleDeptMapper">
+
+	<resultMap type="SysRoleDept" id="SysRoleDeptResult">
+		<result property="roleId"     column="role_id"      />
+		<result property="deptId"     column="dept_id"      />
+	</resultMap>
+
+	<select id="selectCountRoleDeptByDeptId" resultType="Integer">
+	    select count(1) from sys_role_dept where dept_id=#{deptId}
+	</select>
+
+    <select id="selectRoleDeptByDeptIds" resultType="com.fastbee.system.domain.vo.SysRoleDeptVO">
+		select srd.dept_id, srd.role_id, sd.dept_user_id
+		from sys_role_dept srd
+		left join sys_dept sd on srd.dept_id = sd.dept_id
+		where srd.dept_id in
+			<foreach collection="deptIdList" item="deptId" open="(" separator="," close=")">
+				#{deptId}
+			</foreach>
+	</select>
+
+    <select id="selectByDeptId" resultType="java.lang.Long">
+		select role_id
+		from sys_role_dept
+		where dept_id = #{deptId}
+	</select>
+
+</mapper>

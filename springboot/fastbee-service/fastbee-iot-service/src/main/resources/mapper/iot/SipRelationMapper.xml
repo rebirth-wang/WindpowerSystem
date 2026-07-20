@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.SipRelationMapper">
+
+    <resultMap type="com.fastbee.iot.domain.SipRelation" id="SipRelationResult">
+        <result property="id"    column="id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="reDeviceId"    column="re_device_id"    />
+        <result property="reSceneModelId"    column="re_scene_model_id"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.SipRelationVO" id="SipRelationVOResult">
+        <result property="id"    column="id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="reDeviceId"    column="re_device_id"    />
+        <result property="reSceneModelId"    column="re_scene_model_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="deviceId" column="device_id"/>
+        <result property="status" column="status"/>
+        <result property="deviceSipId" column="device_sip_id"/>
+        <result property="channelName" column="channel_name"/>
+        <result property="model" column="model"/>
+        <result property="deviceType"    column="device_type"    />
+        <result property="channelType"    column="channel_type"    />
+        <result property="playUrl"    column="play_url"    />
+        <result property="proxyUrl"    column="proxy_url"    />
+    </resultMap>
+
+    <sql id="selectSipRelationVo">
+        select id, channel_id, re_device_id, re_scene_model_id, create_by, create_time, update_by, update_time, remark from iot_sip_relation
+    </sql>
+
+    <select id="selectSipRelationList" parameterType="com.fastbee.iot.domain.SipRelation" resultMap="SipRelationVOResult">
+        select r.id, r.channel_id, r.re_device_id, r.re_scene_model_id,
+               r.create_by, r.create_time, r.update_by,r.update_time,
+               sd.status,sd.device_sip_id,sd.channel_name,sd.model,sd.device_type,sd.channel_type,sd.play_url,sd.proxy_url
+        from iot_sip_relation r left join sip_device_channel sd on r.channel_id = sd.channel_sip_id
+        <where>
+            sd.del_flag = '0'
+            <if test="sipRelation.channelId != null  and sipRelation.channelId != ''"> and r.channel_id = #{sipRelation.channelId}</if>
+            <if test="sipRelation.reDeviceId != null "> and r.re_device_id = #{sipRelation.reDeviceId}</if>
+            <if test="sipRelation.reSceneModelId != null "> and r.re_scene_model_id = #{sipRelation.reSceneModelId}</if>
+        </where>
+    </select>
+
+    <update id="updateByChannelId"  parameterType="com.fastbee.iot.domain.SipRelation">
+        update iot_sip_relation
+        <trim prefix="SET" suffixOverrides=",">
+            re_device_id = #{reDeviceId},
+            re_scene_model_id = #{reSceneModelId},
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where channel_id = #{channelId}
+    </update>
+</mapper>

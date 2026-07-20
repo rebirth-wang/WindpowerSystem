@@ -1,0 +1,63 @@
+package ${packageName}.vo;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+import com.fastbee.common.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+
+import java.io.Serializable;
+import java.util.Date;
+
+
+/**
+ * ${functionName}对象 ${tableName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+
+@ApiModel(value = "${ClassName}VO", description = "${functionName} ${tableName}")
+@Data
+public class ${ClassName}VO{
+    /** 代码生成区域 可直接覆盖**/
+#foreach ($column in $columns)
+    /** $column.columnComment */
+    #if($foreach.index == 0)
+    #end
+    #set($parentheseIndex=$column.columnComment.indexOf("（"))
+    #if($parentheseIndex != -1)
+        #set($comment=$column.columnComment.substring(0, $parentheseIndex))
+    #else
+        #set($comment=$column.columnComment)
+    #end
+    #if($parentheseIndex != -1)
+    @ApiModelProperty("${comment}")
+    @Excel(name = "${comment}")
+    #elseif($column.javaType == 'Date')
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty("${comment}")
+    @Excel(name = "${comment}")
+    #else
+    @Excel(name = "${comment}")
+    @ApiModelProperty("${comment}")
+    #end
+    private $column.javaType $column.javaField;
+
+#end
+
+#if($table.sub)
+/** $table.subTable.functionName信息 */
+private List<${subClassName}> ${subclassName}List;
+#end
+    /** 代码生成区域 可直接覆盖END**/
+
+    /** 自定义代码区域 **/
+
+
+    /** 自定义代码区域 END**/
+}

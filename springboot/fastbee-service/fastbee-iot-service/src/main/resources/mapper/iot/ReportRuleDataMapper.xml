@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ReportRuleDataMapper">
+        <resultMap type="ReportRuleData" id="ReportRuleDataResult">
+        <result property="id"    column="id"    />
+        <result property="reportRuleId"    column="report_rule_id"    />
+        <result property="cusDataId"    column="cus_data_id"    />
+    </resultMap>
+
+    <sql id="selectReportRuleDataVo">
+        select id, report_rule_id, cus_data_id from report_rule_data
+    </sql>
+    
+    
+
+    </mapper>

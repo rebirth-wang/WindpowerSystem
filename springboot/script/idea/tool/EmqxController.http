@@ -1,0 +1,34 @@
+﻿### 查询EmqxController分页列表 => 成功
+GET {{baseUrl}}/api/emq/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/getInfo => 成功
+GET {{baseUrl}}/api/emq/getInfo
+Authorization: Bearer {{token}}
+
+### 查询/checkStatus => 成功
+GET {{baseUrl}}/api/emq/checkStatus
+Authorization: Bearer {{token}}
+
+### 新增EmqxController => 成功
+POST {{baseUrl}}/api/emq
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改EmqxController => 成功
+PUT {{baseUrl}}/api/emq
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除EmqxController => 成功
+DELETE {{baseUrl}}/api/emq/1,2,3
+Authorization: Bearer {{token}}

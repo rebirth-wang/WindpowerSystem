@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.notify.mapper.NotifyLogMapper">
+
+    <resultMap type="com.fastbee.notify.domain.NotifyLog" id="NotifyLogResult">
+        <result property="id"    column="id"    />
+        <result property="notifyTemplateId"    column="notify_template_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="msgContent"    column="msg_content"    />
+        <result property="sendAccount"    column="send_account"    />
+        <result property="sendStatus"    column="send_status"    />
+        <result property="resultContent"    column="result_content"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="serviceCode"    column="service_code"    />
+    </resultMap>
+
+    <sql id="selectNotifyLogVo">
+        select id, notify_template_id, channel_id, msg_content, send_account, send_status, result_content,service_code, create_by, create_time, update_by, update_time, del_flag, tenant_id, tenant_name from notify_log
+    </sql>
+
+</mapper>

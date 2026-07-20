@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.DeviceUserMapper">
+
+    <resultMap type="com.fastbee.iot.domain.DeviceUser" id="DeviceUserResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="phonenumber"    column="phonenumber"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.DeviceUserVO" id="DeviceUserVOResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="phonenumber"    column="phonenumber"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userName"    column="user_name"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.common.extend.core.domin.entity.SysUser" id="ShareUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="email"        column="email"        />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="createTime"   column="create_time"  />
+        <result property="remark"       column="remark"       />
+    </resultMap>
+
+    <sql id="selectDeviceUserVo">
+        select device_id, user_id, phonenumber, create_time, update_time, remark from iot_device_user
+    </sql>
+
+    <select id="selectShareUser" parameterType="com.fastbee.iot.domain.DeviceUser" resultMap="ShareUserResult">
+        SELECT
+            u.user_id,
+            u.nick_name,
+            u.user_name,
+            u.email,
+            u.avatar,
+            u.phonenumber,
+            u.sex,
+            u.create_time
+        FROM
+            sys_user u
+                LEFT JOIN (
+                SELECT
+                    *
+                FROM
+                    iot_device_user
+                WHERE
+                    iot_device_user.device_id = #{deviceId} and iot_device_user.del_flag = '0') d on u.user_id = d.user_id
+
+        WHERE
+              u.del_flag = 0
+          AND u.STATUS = 0
+          AND u.phonenumber = #{phonenumber} and d.device_id is null
+    </select>
+
+    <select id="selectDeviceUserList" parameterType="com.fastbee.iot.domain.DeviceUser" resultMap="DeviceUserResult">
+        <include refid="selectDeviceUserVo"/>
+        <where>
+            del_flag = '0'
+            and device_id = #{deviceUser.deviceId}
+            <if test="deviceUser.userId != null and deviceUser.userId != 0"> and user_id = #{deviceUser.userId}</if>
+        </where>
+    </select>
+
+    <select id="selectDeviceUserByDeviceId" parameterType="Long" resultMap="DeviceUserVOResult">
+        select d.device_id, d.user_id, d.phonenumber, d.create_time,
+               d.update_time, d.remark, su.user_name
+        from iot_device_user d left join sys_user su on d.user_id = su.user_id
+        where d.device_id = #{deviceId}
+        and d.del_flag = '0'
+        and su.del_flag = 0
+    </select>
+
+    <update id="updateDeviceUser" parameterType="com.fastbee.iot.domain.DeviceUser">
+        update iot_device_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="phonenumber != null">phonenumber = #{phonenumber},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where device_id = #{deviceId} and user_id = #{userId}
+    </update>
+
+</mapper>

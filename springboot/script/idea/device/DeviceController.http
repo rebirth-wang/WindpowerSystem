@@ -1,0 +1,186 @@
+﻿### 查询DeviceController分页列表 => 成功
+GET {{baseUrl}}/iot/device/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/device/list
+Authorization: Bearer {{token}}
+
+### 查询/unAuthlist => 成功
+GET {{baseUrl}}/iot/device/unAuthlist
+Authorization: Bearer {{token}}
+
+### 查询/listByGroup => 成功
+GET {{baseUrl}}/iot/device/listByGroup
+Authorization: Bearer {{token}}
+
+### 查询/shortList => 成功
+GET {{baseUrl}}/iot/device/shortList
+Authorization: Bearer {{token}}
+
+### 查询/all => 成功
+GET {{baseUrl}}/iot/device/all
+Authorization: Bearer {{token}}
+
+### 查询/generator => 成功
+GET {{baseUrl}}/iot/device/generator
+Authorization: Bearer {{token}}
+
+### 查询/getMqttConnectData => 成功
+GET {{baseUrl}}/iot/device/getMqttConnectData
+Authorization: Bearer {{token}}
+
+### 查询/getHttpAuthData => 成功
+GET {{baseUrl}}/iot/device/getHttpAuthData
+Authorization: Bearer {{token}}
+
+### 查询/listThingsModel => 成功
+GET {{baseUrl}}/iot/device/listThingsModel
+Authorization: Bearer {{token}}
+
+### 查询/pageModbusTcpHost => 成功
+GET {{baseUrl}}/iot/device/pageModbusTcpHost
+Authorization: Bearer {{token}}
+
+### 查询/list/deleted => 成功
+GET {{baseUrl}}/iot/device/list/deleted
+Authorization: Bearer {{token}}
+
+### 新增DeviceController => 成功
+POST {{baseUrl}}/iot/device
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/device/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/addBatchByProduct => 成功
+POST {{baseUrl}}/iot/device/addBatchByProduct
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/relateUser => 成功
+POST {{baseUrl}}/iot/device/relateUser
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/uploadTemplate => 成功
+POST {{baseUrl}}/iot/device/uploadTemplate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/importData => 成功
+POST {{baseUrl}}/iot/device/importData
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/importAssignmentData => 成功
+POST {{baseUrl}}/iot/device/importAssignmentData
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/assignment => 成功
+POST {{baseUrl}}/iot/device/assignment
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/recovery => 成功
+POST {{baseUrl}}/iot/device/recovery
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/batchGenerator => 成功
+POST {{baseUrl}}/iot/device/batchGenerator
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/user/assignment => 成功
+POST {{baseUrl}}/iot/device/user/assignment
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改DeviceController => 成功
+PUT {{baseUrl}}/iot/device
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/reset/{serialNumber} => 成功
+PUT {{baseUrl}}/iot/device/reset/{serialNumber}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/restore => 成功
+PUT {{baseUrl}}/iot/device/restore
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除DeviceController => 成功
+DELETE {{baseUrl}}/iot/device/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{deviceIds} => 成功
+DELETE {{baseUrl}}/iot/device/{deviceIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/physical/delete/{deviceIds} => 成功
+DELETE {{baseUrl}}/iot/device/physical/delete/{deviceIds}
+Authorization: Bearer {{token}}

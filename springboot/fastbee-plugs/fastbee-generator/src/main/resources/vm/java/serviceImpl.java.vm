@@ -1,0 +1,200 @@
+package ${packageName}.service.impl;
+
+import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.fastbee.common.annotation.DataScope;
+import com.fastbee.common.extend.aspectj.DataScopeAspect;
+import com.fastbee.common.extend.core.domin.entity.SysUser;
+#foreach ($column in $columns)
+#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
+import com.fastbee.common.utils.DateUtils;
+#break
+#end
+#end
+import org.springframework.stereotype.Service;
+import java.util.Objects;
+#if($table.sub)
+import java.util.ArrayList;
+import org.springframework.transaction.annotation.Transactional;
+import ${packageName}.domain.${subClassName};
+import ${packageName}.model.${ClassName}VO;
+import ${packageName}.convert.${ClassName}Convert;
+#end
+import com.fastbee.common.utils.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.model.vo.${ClassName}VO;
+import ${packageName}.service.I${ClassName}Service;
+import ${packageName}.convert.${ClassName}Convert;
+
+import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
+import static com.fastbee.common.extend.utils.SecurityUtils.getUsername;
+
+/**
+ * ${functionName}Service业务层处理
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper,${ClassName}> implements I${ClassName}Service {
+
+    /** 代码生成区域 可直接覆盖**/
+    /**
+     * 查询${functionName}
+     * 查询时更新key缓存，更新和删除时删除缓存，新增时不更新，下一次查询会更新缓存
+     * @param ${className} ${functionName}
+     * @return ${functionName}
+     */
+    @Override
+    @DataScope()
+    @Cacheable(cacheNames = "${ClassName}", key = "#${className}.${pkColumn.javaField}")
+    public ${ClassName} queryByIdWithCache(${ClassName} ${className}){
+        LambdaQueryWrapper<${ClassName}> queryWrapper = this.buildQueryWrapper(${className});
+        return this.getOne(queryWrapper);
+    }
+
+    /**
+     * 查询${functionName}
+     * 查询时更新key缓存，更新和删除时删除缓存，新增时不更新，下一次查询会更新缓存
+     * @param ${pkColumn.javaField} 主键
+     * @return ${functionName}
+     */
+    @Override
+    @Cacheable(cacheNames = "${ClassName}", key = "#${pkColumn.javaField}")
+    public ${ClassName} select${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField}){
+        return this.getById(${pkColumn.javaField});
+    }
+
+    /**
+     * 查询${functionName}分页列表
+     *
+     * @param ${className} ${functionName}
+     * @return ${functionName}
+     */
+    @Override
+    @DataScope()
+    public Page<${ClassName}VO> page${ClassName}VO(${ClassName} ${className}) {
+        LambdaQueryWrapper<${ClassName}> lqw = buildQueryWrapper(${className});
+        Page<${ClassName}> ${className}Page = baseMapper.selectPage(new Page<>(${className}.getPageNum(), ${className}.getPageSize()), lqw);
+        return ${ClassName}Convert.INSTANCE.convert${ClassName}VOPage(${className}Page);
+    }
+
+    /**
+     * 查询${functionName}列表
+     *
+     * @param ${className} ${functionName}
+     * @return ${functionName}
+     */
+    @Override
+    @DataScope()
+    public List<${ClassName}VO> list${ClassName}VO(${ClassName} ${className}) {
+        LambdaQueryWrapper<${ClassName}> lqw = buildQueryWrapper(${className});
+        List<${ClassName}> ${className}List = baseMapper.selectList(lqw);
+        return ${ClassName}Convert.INSTANCE.convert${ClassName}VOList(${className}List);
+    }
+
+    private LambdaQueryWrapper<${ClassName}> buildQueryWrapper(${ClassName} query) {
+        Map<String, Object> params = query.getParams();
+        LambdaQueryWrapper<${ClassName}> lqw = Wrappers.lambdaQuery();
+        #foreach($column in $columns)
+            #if($column.query)
+                #set($queryType=$column.queryType)
+                #set($javaField=$column.javaField)
+                #set($javaType=$column.javaType)
+                #set($columnName=$column.columnName)
+                #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+                #set($mpMethod=$column.queryType.toLowerCase())
+                #if($queryType != 'BETWEEN')
+                    #if($javaType == 'String')
+                        #set($condition='StringUtils.isNotBlank(query.get'+$AttrName+'())')
+                    #else
+                        #set($condition='query.get'+$AttrName+'() != null')
+                    #end
+                    lqw.$mpMethod($condition, ${ClassName}::get$AttrName, query.get$AttrName());
+                #else
+                    lqw.between(params.get("begin$AttrName") != null && params.get("end$AttrName") != null,
+                        ${ClassName}::get$AttrName ,params.get("begin$AttrName"), params.get("end$AttrName"));
+                #end
+            #end
+        #end
+
+        if (!Objects.isNull(params.get("beginTime")) &&
+        !Objects.isNull(params.get("endTime"))) {
+            lqw.between(${ClassName}::getCreateTime, params.get("beginTime"), params.get("endTime"));
+        }
+        // 数据范围过滤
+        if (ObjectUtil.isNotEmpty(query.getParams().get(DataScopeAspect.DATA_SCOPE))) {
+            lqw.apply((String) query.getParams().get(DataScopeAspect.DATA_SCOPE));
+        }
+        return lqw;
+    }
+
+    /**
+     * 新增${functionName}
+     *
+     * @param add ${functionName}
+     * @return 是否新增成功
+     */
+    @Override
+    public Boolean insertWithCache(${ClassName} add) {
+        SysUser sysUser = getLoginUser().getUser();
+        // 归属为机构管理员
+        add.setTenantId(sysUser.getDept().getDeptUserId());
+        add.setTenantName(sysUser.getDept().getDeptName());
+        add.setCreateBy(sysUser.getUserName());
+        validEntityBeforeSave(add);
+        return this.save(add);
+    }
+
+    /**
+     * 修改${functionName}
+     *
+     * @param update ${functionName}
+     * @return 是否修改成功
+     */
+    @Override
+    @CacheEvict(cacheNames = "${ClassName}", key = "#update.${pkColumn.javaField}")
+    public Boolean updateWithCache(${ClassName} update) {
+        update.setUpdateBy(getUsername());
+        validEntityBeforeSave(update);
+        return this.updateById(update);
+    }
+
+    /**
+     * 保存前的数据校验
+     */
+    private void validEntityBeforeSave(${ClassName} entity){
+        // 做一些数据校验,如唯一约束
+    }
+
+    /**
+     * 校验并批量删除${functionName}信息
+     *
+     * @param ids     待删除的主键集合
+     * @param isValid 是否进行有效性校验
+     * @return 是否删除成功
+     */
+    @Override
+    @CacheEvict(cacheNames = "${ClassName}", keyGenerator = "deleteKeyGenerator" )
+    public Boolean deleteWithCacheByIds(${pkColumn.javaType}[] ids, Boolean isValid) {
+        if(isValid){
+            // 做一些业务上的校验,判断是否需要校验
+        }
+        return this.removeByIds(Arrays.asList(ids));
+    }
+    /** 代码生成区域 可直接覆盖END**/
+
+    /** 自定义代码区域 **/
+
+
+    /** 自定义代码区域 END**/
+}

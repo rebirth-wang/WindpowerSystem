@@ -1,0 +1,34 @@
+﻿### 查询SysNoticeController分页列表 => 成功
+GET {{baseUrl}}/system/notice/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/notice/list
+Authorization: Bearer {{token}}
+
+### 新增SysNoticeController => 成功
+POST {{baseUrl}}/system/notice
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改SysNoticeController => 成功
+PUT {{baseUrl}}/system/notice
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysNoticeController => 成功
+DELETE {{baseUrl}}/system/notice/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{noticeIds} => 成功
+DELETE {{baseUrl}}/system/notice/{noticeIds}
+Authorization: Bearer {{token}}

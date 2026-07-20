@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ProductMapper">
+
+    <resultMap type="com.fastbee.iot.domain.Product" id="ProductResult">
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="protocolCode" column="protocol_code"/>
+        <result property="categoryId"    column="category_id"    />
+        <result property="categoryName"    column="category_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="isSys"    column="is_sys"    />
+        <result property="isAuthorize"    column="is_authorize"    />
+        <result property="account"    column="account"    />
+        <result property="authPassword"    column="auth_password"    />
+        <result property="secret"    column="secret"    />
+        <result property="status"    column="status"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="networkMethod"    column="network_method"    />
+        <result property="vertificateMethod"    column="vertificate_method"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="transport" column="transport"/>
+        <result property="locationWay"    column="location_way"    />
+        <result property="guid" column="guid"/>
+        <result property="firmwareType" column="firmware_type"/>
+        <result property="panelEnable"    column="panel_enable"    />
+        <result property="panelModelsJson"    column="panel_models_json"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.ProductVO" id="ProductVOResult">
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="protocolCode" column="protocol_code"/>
+        <result property="categoryId"    column="category_id"    />
+        <result property="categoryName"    column="category_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="isSys"    column="is_sys"    />
+        <result property="isAuthorize"    column="is_authorize"    />
+        <result property="account"    column="account"    />
+        <result property="authPassword"    column="auth_password"    />
+        <result property="secret"    column="secret"    />
+        <result property="status"    column="status"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="networkMethod"    column="network_method"    />
+        <result property="vertificateMethod"    column="vertificate_method"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="transport" column="transport"/>
+        <result property="locationWay"    column="location_way"    />
+        <result property="isOwner"  column="is_owner"/>
+        <result property="guid" column="guid"/>
+        <result property="firmwareType" column="firmware_type"/>
+        <result property="panelEnable"    column="panel_enable"    />
+        <result property="panelModelsJson"    column="panel_models_json"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.IdAndName" id="ProductShortResult">
+        <result property="id"    column="product_id"    />
+        <result property="name"    column="product_name"    />
+    </resultMap>
+
+    <sql id="selectProductVo">
+        select product_id, product_name,protocol_code,transport, category_id, category_name, tenant_id, tenant_name, is_sys, is_authorize, account, auth_password, secret, status, device_type, network_method, vertificate_method, create_time, update_time, img_url,remark,location_way,guid,firmware_type,panel_enable,panel_models_json from iot_product
+    </sql>
+
+    <select id="getProductBySerialNumber" resultMap="ProductResult" parameterType="String">
+        <include refid="selectProductVo" />
+        where product_id =
+        (select product_id from iot_device
+          where serial_number = #{serialNumber,jdbcType=VARCHAR}
+        )
+    </select>
+
+    <select id="getProtocolBySerialNumber" resultType="com.fastbee.iot.model.ProductCode">
+        select p.protocol_code as protocolCode,
+               p.product_id as productId,
+               d.serial_number as serialNumber,
+               d.tenant_id as userId,
+               p.transport as transport
+          from
+           iot_product p
+           inner join iot_device d on p.product_id = d.product_id
+           and d.serial_number = #{serialNumber,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByTempleId" resultMap="ProductResult">
+        select p.product_id,p.product_name,p.protocol_code,p.transport
+        from iot_device_template t
+        inner join iot_product p on t.product_id = p.product_id
+        where t.template_id = #{templeId}
+        and p.del_flag = '0'
+    </select>
+
+    <select id="pageTerminalUserProduct" resultType="com.fastbee.iot.model.vo.ProductVO">
+        select distinct p.product_id, p.product_name,p.protocol_code,p.transport, p.category_id,
+            p.category_name, p.tenant_id, p.tenant_name, p.is_sys, p.is_authorize,
+            p.account,p.auth_password,p.secret ,p.status,p.device_type,
+            p.network_method, p.vertificate_method, p.create_time, p.update_time,
+            p.img_url,p.remark,p.firmware_type,p.panel_enable,p.panel_models_json
+        from (
+                select device_id
+                from iot_device_user
+                where user_id = #{productVO.tenantId} and del_flag = '0'
+                union
+                select device_id
+                from iot_device_share
+                where user_id = #{productVO.tenantId} and del_flag = '0'
+        ) as u
+        inner join iot_device d on u.device_id = d.device_id
+        inner join iot_product p on d.product_id = p.product_id
+        <where>
+            d.del_flag = '0'
+            and p.del_flag = '0'
+            <if test="productVO.productName != null  and productVO.productName != ''">
+                and p.product_name = #{productVO.productName}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectListScadaIdByGuidS" resultType="com.fastbee.iot.model.vo.ProductVO">
+        select id scadaId, guid
+        from scada
+        where guid in
+            <foreach collection="guidList" item="guid" open="(" separator="," close=")">
+                #{guid}
+            </foreach>
+        and del_flag = 0
+    </select>
+
+    <delete id="deleteProductById" parameterType="Long">
+        delete from iot_product where product_id = #{productId} and del_flag = '1'
+    </delete>
+
+    <select id="selectDelProductVO" parameterType="com.fastbee.iot.domain.Product" resultType="com.fastbee.iot.model.vo.ProductVO">
+        select product_id, product_name,protocol_code,transport, category_id, category_name, tenant_id, tenant_name, is_sys, is_authorize, account, auth_password, secret, status, device_type, network_method, vertificate_method, create_time, update_time, img_url,remark,location_way,guid,firmware_type,panel_enable,panel_models_json from iot_product
+        where del_flag = '1'
+        <if test="product.productName != null and product.productName != ''">
+            <bind name="patternProductName" value="'%' + product.productName + '%'"/>
+            AND product_name LIKE #{patternProductName}
+        </if>
+        <!-- 数据范围过滤 -->
+        <if test="product.params.dataScope != null  and product.params.dataScope != ''">
+            and ${product.params.dataScope}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+    
+    <select id="selectProductById" parameterType="Long" resultType="com.fastbee.iot.domain.Product" >
+        select product_id, product_name,protocol_code,transport, category_id, category_name, tenant_id, tenant_name, is_sys, is_authorize, account, auth_password, secret, status, device_type, network_method, vertificate_method, create_time, update_time, img_url,remark,location_way,guid,firmware_type,panel_enable,panel_models_json from iot_product
+        where product_id = #{productId} and del_flag = '1'
+    </select>
+
+    <update id="restoreProduct" parameterType="Long">
+         update iot_product set del_flag = '0' where product_id = #{productId}
+    </update>
+
+</mapper>

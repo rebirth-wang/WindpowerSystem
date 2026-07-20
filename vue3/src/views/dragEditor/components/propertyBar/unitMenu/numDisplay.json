@@ -1,0 +1,11 @@
+{
+  "title": "数值展示",
+  "items": [
+    {
+      "text": "数值展示1",
+      "type": "num-display-1",
+      "img": "components/numDisplay/num1.png",
+      "name": "numDisplay1"
+    }
+  ]
+}

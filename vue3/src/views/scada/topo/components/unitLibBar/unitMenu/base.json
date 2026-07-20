@@ -1,0 +1,1043 @@
+{
+  "title": "常用元件",
+  "icon": "base",
+  "opened": false,
+  "items": [
+    {
+      "text": "面板",
+      "icon": "base/panel.png",
+      "type": "static",
+      "info": {
+        "type": "panel",
+        "componentShow": ["组态界面"],
+        "action": [],
+        "dataBind": {
+          "scadaGuid": ""
+        },
+        "dataAction": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 500,
+            "h": 300
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(179,179,179,1)",
+          "borderRadius": 10,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)"
+        }
+      }
+    },
+    {
+      "text": "文字",
+      "icon": "base/word.png",
+      "type": "static",
+      "info": {
+        "type": "text",
+        "componentShow": ["参数绑定", "单击", "组件颜色", "动画"],
+        "action": ["click"],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": "",
+          "modelMaps": []
+        },
+        "dataEvent": {
+          "djAction": false,
+          "djType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "modelTip": "",
+          "identifier": "",
+          "sceneModelId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "writeType": 1,
+          "funValue": "/*\r\nreturn 的值是脚本的最终输出。\r\n\r\n1. 返回节点数据，例如固定值：\r\nreturn 4\r\n\r\n2. 返回可变数据：\r\napp.$prompt('请输入', '温度', {\r\n    confirmButtonText: '确认',\r\n    cancelButtonText: '取消',\r\n    closeOnClickModal: false,\r\n    closeOnPressEscape: false,\r\n    inputValidator: (value) => {\r\n        if (!value) {\r\n            return '变量值不能为空';\r\n        }\r\n    },\r\n}).then(({ value }) => {\r\n    issord(value);\r\n});\r\n以上两种返回结果展示效果不同：\r\n- app 是应用实例，通过它可以对整个应用进行操作\r\n- issord 是下发函数，下发对应变量值\r\n- 对于固定值：发送值不显示\r\n- 对于输入值：根据代码弹框，并输入值发送\r\n*/\r\nreturn;",
+          "externalLink": "",
+          "scadaGuid": "",
+          "openModel": 1,
+          "windowWidth": "",
+          "windowHeight": "",
+          "switchControl": 1,
+          "scadaIndex": "",
+          "passwordEnabled": false,
+          "passwordType": "user"
+        },
+        "dataAction": {
+          "xyAction": false,
+          "xzAction": false,
+          "ssAction": false,
+          "hdAction": false,
+          "maAction": false,
+          "modelName": "",
+          "identifier": "",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "paramJudge": "",
+          "paramJudgeData": "",
+          "paramJudgeDatarangeMin": "",
+          "paramJudgeDatarangeMax": "",
+          "rotationSpeed": "中",
+          "duration": "",
+          "translateList": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 30
+          },
+          "backColor": "rgba(255, 255, 255, 0)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(255, 255, 255, 0)",
+          "borderRadius": 0,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "text": "Test",
+          "textAlign": "center",
+          "fontSize": 14,
+          "fontFamily": "Arial",
+          "fontWeight": "normal",
+          "fontStyle": "normal"
+        }
+      }
+    },
+    {
+      "text": "数显框",
+      "icon": "base/number.png",
+      "type": "static",
+      "info": {
+        "type": "num",
+        "componentShow": ["参数绑定", "单击", "组件颜色", "动画", "组件填充"],
+        "action": ["click"],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "dataEvent": {
+          "djAction": false,
+          "djType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "modelTip": "",
+          "identifier": "",
+          "sceneModelId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "writeType": 1,
+          "funValue": "/*\r\nreturn 的值是脚本的最终输出。\r\n\r\n1. 返回节点数据，例如固定值：\r\nreturn 4\r\n\r\n2. 返回可变数据：\r\napp.$prompt('请输入', '温度', {\r\n    confirmButtonText: '确认',\r\n    cancelButtonText: '取消',\r\n    closeOnClickModal: false,\r\n    closeOnPressEscape: false,\r\n    inputValidator: (value) => {\r\n        if (!value) {\r\n            return '变量值不能为空';\r\n        }\r\n    },\r\n}).then(({ value }) => {\r\n    issord(value);\r\n});\r\n以上两种返回结果展示效果不同：\r\n- app 是应用实例，通过它可以对整个应用进行操作\r\n- issord 是下发函数，下发对应变量值\r\n- 对于固定值：发送值不显示\r\n- 对于输入值：根据代码弹框，并输入值发送\r\n*/\r\nreturn;",
+          "externalLink": "",
+          "scadaGuid": "",
+          "openModel": 1,
+          "windowWidth": "",
+          "windowHeight": "",
+          "switchControl": 1,
+          "scadaIndex": "",
+          "passwordEnabled": false,
+          "passwordType": "user"
+        },
+        "dataAction": {
+          "xyAction": false,
+          "xzAction": false,
+          "ssAction": false,
+          "hdAction": false,
+          "maAction": false,
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "identifier": "",
+          "modelName": "",
+          "paramJudge": "",
+          "paramJudgeData": "",
+          "paramJudgeDatarangeMin": "",
+          "paramJudgeDatarangeMax": "",
+          "rotationSpeed": "中",
+          "duration": "",
+          "translateList": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 50,
+            "h": 50
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "textAlign": "center",
+          "fontSize": 14,
+          "fontFamily": "Arial",
+          "borderRadius": 0,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "text": "0",
+          "dataType": 10,
+          "decimalDigits": ""
+        }
+      }
+    },
+    {
+      "text": "变量计算",
+      "icon": "base/var-calc.png",
+      "type": "static",
+      "isHide": false,
+      "info": {
+        "type": "varCalc",
+        "componentShow": ["生成条件", "单击", "组件颜色"],
+        "action": ["click"],
+        "dataBind": {
+          "calcFormule": "",
+          "calcVariates": []
+        },
+        "dataEvent": {
+          "djAction": false,
+          "djType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "modelTip": "",
+          "identifier": "",
+          "sceneModelId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "writeType": 1,
+          "funValue": "/*\r\nreturn 的值是脚本的最终输出。\r\n\r\n1. 返回节点数据，例如固定值：\r\nreturn 4\r\n\r\n2. 返回可变数据：\r\napp.$prompt('请输入', '温度', {\r\n    confirmButtonText: '确认',\r\n    cancelButtonText: '取消',\r\n    closeOnClickModal: false,\r\n    closeOnPressEscape: false,\r\n    inputValidator: (value) => {\r\n        if (!value) {\r\n            return '变量值不能为空';\r\n        }\r\n    },\r\n}).then(({ value }) => {\r\n    issord(value);\r\n});\r\n以上两种返回结果展示效果不同：\r\n- app 是应用实例，通过它可以对整个应用进行操作\r\n- issord 是下发函数，下发对应变量值\r\n- 对于固定值：发送值不显示\r\n- 对于输入值：根据代码弹框，并输入值发送\r\n*/\r\nreturn;",
+          "externalLink": "",
+          "scadaGuid": "",
+          "openModel": 1,
+          "windowWidth": "",
+          "windowHeight": "",
+          "switchControl": 1,
+          "scadaIndex": "",
+          "passwordEnabled": false,
+          "passwordType": "user"
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 30
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "textAlign": "center",
+          "fontSize": 14,
+          "fontFamily": "Arial",
+          "borderRadius": 0,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "text": "0",
+          "dataType": 10,
+          "decimalDigits": ""
+        }
+      }
+    },
+    {
+      "text": "数显面板",
+      "icon": "base/num-panel.png",
+      "type": "static",
+      "info": {
+        "type": "num-panel",
+        "componentShow": ["参数绑定", "组件颜色", "卡片"],
+        "action": [],
+        "dataBind": {
+          "tableTitle": "XXX标题",
+          "filter": 0,
+          "modelMaps": [],
+          "modelValues": [],
+          "modelTimes": [],
+          "identifiers": [],
+          "sceneModelId": "",
+          "sceneModelDeviceIds": [],
+          "serialNumber": "",
+          "tableColumns": [
+            {
+              "id": "modelName",
+              "title": "变量名",
+              "visible": true,
+              "color": "#606266"
+            },
+            {
+              "id": "value",
+              "title": "当前值",
+              "visible": true,
+              "color": "#3388ff"
+            },
+            {
+              "id": "unit",
+              "title": "单位",
+              "visible": true,
+              "color": "#606266"
+            }
+          ]
+        },
+        "dataAction": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 398,
+            "h": 224
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(235,238,245,1)",
+          "borderRadius": 10,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "titleFontSize": 16,
+          "titleVisible": true,
+          "textAlign": "center",
+          "fontSize": 14,
+          "url": ""
+        }
+      }
+    },
+    {
+      "text": "状态开关",
+      "icon": "base/switch.png",
+      "type": "static",
+      "info": {
+        "type": "image-switch",
+        "componentShow": ["状态开关", "参数绑定", "单击", "组件颜色", "设备状态", "滤镜渲染"],
+        "action": ["click"],
+        "dataBind": {
+          "statusType": 1,
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "shutImageUrl": "",
+          "openImageUrl": "",
+          "warnImageUrl": "",
+          "stateList": [],
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "dataEvent": {
+          "djAction": false,
+          "djType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "modelTip": "",
+          "identifier": "",
+          "sceneModelId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "writeType": 1,
+          "funValue": "/*\r\nreturn 的值是脚本的最终输出。\r\n\r\n1. 返回节点数据，例如固定值：\r\nreturn 4\r\n\r\n2. 返回可变数据：\r\napp.$prompt('请输入', '温度', {\r\n    confirmButtonText: '确认',\r\n    cancelButtonText: '取消',\r\n    closeOnClickModal: false,\r\n    closeOnPressEscape: false,\r\n    inputValidator: (value) => {\r\n        if (!value) {\r\n            return '变量值不能为空';\r\n        }\r\n    },\r\n}).then(({ value }) => {\r\n    issord(value);\r\n});\r\n以上两种返回结果展示效果不同：\r\n- app 是应用实例，通过它可以对整个应用进行操作\r\n- issord 是下发函数，下发对应变量值\r\n- 对于固定值：发送值不显示\r\n- 对于输入值：根据代码弹框，并输入值发送\r\n*/\r\nreturn;",
+          "externalLink": "",
+          "scadaGuid": "",
+          "openModel": 1,
+          "windowWidth": "",
+          "windowHeight": "",
+          "switchControl": 1,
+          "scadaIndex": "",
+          "passwordEnabled": false,
+          "passwordType": "user"
+        },
+        "dataAction": {
+          "switchValue": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 50,
+            "h": 50
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "backColor": "rgba(255, 255, 255, 0)",
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "transformType": "rotate(0deg)",
+          "isFilter": false,
+          "url": "",
+          "foreColor": "rgba(255, 255, 255, 0)"
+        }
+      }
+    },
+    {
+      "text": "水流",
+      "icon": "base/water.png",
+      "type": "static",
+      "isHide": true,
+      "info": {
+        "type": "flow-bar",
+        "componentShow": ["参数绑定", "组件颜色", "水流"],
+        "dataBind": {
+          "dataType": 1,
+          "filter": 0,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": ""
+        },
+        "dataAction": {
+          "direction": "",
+          "paramJudge": "",
+          "paramJudgeData": "",
+          "paramJudgeDatarangeMin": "",
+          "paramJudgeDatarangeMax": "",
+          "direction01": "",
+          "paramJudge01": "",
+          "paramJudgeData01": ""
+        },
+        "style": {
+          "position": {
+            "x": 100,
+            "y": 100,
+            "w": 298,
+            "h": 50
+          },
+          "backColor": "rgba(0, 206, 209, 1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "foreColor": "red",
+          "lineHeight": 10,
+          "direction": "水平",
+          "animations": "正向",
+          "speed": "中",
+          "lineWidth": 15,
+          "lineInterval": 20,
+          "lineType": "矩形",
+          "anchorPointNum": 2,
+          "spotPoints": [
+            {
+              "x": 20,
+              "y": 20
+            },
+            {
+              "x": 300,
+              "y": 20
+            }
+          ]
+        }
+      }
+    },
+    {
+      "text": "水流",
+      "icon": "base/water.png",
+      "type": "static",
+      "info": {
+        "type": "flow-bar-dynamic",
+        "componentShow": ["参数绑定", "组件颜色", "水流"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "dataAction": {
+          "direction": "",
+          "paramJudge": "",
+          "paramJudgeData": "",
+          "paramJudgeDatarangeMin": "",
+          "paramJudgeDatarangeMax": "",
+          "direction01": "",
+          "paramJudge01": "",
+          "paramJudgeData01": ""
+        },
+        "style": {
+          "position": {
+            "x": 100,
+            "y": 100,
+            "w": 298,
+            "h": 50
+          },
+          "backColor": "rgba(72, 111, 242, 1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "foreColor": "rgba(250, 212, 0, 1)",
+          "lineHeight": 5,
+          "direction": "水平",
+          "animations": "正向",
+          "speed": "中",
+          "lineWidth": 15,
+          "lineInterval": 20,
+          "lineType": "矩形",
+          "anchorPointNum": 6,
+          "spotPoints": []
+        }
+      }
+    },
+    {
+      "text": "液位",
+      "icon": "base/liquid.png",
+      "type": "static",
+      "info": {
+        "type": "chart-water",
+        "componentShow": ["参数绑定"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "modelName": "",
+          "modelValue": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 200,
+            "h": 200
+          },
+          "backColor": "rgba(255, 255, 255, 0)",
+          "zIndex": 1,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "waterShape": "container",
+          "waterColor": "rgba(28,181,252,1)",
+          "waterFontSize": 12,
+          "waterLabel": true,
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(255,255,255,1)"
+        }
+      }
+    },
+    {
+      "text": "萤石云视频",
+      "icon": "base/ezviz-video.png",
+      "type": "static",
+      "info": {
+        "type": "video",
+        "componentShow": ["萤石云"],
+        "action": [],
+        "dataBind": {
+          "serialNumber": "G39444019",
+          "ezvizChannel": 1,
+          "ezvizToken": "ra.4moptir73o22sreu20flhhth3vgwtqow-60tzx4e826-0hscef0-wndt1ekdd"
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 433,
+            "h": 225
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "直播视频",
+      "icon": "base/live-video.png",
+      "type": "static",
+      "info": {
+        "type": "video-mp4",
+        "componentShow": ["直播视频"],
+        "action": [],
+        "dataBind": {
+          "videoUrl": "https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/flv/xgplayer-demo-360p.flv"
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 421,
+            "h": 242
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "通用视频",
+      "icon": "base/video.png",
+      "type": "static",
+      "info": {
+        "type": "video-play",
+        "componentShow": ["通用视频"],
+        "action": [],
+        "dataBind": {
+          "videoUrl": "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
+          "imageUrl": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 421,
+            "h": 242
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "视频监控",
+      "icon": "base/inline-video.png",
+      "type": "static",
+      "info": {
+        "type": "inlineVideo",
+        "componentShow": ["内联视频"],
+        "action": [],
+        "dataBind": {
+          "serialNumber": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 421,
+            "h": 242
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "时间",
+      "icon": "base/timer.png",
+      "type": "static",
+      "info": {
+        "type": "timer",
+        "componentShow": ["组件颜色", "暂无绑定"],
+        "action": [],
+        "dataBind": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 345,
+            "h": 60
+          },
+          "backColor": "rgba(255,255,255,0)",
+          "foreColor": "rgba(19,150,219,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "textAlign": "center",
+          "fontSize": 26,
+          "fontFamily": "Arial"
+        }
+      }
+    },
+    {
+      "text": "地图",
+      "icon": "base/map.png",
+      "type": "static",
+      "info": {
+        "type": "map",
+        "componentShow": ["暂无绑定"],
+        "action": [],
+        "dataBind": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 350
+          },
+          "zIndex": 1,
+          "mapModel": "normal",
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "天气",
+      "icon": "base/weather.png",
+      "type": "static",
+      "info": {
+        "type": "weather",
+        "componentShow": ["天气", "组件颜色"],
+        "action": [],
+        "dataBind": {
+          "provinceCode": "",
+          "provinceName": "",
+          "cityCode": "",
+          "cityName": "",
+          "districtCode": "",
+          "districtName": "",
+          "longitude": "",
+          "latitude": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 450,
+            "h": 180
+          },
+          "backColor": "rgba(122,177,231,1)",
+          "foreColor": "rgba(255,255,255,1)",
+          "fontFamily": "Arial",
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(255, 255, 255, 0)",
+          "borderRadius": 10,
+          "boxShadowWidth": 0,
+          "boxShadowColor": "rgba(255, 255, 255, 0)",
+          "weatherModel": 1,
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "报警记录",
+      "icon": "base/warn.png",
+      "type": "static",
+      "info": {
+        "type": "warn",
+        "componentShow": ["轮播表", "报警记录"],
+        "action": [],
+        "dataBind": {
+          "warnLogType": 1
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 300
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "rowNum": 5,
+          "header": ["告警时间", "告警名称", "设备名称", "告警级别", "处理状态"],
+          "backColor": "rgba(216,220,229,1)",
+          "foreColor": "rgba(255,255,255,1)",
+          "headerBGC": "rgba(0,186,255,1)",
+          "oddRowBGC": "rgba(0,59,81,1)",
+          "evenRowBGC": "rgba(10,39,50,1)",
+          "waitTime": 2000,
+          "headerHeight": 35,
+          "columnWidth": "60,160,110,110,100,100",
+          "align": ["center"],
+          "index": true,
+          "carousel": "single",
+          "indexHeader": "序号"
+        }
+      }
+    },
+    {
+      "text": "维修记录",
+      "icon": "base/repair.png",
+      "type": "static",
+      "info": {
+        "type": "order",
+        "componentShow": ["轮播表", "暂无绑定"],
+        "action": [],
+        "dataBind": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 300
+          },
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "rowNum": 5,
+          "header": ["告警时间", "告警名称", "设备名称", "告警级别", "处理内容"],
+          "backColor": "rgba(216,220,229,1)",
+          "foreColor": "rgba(255,255,255,1)",
+          "headerBGC": "rgba(0,186,255,1)",
+          "oddRowBGC": "rgba(0,59,81,1)",
+          "evenRowBGC": "rgba(10,39,50,1)",
+          "waitTime": 2000,
+          "headerHeight": 35,
+          "columnWidth": "60,160,110,110,100,160",
+          "align": ["center"],
+          "index": true,
+          "carousel": "single",
+          "indexHeader": "序号"
+        }
+      }
+    },
+    {
+      "text": "历史报表",
+      "icon": "base/history.png",
+      "type": "static",
+      "isHide": true,
+      "info": {
+        "type": "history",
+        "componentShow": ["组件颜色"],
+        "action": [],
+        "dataBind": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 300
+          },
+          "zIndex": 1,
+          "backColor": "#fff",
+          "foreColor": "#000",
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "VR场景",
+      "icon": "base/vr.png",
+      "type": "static",
+      "info": {
+        "type": "VR",
+        "componentShow": ["VR", "暂无绑定"],
+        "action": [],
+        "dataBind": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 1920,
+            "h": 1080
+          },
+          "backColor": "rgba(255, 255, 255, 0)",
+          "zIndex": -9999,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "url": "",
+          "markers": []
+        }
+      }
+    },
+    {
+      "text": "数据表格",
+      "icon": "base/time-table.png",
+      "type": "static",
+      "info": {
+        "type": "time-table",
+        "componentShow": ["参数绑定", "组件颜色", "数据表格"],
+        "action": [],
+        "dataBind": {
+          "modelValues": [],
+          "identifiers": [],
+          "modelTimes": [],
+          "serialNumber": "",
+          "sceneModelId": "",
+          "sceneModelDeviceIds": [],
+          "variableType": "",
+          "productId": "",
+          "filter": 0,
+          "modelMaps": [],
+          "tableType": 1,
+          "tableColumns": [
+            {
+              "id": "index",
+              "title": "序号",
+              "visible": true
+            },
+            {
+              "id": "deviceName",
+              "title": "设备",
+              "visible": true
+            },
+            {
+              "id": "modelName",
+              "title": "变量名",
+              "visible": true
+            },
+            {
+              "id": "value",
+              "title": "当前值",
+              "visible": true
+            },
+            {
+              "id": "unit",
+              "title": "单位",
+              "visible": true
+            },
+            {
+              "id": "ts",
+              "title": "更新时间",
+              "visible": true
+            }
+          ]
+        },
+        "dataAction": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 812,
+            "h": 300
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "waterBorderWidth": 1,
+          "waterBorderColor": "rgba(235,238,245,1)",
+          "borderRadius": 10,
+          "fontSize": 14
+        }
+      }
+    }
+  ]
+}

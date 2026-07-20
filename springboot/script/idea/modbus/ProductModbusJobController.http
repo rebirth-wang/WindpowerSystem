@@ -1,0 +1,43 @@
+﻿### 查询ProductModbusJobController分页列表 => 成功
+GET {{baseUrl}}/productModbus/job/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/productModbus/job/list
+Authorization: Bearer {{token}}
+
+### 新增ProductModbusJobController => 成功
+POST {{baseUrl}}/productModbus/job
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/productModbus/job/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ProductModbusJobController => 成功
+PUT {{baseUrl}}/productModbus/job
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ProductModbusJobController => 成功
+DELETE {{baseUrl}}/productModbus/job/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{taskIds} => 成功
+DELETE {{baseUrl}}/productModbus/job/{taskIds}
+Authorization: Bearer {{token}}

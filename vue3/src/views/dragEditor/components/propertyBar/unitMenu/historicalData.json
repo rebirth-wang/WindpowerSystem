@@ -1,0 +1,11 @@
+{
+  "title": "历史数据",
+  "items": [
+    {
+      "text": "仪表",
+      "type": "hstorical-data-gauge",
+      "img": "components/historicalData/gauge.png",
+      "name": "historicalDataGauge"
+    }
+  ]
+}

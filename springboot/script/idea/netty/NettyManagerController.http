@@ -1,0 +1,34 @@
+﻿### 查询NettyManagerController分页列表 => 成功
+GET {{baseUrl}}/iot/mqtt/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/clients => 成功
+GET {{baseUrl}}/iot/mqtt/clients
+Authorization: Bearer {{token}}
+
+### 查询/client/out => 成功
+GET {{baseUrl}}/iot/mqtt/client/out
+Authorization: Bearer {{token}}
+
+### 新增NettyManagerController => 成功
+POST {{baseUrl}}/iot/mqtt
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改NettyManagerController => 成功
+PUT {{baseUrl}}/iot/mqtt
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除NettyManagerController => 成功
+DELETE {{baseUrl}}/iot/mqtt/1,2,3
+Authorization: Bearer {{token}}

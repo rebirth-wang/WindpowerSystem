@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.SceneMapper">
+
+    <resultMap type="com.fastbee.iot.domain.Scene" id="SceneResult">
+        <result property="sceneId"    column="scene_id"    />
+        <result property="recoverId"    column="recover_id"    />
+        <result property="sceneName"    column="scene_name"    />
+        <result property="chainName"    column="chain_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="cond"    column="cond"    />
+        <result property="silentPeriod"    column="silent_period"    />
+        <result property="executeMode"    column="execute_mode"    />
+        <result property="executeDelay"    column="execute_delay"    />
+        <result property="checkDelay"    column="check_delay"    />
+        <result property="hasAlert"    column="has_alert"    />
+        <result property="enable"    column="enable"    />
+        <result property="elData"    column="el_data"    />
+        <result property="applicationName"    column="application_name"    />
+        <result property="terminalUser"    column="terminal_user"    />
+    </resultMap>
+
+    <sql id="selectSceneVo">
+        select scene_id, recover_id, scene_name,chain_name, user_id, user_name, create_by, create_time, update_by, update_time, remark, cond, silent_period, execute_mode, execute_delay, check_delay, has_alert, enable, el_data, application_name, terminal_user from iot_scene
+    </sql>
+
+    <sql id="selectSceneListVo">
+        select scene_id, recover_id, scene_name,chain_name, user_id, user_name, create_by, create_time, update_by, update_time, remark, cond, silent_period, execute_mode, execute_delay, check_delay, has_alert, enable, application_name, terminal_user from iot_scene
+    </sql>
+
+    <select id="selectTerminalUserBySceneIds" resultType="com.fastbee.iot.model.vo.SceneTerminalUserVO">
+        select scene_id, user_id, terminal_user, create_by
+        from iot_scene
+        where scene_id in
+            <foreach collection="collection" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </select>
+
+</mapper>

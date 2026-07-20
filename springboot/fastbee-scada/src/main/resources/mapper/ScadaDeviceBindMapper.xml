@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.scada.mapper.ScadaDeviceBindMapper">
+
+    <resultMap type="ScadaDeviceBind" id="ScadaDeviceBindResult">
+        <result property="id"    column="id"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="scadaGuid"    column="scada_guid"    />
+    </resultMap>
+
+    <sql id="selectScadaDeviceBindVo">
+        select id, serial_number, scada_guid from scada_device_bind
+    </sql>
+
+    <select id="selectScadaDeviceBindList" parameterType="ScadaDeviceBind" resultMap="ScadaDeviceBindResult">
+        <include refid="selectScadaDeviceBindVo"/>
+        <where>
+            <if test="serialNumber != null  and serialNumber != ''"> and serial_number = #{serialNumber}</if>
+            <if test="scadaGuid != null  and scadaGuid != ''"> and scada_guid = #{scadaGuid}</if>
+        </where>
+    </select>
+
+    <select id="listByGuidAndSerialNumber" resultType="com.fastbee.scada.domain.ScadaDeviceBind">
+        <include refid="selectScadaDeviceBindVo"/>
+        where scada_guid = #{scadaGuid}
+        and serial_number in
+            <foreach collection="serialNumberList" separator="," open="(" close=")" item="serialNumber">
+                #{serialNumber}
+            </foreach>
+    </select>
+
+    <select id="listDeviceSimByGuid" resultType="com.fastbee.scada.vo.ScadaBindDeviceSimVO">
+        select s.serial_number, d.device_name, d.product_id
+        from scada_device_bind s left join iot_device d on s.serial_number = d.serial_number
+        where s.scada_guid = #{guid}
+        and d.del_flag = '0'
+    </select>
+
+    <select id="selectScadaDeviceBindInfoList" resultType="com.fastbee.scada.vo.ScadaDeviceBindVO">
+        select s.id, s.scada_guid, s.serial_number, d.device_name, d.status, p.device_type
+        from scada_device_bind s left join iot_device d on s.serial_number = d.serial_number
+        left join iot_product p on d.product_id = p.product_id
+        where s.scada_guid = #{scadaDeviceBindVO.scadaGuid}
+          and d.del_flag = '0'
+        <if test="scadaDeviceBindVO.serialNumber != null  and scadaDeviceBindVO.serialNumber != ''">
+          and s.serial_number = #{scadaDeviceBindVO.serialNumber}
+        </if>
+    </select>
+
+    <select id="selectScadaSceneModelDeviceList" resultType="com.fastbee.scada.vo.ScadaDeviceBindVO">
+        select sm.guid scada_guid, d.serial_number, d.device_name, d.status
+        from scene_model sm left join scene_model_device smd on sm.scene_model_id = smd.scene_model_id
+        left join iot_device d on smd.cus_device_id = d.device_id and d.del_flag = '0'
+        where sm.guid = #{scadaDeviceBindVO.scadaGuid}
+        and smd.variable_type = 1
+        and sm.del_flag = 0
+        and smd.del_flag = 0
+        <if test="scadaDeviceBindVO.serialNumber != null  and scadaDeviceBindVO.serialNumber != ''">
+            and d.serial_number = #{scadaDeviceBindVO.serialNumber}
+        </if>
+    </select>
+
+</mapper>

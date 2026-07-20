@@ -1,0 +1,26 @@
+﻿### 查询ZmlHookController分页列表 => 成功
+GET {{baseUrl}}/zlmhook/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增ZmlHookController => 成功
+POST {{baseUrl}}/zlmhook
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改ZmlHookController => 成功
+PUT {{baseUrl}}/zlmhook
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ZmlHookController => 成功
+DELETE {{baseUrl}}/zlmhook/1,2,3
+Authorization: Bearer {{token}}

@@ -1,0 +1,87 @@
+﻿### 查询WeChatController分页列表 => 成功
+GET {{baseUrl}}/wechat/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/getWxBindQr => 成功
+GET {{baseUrl}}/wechat/getWxBindQr
+Authorization: Bearer {{token}}
+
+### 查询/wxBind/callback => 成功
+GET {{baseUrl}}/wechat/wxBind/callback
+Authorization: Bearer {{token}}
+
+### 查询/getWxBindMsg => 成功
+GET {{baseUrl}}/wechat/getWxBindMsg
+Authorization: Bearer {{token}}
+
+### 查询/publicAccount/callback => 成功
+GET {{baseUrl}}/wechat/publicAccount/callback
+Authorization: Bearer {{token}}
+
+### 新增WeChatController => 成功
+POST {{baseUrl}}/wechat
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/mobileLogin => 成功
+POST {{baseUrl}}/wechat/mobileLogin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/miniLogin => 成功
+POST {{baseUrl}}/wechat/miniLogin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/bind => 成功
+POST {{baseUrl}}/wechat/bind
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/cancelBind => 成功
+POST {{baseUrl}}/wechat/cancelBind
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/publicAccount/callback => 成功
+POST {{baseUrl}}/wechat/publicAccount/callback
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改WeChatController => 成功
+PUT {{baseUrl}}/wechat
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除WeChatController => 成功
+DELETE {{baseUrl}}/wechat/1,2,3
+Authorization: Bearer {{token}}

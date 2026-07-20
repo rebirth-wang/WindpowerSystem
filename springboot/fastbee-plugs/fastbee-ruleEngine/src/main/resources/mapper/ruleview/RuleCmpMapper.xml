@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.rule.mapper.RuleCmpMapper">
+        <resultMap type="RuleCmp" id="RuleCmpResult">
+        <result property="id"    column="id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="componentId"    column="component_id"    />
+        <result property="componentName"    column="component_name"    />
+        <result property="type"    column="type"    />
+        <result property="script"    column="script"    />
+        <result property="language"    column="language"    />
+        <result property="clazz"    column="clazz"    />
+        <result property="el"    column="el"    />
+        <result property="cmpPre"    column="cmp_pre"    />
+        <result property="cmpFinallyOpt"    column="cmp_finally_opt"    />
+        <result property="cmpId"    column="cmp_id"    />
+        <result property="cmpTag"    column="cmp_tag"    />
+        <result property="cmpMaxWaitSeconds"    column="cmp_max_wait_seconds"    />
+        <result property="elFormat"    column="el_format"    />
+        <result property="cmpDefaultOpt"    column="cmp_default_opt"    />
+        <result property="cmpTo"    column="cmp_to"    />
+        <result property="cmpTrueOpt"    column="cmp_true_opt"    />
+        <result property="cmpFalseOpt"    column="cmp_false_opt"    />
+        <result property="cmpParallel"    column="cmp_parallel"    />
+        <result property="cmpDoOpt"    column="cmp_do_opt"    />
+        <result property="cmpBreakOpt"    column="cmp_break_opt"    />
+        <result property="cmpData"    column="cmp_data"    />
+        <result property="cmpDataName"    column="cmp_data_name"    />
+        <result property="fallbackId"    column="fallback_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectRuleCmpVo">
+        select tenant_id, id, component_id, component_name, type, script, language, clazz, el, cmp_pre, cmp_finally_opt, cmp_id, cmp_tag, cmp_max_wait_seconds, el_format, cmp_default_opt, cmp_to, cmp_true_opt, cmp_false_opt, cmp_parallel, cmp_do_opt, cmp_break_opt, cmp_data, cmp_data_name, fallback_id, create_by, create_time, update_by, update_time, del_flag from rule_cmp
+    </sql>
+
+
+
+    </mapper>

@@ -1,0 +1,53 @@
+﻿### 查询PtzController分页列表 => 成功
+GET {{baseUrl}}/sip/ptz/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增PtzController => 成功
+POST {{baseUrl}}/sip/ptz
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/direction/{deviceId}/{channelId} => 成功
+POST {{baseUrl}}/sip/ptz/direction/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/scale/{deviceId}/{channelId} => 成功
+POST {{baseUrl}}/sip/ptz/scale/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/cmd/{deviceId}/{channelId}/{cmd} => 成功
+POST {{baseUrl}}/sip/ptz/cmd/{deviceId}/{channelId}/{cmd}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改PtzController => 成功
+PUT {{baseUrl}}/sip/ptz
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除PtzController => 成功
+DELETE {{baseUrl}}/sip/ptz/1,2,3
+Authorization: Bearer {{token}}

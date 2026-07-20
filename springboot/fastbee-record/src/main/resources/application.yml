@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false
+  profiles:
+    active: @profiles.active@
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+management:
+  health:
+    db:
+      enabled: false

@@ -1,0 +1,69 @@
+﻿### 查询DataCenterController分页列表 => 成功
+GET {{baseUrl}}/data/center/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/sceneHistory => 成功
+GET {{baseUrl}}/data/center/sceneHistory
+Authorization: Bearer {{token}}
+
+### 查询/countAlertProcess => 成功
+GET {{baseUrl}}/data/center/countAlertProcess
+Authorization: Bearer {{token}}
+
+### 查询/countAlertLevel => 成功
+GET {{baseUrl}}/data/center/countAlertLevel
+Authorization: Bearer {{token}}
+
+### 查询/countThingsModelInvoke => 成功
+GET {{baseUrl}}/data/center/countThingsModelInvoke
+Authorization: Bearer {{token}}
+
+### 新增DataCenterController => 成功
+POST {{baseUrl}}/data/center
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/deviceHistory => 成功
+POST {{baseUrl}}/data/center/deviceHistory
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/deviceExport => 成功
+POST {{baseUrl}}/data/center/deviceExport
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/sceneExport => 成功
+POST {{baseUrl}}/data/center/sceneExport
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改DataCenterController => 成功
+PUT {{baseUrl}}/data/center
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除DataCenterController => 成功
+DELETE {{baseUrl}}/data/center/1,2,3
+Authorization: Bearer {{token}}

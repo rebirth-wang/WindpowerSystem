@@ -1,0 +1,65 @@
+﻿### 查询SceneController分页列表 => 成功
+GET {{baseUrl}}/iot/scene/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/scene/list
+Authorization: Bearer {{token}}
+
+### 新增SceneController => 成功
+POST {{baseUrl}}/iot/scene
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/scene/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/bindAlerts => 成功
+POST {{baseUrl}}/iot/scene/bindAlerts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SceneController => 成功
+PUT {{baseUrl}}/iot/scene
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/updateStatus => 成功
+PUT {{baseUrl}}/iot/scene/updateStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除SceneController => 成功
+DELETE {{baseUrl}}/iot/scene/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{sceneIds} => 成功
+DELETE {{baseUrl}}/iot/scene/{sceneIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/unbindAlerts => 成功
+DELETE {{baseUrl}}/iot/scene/unbindAlerts
+Authorization: Bearer {{token}}

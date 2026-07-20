@@ -1,0 +1,61 @@
+﻿### 查询RuleElController分页列表 => 成功
+GET {{baseUrl}}/rule/el/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/rule/el/list
+Authorization: Bearer {{token}}
+
+### 新增RuleElController => 成功
+POST {{baseUrl}}/rule/el
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/rule/el/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/exec => 成功
+POST {{baseUrl}}/rule/el/exec
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/publish => 成功
+POST {{baseUrl}}/rule/el/publish
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改RuleElController => 成功
+PUT {{baseUrl}}/rule/el
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除RuleElController => 成功
+DELETE {{baseUrl}}/rule/el/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/rule/el/{ids}
+Authorization: Bearer {{token}}

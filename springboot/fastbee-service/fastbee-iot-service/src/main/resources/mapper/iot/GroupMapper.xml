@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.GroupMapper">
+
+    <resultMap type="com.fastbee.iot.domain.Group" id="GroupResult">
+        <result property="groupId"    column="group_id"    />
+        <result property="groupName"    column="group_name"    />
+        <result property="groupOrder"    column="group_order"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.IdOutput" id="IdsResult">
+        <result property="id"    column="device_id"    />
+    </resultMap>
+
+    <sql id="selectGroupVo">
+        select group_id, group_name, group_order, user_id, user_name,  create_time, update_time, remark from iot_group
+    </sql>
+
+    <select id="selectGroupList" parameterType="com.fastbee.iot.domain.Group" resultMap="GroupResult">
+        <include refid="selectGroupVo"/>
+        <where>
+            <if test="groupName != null  and groupName != ''"> and group_name like concat('%', #{groupName}, '%')</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+        order by group_order
+    </select>
+
+    <select id="selectDeviceIdsByGroupId" parameterType="Long" resultMap="IdsResult">
+            select device_id from iot_device_group where group_id=#{groupId}
+    </select>
+
+    <select id="selectGroupDeviceShortList" resultType="com.fastbee.iot.model.vo.DeviceShortV0">
+        SELECT
+        outer_table.group_id,
+        outer_table.device_id,
+        ranked_table.device_name
+        FROM
+        iot_device_group outer_table
+        JOIN (
+            SELECT
+            inner_table.group_id,
+            inner_table.device_id,
+            d.device_name,
+            (
+                SELECT
+                COUNT(*)
+                FROM
+                iot_device_group count_table
+                WHERE
+                count_table.group_id = inner_table.group_id
+                AND (count_table.device_id > inner_table.device_id OR (count_table.device_id = inner_table.device_id AND count_table.group_id &lt;= inner_table.group_id))
+            ) AS row_num
+            FROM
+            iot_device_group inner_table
+            left join iot_device d on inner_table.device_id = d.device_id
+            WHERE
+            inner_table.group_id in
+                <foreach collection="groupIdList" item="groupId" open="(" separator="," close=")">
+                    #{groupId}
+                </foreach>
+            and d.del_flag = 0
+            ) ranked_table
+        ON outer_table.group_id = ranked_table.group_id AND outer_table.device_id = ranked_table.device_id
+        WHERE
+        ranked_table.row_num &lt; 3
+    </select>
+
+    <insert id="insertDeviceGroups" parameterType="com.fastbee.iot.model.DeviceGroupInput">
+        insert into iot_device_group (device_id,group_id)
+        values
+        <foreach item="deviceId" collection="deviceIds" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{deviceId},#{groupId},
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="deleteDeviceGroupByGroupIds" parameterType="String">
+        delete from iot_device_group where group_id in
+        <foreach item="groupId" collection="array" open="(" separator="," close=")">
+            #{groupId}
+        </foreach>
+    </delete>
+</mapper>

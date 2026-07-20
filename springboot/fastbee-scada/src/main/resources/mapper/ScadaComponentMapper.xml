@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.scada.mapper.ScadaComponentMapper">
+
+    <resultMap type="ScadaComponent" id="ScadaComponentResult">
+        <result property="id"    column="id"    />
+        <result property="componentName"    column="component_name"    />
+        <result property="componentTemplate"    column="component_template"    />
+        <result property="componentStyle"    column="component_style"    />
+        <result property="componentScript"    column="component_script"    />
+        <result property="componentImage"    column="component_image"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="sysFlag"    column="sys_flag"    />
+        <result property="userId"    column="user_id"    />
+    </resultMap>
+
+    <sql id="selectScadaComponentVo">
+        select id, component_name, component_template, component_style, component_script, component_image, tenant_id, tenant_name, create_by, create_time, update_by, update_time, del_flag, sys_flag, user_id from scada_component
+    </sql>
+
+</mapper>

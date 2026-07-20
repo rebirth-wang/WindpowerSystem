@@ -1,0 +1,329 @@
+{
+  "title": "图表",
+  "icon": "insert_chart",
+  "opened": false,
+  "items": [
+    {
+      "text": "曲线图",
+      "icon": "curve_chart",
+      "type": "svg",
+      "info": {
+        "type": "chart-line",
+        "componentShow": ["组件颜色", "暂无绑定"],
+        "action": [],
+        "dataBind": {
+          "sceneModelDeviceId": "",
+          "serialNumber": "",
+          "identifiers": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 500,
+            "h": 250
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "折线图",
+      "icon": "line_chart",
+      "type": "svg",
+      "info": {
+        "type": "chart-line-step",
+        "componentShow": ["组件颜色", "暂无绑定"],
+        "action": [],
+        "dataBind": {
+          "sceneModelDeviceId": "",
+          "serialNumber": "",
+          "identifiers": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 500,
+            "h": 250
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "柱状图",
+      "icon": "bar_chart",
+      "type": "svg",
+      "info": {
+        "type": "chart-bar",
+        "componentShow": ["组件颜色", "暂无绑定"],
+        "action": [],
+        "dataBind": {
+          "sceneModelDeviceId": "",
+          "serialNumber": "",
+          "identifiers": []
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 500,
+            "h": 250
+          },
+          "backColor": "rgba(255,255,255,1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "饼形图",
+      "icon": "pie_chart",
+      "type": "svg",
+      "info": {
+        "type": "chart-pie",
+        "componentShow": ["设备统计", "组件颜色", "暂无绑定"],
+        "action": [],
+        "dataBind": {},
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 250
+          },
+          "backColor": "rgba(255, 255, 255, 1)",
+          "foreColor": "rgba(0,0,0,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)",
+          "pieType": "设备状态"
+        }
+      }
+    },
+    {
+      "text": "仪表图",
+      "icon": "gauge_chart",
+      "type": "svg",
+      "info": {
+        "type": "chart-gauge",
+        "componentShow": ["参数绑定", "组件颜色"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "modelName": "",
+          "modelValue": "",
+          "unit": "%",
+          "paramMin": 0,
+          "paramMax": 100,
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 300
+          },
+          "backColor": "rgba(0,0,0,1)",
+          "foreColor": "rgba(255,255,255,1)",
+          "zIndex": 1,
+          "transform": 0,
+          "fontSize": 14,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "温度计",
+      "icon": "thermometer",
+      "type": "svg",
+      "info": {
+        "type": "chart-temp",
+        "componentShow": ["参数绑定", "组件颜色", "组件填充"],
+        "action": [],
+        "dataBind": {
+          "dataType": 1,
+          "sceneModelId": "",
+          "sceneModelDeviceId": "",
+          "variableType": "",
+          "productId": "",
+          "serialNumber": "",
+          "identifier": "",
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "modelName": "",
+          "modelValue": "",
+          "unit": "",
+          "stateList": [],
+          "paramMin": 0,
+          "paramMax": 100,
+          "interval": 10,
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 300
+          },
+          "backColor": "rgba(255, 255, 255, 1)",
+          "foreColor": "rgba(0, 0, 0, 1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "地图",
+      "icon": "map",
+      "isHide": false,
+      "type": "svg",
+      "info": {
+        "type": "chart-map",
+        "componentShow": ["自定义echarts", "地图文件", "参数绑定"],
+        "action": [],
+        "dataBind": {
+          "echartOption": "",
+          "echartRun": 0,
+          "echartData": "",
+          "mapAddress": "北京",
+          "mapUrl": "https://www.isqqw.com/asset/get/areas_v3/country/china.json",
+          "dataType": 4,
+          "statusType": 1,
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 300
+          },
+          "backColor": "rgba(255, 255, 255, 1)",
+          "foreColor": "rgba(0, 0, 0, 1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    },
+    {
+      "text": "自定义",
+      "icon": "custom",
+      "type": "svg",
+      "isHide": false,
+      "info": {
+        "type": "chart-wrapper",
+        "componentShow": ["参数绑定", "自定义echarts"],
+        "action": [],
+        "dataBind": {
+          "dataType": 4,
+          "statusType": 1,
+          "simValue": "",
+          "simInterval": 1,
+          "filter": 0,
+          "funValue": "// 数据处理逻辑编辑\r\n// 以返回值作为绑定结果\r\nconst result = value;\r\nreturn result;",
+          "echartOption": "",
+          "echartRun": 0,
+          "echartData": "",
+          "modelMaps": [],
+          "httpSetting": {
+            "type": "get",
+            "time": 30,
+            "unit": "s",
+            "params": {},
+            "body": {
+              "type": 1,
+              "value": ""
+            },
+            "headers": {}
+          },
+          "httpFilter": "",
+          "httpSettingId": ""
+        },
+        "style": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 300
+          },
+          "backColor": "rgba(255, 255, 255, 1)",
+          "foreColor": "rgba(0, 0, 0, 1)",
+          "zIndex": 1,
+          "transform": 0,
+          "transformType": "rotate(0deg)"
+        }
+      }
+    }
+  ]
+}

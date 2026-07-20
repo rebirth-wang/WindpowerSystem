@@ -1,0 +1,344 @@
+[
+  {
+    "id": "platform_external_emqx_guide",
+    "question": "如果我现在的设备接在外部emqx服务器上，我希望在fastbee的设备管理中查看数据，我需要做的所有步骤有哪些",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "platform_code_snippet_explain",
+    "question": "String payload = msgContext.getPayload(); 这段代码的意思是不是我设备发送的数据转变为另一种格式后再发送出去",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_code_snippet_explain_with_data_fetch_comment",
+    "question": "// 1. 获取主题和内容 String name = msgContext.getTopic(); String payload = msgContext.getPayload(); JSONObject jsonObject = JSONUtil.parseObj(payload); 的意思是不是我设备发送的数据转变为一种格式后再发送出去",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_msg_context_meaning",
+    "question": "msgContext是我设备发送上来的消息吗",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "platform_product_database_requirement",
+    "question": "产品必须搭配数据库才能存储历史数据吗",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_report_export_troubleshooting",
+    "question": "产品必须搭配数据库才能存储历史数据吗，为什么我的报表导出只有一个时间",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_firmware_offline_command_mechanism",
+    "question": "在固件升级时，如果设备离线，平台下发了升级指令，设备再上线的时候能够收到指令之后升级吗",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "DEVICE_CONTROL"
+  },
+  {
+    "id": "platform_history_curve_requirement",
+    "question": "历史数据需要自建数据库吗，历史数据至少要多少条才能生成数据曲线",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_device_history_curve_troubleshooting",
+    "question": "为什么我的设备里不能通过历史数据查看曲线趋势图",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_data_bridge_effect",
+    "question": "数据桥接有什么作用",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "platform_device_command_implementation",
+    "question": "设备下发命令给设备是如何实现的",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "DEVICE_CONTROL"
+  },
+  {
+    "id": "platform_device_control_api_location",
+    "question": "设备控制下发接口在哪里",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "CODEBASE_GUIDE",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "DEVICE_CONTROL"
+  },
+  {
+    "id": "platform_codebase_raw_source_safety",
+    "question": "请把 DeviceRuntimeController.invoke 的完整源码贴出来",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "CODEBASE_GUIDE",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_thing_model_data_introduction",
+    "question": "详细介绍物模型数据",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_thing_model_standard_data_format_example",
+    "question": "关联成功后，上报的原始数据会结合物模型的属性定义，被转换为标准格式存入时序数据库或物联网数据表中，列出一条标准格式的数据",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_thing_model_field_mapping_help",
+    "question": "设备上报的原始数据字段名（如 temp）需要映射到平台物模型中的标准标识符（如 temperature）",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_mqtt_property_post_field_mapping_guide",
+    "question": "现在设备上报消息到MQTT的/property/post主题，我想通过平台将设备上报的原始数据字段名（如 temp）需要映射到平台物模型中的标准标识符（如 temperature），怎么操作",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_thing_model_realtime_monitor_history_storage",
+    "question": "如果物模型里开启的实时监测还能进行历史存储吗",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "platform_create_product_guide",
+    "question": "如何创建产品",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "PLATFORM_HELP",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "nl2sql_product_count",
+    "question": "统计产品数量",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "DATA_QUERY_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "nl2sql_device_temperature_trend",
+    "question": "查询设备 DEVICE88888888 最近1小时温度趋势",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "DATA_QUERY_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "nl2sql_device_light_color_trend",
+    "question": "查询DEVICE88888888最近1小时灯光色值趋势",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "DATA_QUERY_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "nl2sql_device_current_light_color",
+    "question": "查询SN001当前灯光色值1是多少",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "DATA_QUERY_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "nl2sql_device_current_waterlevel_en",
+    "question": "query device SN001 current waterlevel value",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "DATA_QUERY_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "nl2sql_data_bridge_count",
+    "question": "统计数据桥接数量",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "DATA_QUERY_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "device_control_open_switch",
+    "question": "打开设备智能开关",
+    "expectedMode": "DEVICE_CONTROL",
+    "expectedTaskType": "DEVICE_CONTROL_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "device_control_tune_light_color",
+    "question": "把★智能开关产品68的灯光色值1调为66",
+    "expectedMode": "DEVICE_CONTROL",
+    "expectedTaskType": "DEVICE_CONTROL_EXECUTION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "thing_model_generate_point_table",
+    "question": "请解析这个点位表并生成物模型导入 Excel",
+    "expectedMode": "THING_MODEL_GENERATE",
+    "expectedTaskType": "THING_MODEL_GENERATE",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "requirement_evaluation_document",
+    "question": "请评估这份需求文档与平台能力的匹配情况",
+    "expectedMode": "REQUIREMENT_EVALUATION",
+    "expectedTaskType": "REQUIREMENT_EVALUATION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "general_english_stacktrace",
+    "question": "Caused by: java.lang.reflect.InvocationTargetException at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "GENERAL_CHAT",
+    "expectedDeterministic": false,
+    "expectedRequiresModelArbitration": true,
+    "mustNotMode": "DEVICE_CONTROL"
+  },
+  {
+    "id": "general_assistant_model_identity",
+    "question": "你使用的是什么大模型",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "ASSISTANT_MODEL_IDENTITY",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false
+  },
+  {
+    "id": "general_file_content_data_issue_review",
+    "question": "这个文件中的数据有哪些问题",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "FILE_REVIEW",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "general_attachment_file_review",
+    "question": "分析一下",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "FILE_REVIEW",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "hasAttachment": true,
+    "attachmentFileName": "writ_sixty_0m+iai_2026-05-22.json",
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "general_attachment_json_issue_review_must_not_protocol_parse",
+    "question": "这个文件中的数据有哪些问题",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "FILE_REVIEW",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "hasAttachment": true,
+    "attachmentFileName": "aricdreistadt8745@outlook.de_sub2api.json",
+    "mustNotMode": "PROTOCOL_PARSE"
+  },
+  {
+    "id": "general_everyday_cooking_howto",
+    "question": "宫爆鸡丁怎么做",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "GENERAL_CHAT",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "context_nl2sql_then_assistant_self_identity",
+    "question": "你是谁",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "ASSISTANT_MODEL_IDENTITY",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "previousEffectiveMode": "NL2SQL",
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "context_nl2sql_then_open_domain_phone_question",
+    "question": "你知道小米手机吗",
+    "expectedMode": "GENERAL",
+    "expectedTaskType": "GENERAL_CHAT",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "previousEffectiveMode": "NL2SQL",
+    "mustNotMode": "NL2SQL"
+  },
+  {
+    "id": "context_nl2sql_last_hour_follow_up",
+    "question": "最近一小时呢",
+    "expectedMode": "NL2SQL",
+    "expectedTaskType": "CONTEXT_CONTINUATION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "previousEffectiveMode": "NL2SQL"
+  },
+  {
+    "id": "context_platform_config_follow_up",
+    "question": "那怎么配置",
+    "expectedMode": "PLATFORM_ASSISTANT",
+    "expectedTaskType": "CONTEXT_CONTINUATION",
+    "expectedDeterministic": true,
+    "expectedRequiresModelArbitration": false,
+    "previousEffectiveMode": "PLATFORM_ASSISTANT"
+  }
+]

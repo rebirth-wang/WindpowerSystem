@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ThingsModelMapper">
+    <resultMap type="com.fastbee.iot.model.vo.ThingsModelVO" id="ThingsModelVOResult">
+        <result property="modelId" column="model_id"/>
+        <result property="modelName" column="model_name"/>
+        <result property="modelName_zh_CN" column="model_name_zh_cn"/>
+        <result property="modelName_en_US" column="model_name_en_us"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="tenantName" column="tenant_name"/>
+        <result property="identifier" column="identifier"/>
+        <result property="type" column="type"/>
+        <result property="datatype" column="datatype"/>
+        <result property="formula" column="formula"/>
+        <result property="specs" column="specs"/>
+        <result property="isChart" column="is_chart"/>
+        <result property="isSharePerm" column="is_share_perm"/>
+        <result property="isHistory" column="is_history"/>
+        <result property="isMonitor" column="is_monitor"/>
+        <result property="isApp" column="is_app"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="isReadonly" column="is_readonly"/>
+        <result property="modelOrder" column="model_order"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.ThingsModelPerm" id="ThingsModelPermResult">
+        <result property="modelName" column="model_name"/>
+        <result property="identifier" column="identifier"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.modbus.ModbusAndThingsVO" id="ThingsModelAndModbusResult">
+        <result property="modelId" column="model_id"/>
+        <result property="modelName" column="model_name"/>
+        <result property="identifier" column="identifier"/>
+        <result property="isSelect" column="is_select"/>
+        <result property="dataType" column="datatype"/>
+    </resultMap>
+
+    <sql id="selectThingsModelVo">
+        select model_id,
+               model_name,
+               product_id,
+               product_name,
+               tenant_id,
+               tenant_name,
+               identifier,
+               type,
+               datatype,
+               formula,
+               specs,
+               is_chart,
+               is_share_perm,
+               is_history,
+               is_monitor,
+               is_app,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               is_readonly,
+               model_order
+        from iot_things_model
+    </sql>
+
+    <select id="pageThingsModelVO" resultMap="ThingsModelVOResult">
+        select m.model_id,
+        case
+        when #{thingsModelVO.language} = 'zh-CN' then m.model_name
+        when #{thingsModelVO.language} = 'en-US' then t.en_us
+        else m.model_name
+        end as model_name,
+        m.model_name as model_name_zh_cn, t.en_us as model_name_en_us,
+        m.product_id, m.product_name, m.tenant_id, m.tenant_name, m.identifier, m.type, m.datatype, m.formula,
+        m.specs, m.is_chart, m.is_share_perm, m.is_history, m.is_monitor, m.is_app, m.del_flag, m.create_by,
+        m.create_time, m.update_by, m.update_time, m.remark, m.is_readonly, m.model_order
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        <where>
+            m.del_flag = '0'
+            <if test="thingsModelVO.productId != null">
+                and m.product_id = #{thingsModelVO.productId}
+            </if>
+            <if test="thingsModelVO.type!=null">
+                and m.type = #{thingsModelVO.type}
+            </if>
+            <if test="thingsModelVO.isChart != null ">
+                and m.is_chart = #{thingsModelVO.isChart}
+            </if>
+            <if test="thingsModelVO.isHistory != null ">
+                and m.is_history = #{thingsModelVO.isHistory}
+            </if>
+            <if test="thingsModelVO.isMonitor != null ">
+                and m.is_monitor = #{thingsModelVO.isMonitor}
+            </if>
+            <if test="thingsModelVO.isReadonly != null ">
+                and m.is_readonly = #{thingsModelVO.isReadonly}
+            </if>
+            <if test="thingsModelVO.modelIdList != null ">
+                and m.model_id in
+                <foreach collection="modelIdList" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="thingsModelVO.modelName != null and thingsModelVO.modelName != '' and thingsModelVO.language == 'zh-CN'">
+                and m.model_name like concat ('%', #{thingsModelVO.modelName}, '%')
+            </if>
+            <if test="thingsModelVO.modelName != null and thingsModelVO.modelName != '' and thingsModelVO.language == 'en-US'">
+                and t.en_us like concat ('%', #{thingsModelVO.modelName}, '%')
+            </if>
+            <if test="thingsModelVO.identifier != null and thingsModelVO.identifier != ''">
+                and m.identifier like concat ('%', #{thingsModelVO.identifier}, '%')
+            </if>
+        </where>
+        order by m.model_order desc, m.create_time desc
+    </select>
+
+    <select id="selectThingsModelList" parameterType="com.fastbee.iot.domain.ThingsModel" resultMap="ThingsModelVOResult">
+        select m.model_id,
+        case
+        when #{language} = 'zh-CN' then m.model_name
+        when #{language} = 'en-US' then t.en_us
+        else m.model_name
+        end as model_name,
+        m.model_name as model_name_zh_cn, t.en_us as model_name_en_us,
+        m.product_id, m.product_name, m.tenant_id, m.tenant_name, m.identifier, m.type, m.datatype, m.formula,
+        m.specs, m.is_chart, m.is_share_perm, m.is_history, m.is_monitor, m.is_app, m.del_flag, m.create_by,
+        m.create_time, m.update_by, m.update_time, m.remark, m.is_readonly, m.model_order
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        <where>
+            m.del_flag = '0'
+            <if test="productId != null">
+                and m.product_id = #{productId}
+            </if>
+            <if test="type!=null">
+                and m.type = #{type}
+            </if>
+            <if test="isChart != null ">
+                and m.is_chart = #{isChart}
+            </if>
+            <if test="isHistory != null ">
+                and m.is_history = #{isHistory}
+            </if>
+            <if test="isMonitor != null ">
+                and m.is_monitor = #{isMonitor}
+            </if>
+            <if test="isReadonly != null ">
+                and m.is_readonly = #{isReadonly}
+            </if>
+            <if test="modelIdList != null ">
+                and m.model_id in
+                <foreach collection="modelIdList" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="modelName != null and modelName != '' and language == 'zh-CN'">
+                and m.model_name like concat ('%', #{modelName}, '%')
+            </if>
+            <if test="modelName != null and modelName != '' and language == 'en-US'">
+                and t.en_us like concat ('%', #{modelName}, '%')
+            </if>
+            <if test="identifier != null and identifier != ''">
+                and m.identifier like concat ('%', #{identifier}, '%')
+            </if>
+        </where>
+        order by m.model_order desc, m.create_time desc
+    </select>
+
+    <select id="selectThingsModelPermList" resultMap="ThingsModelPermResult">
+        select case
+                   when #{language} = 'zh-CN' then m.model_name
+                   when #{language} = 'en-US' then t.en_us
+                   else m.model_name
+                   end as model_name,
+               m.identifier, m.is_share_perm, m.remark
+        from iot_things_model m
+                 left join iot_things_model_translate t on m.model_id = t.id
+        where m.product_id=#{productId} and is_share_perm=1 and m.del_flag = '0'
+        order by model_order desc,create_time desc
+    </select>
+
+
+    <select id="selectThingsModelListByProductIds" parameterType="String" resultMap="ThingsModelVOResult">
+        select m.model_id,
+        case
+        when #{language} = 'zh-CN' then m.model_name
+        when #{language} = 'en-US' then t.en_us
+        else m.model_name
+        end as model_name,
+        m.product_id, m.product_name, m.tenant_id, m.tenant_name, m.identifier, m.type, m.datatype, m.formula,
+        m.specs, m.is_chart, m.is_share_perm, m.is_history, m.is_monitor, m.is_app, m.del_flag, m.create_by,
+        m.create_time, m.update_by, m.update_time, m.remark, m.is_readonly, m.model_order
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        where is_chart=1 and m.del_flag = '0' and m.product_id in
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </select>
+
+    <select id="selectThingsModelIsMonitor" parameterType="com.fastbee.iot.model.ThingsModels.ThingsItems"
+            resultType="com.fastbee.common.extend.core.response.IdentityAndName">
+        select m.is_monitor as isMonitor,
+        m.is_chart as isChart,
+        m.is_share_perm as isSharePerm,
+        m.is_history as isHistory,
+        m.specs as dataType,
+        case
+        when #{language} = 'zh-CN' then m.model_name
+        when #{language} = 'en-US' then t.en_us
+        else m.model_name
+        end as name,
+        m.type as type,
+        m.formula as formula,
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        where m.product_id = #{productId,jdbcType=BIGINT}
+        and m.identifier in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and m.del_flag = '0'
+    </select>
+
+    <select id="listSimByProductIds" resultType="com.fastbee.iot.model.vo.ThingsModelSimVO">
+        select m.product_id, m.identifier,
+        case
+        when #{language} = 'zh-CN' then m.model_name
+        when #{language} = 'en-US' then t.en_us
+        else m.model_name
+        end as model_name,
+        m.type as thingsModelType,
+        m.datatype
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        where m.product_id in
+        <foreach collection="productIdList" item="productId" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+        and m.del_flag = '0'
+    </select>
+
+    <select id="listSceneModelDataByModelIds" resultType="com.fastbee.iot.domain.ThingsModel">
+        select m.model_id, m.identifier,
+        case
+        when #{language} = 'zh-CN' then m.model_name
+        when #{language} = 'en-US' then t.en_us
+        else m.model_name
+        end as model_name,
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        where m.model_id in
+        <foreach collection="modelIdList" item="modelId" open="(" separator="," close=")">
+            #{modelId}
+        </foreach>
+        and m.del_flag = '0'
+    </select>
+
+
+    <select id="getModbusConfigUnSelectThingsModel" resultMap="ThingsModelAndModbusResult">
+        select m.model_id, m.identifier,
+               case
+                   when #{language} = 'zh-CN' then m.model_name
+                   when #{language} = 'en-US' then t.en_us
+                   else m.model_name
+                   end as model_name,
+               m.datatype,
+               case
+                   when (select count(1) from iot_modbus_config c where c.product_id = #{productId} and c.identifier = m.identifier and c.del_flag = 0) > 0 then 0
+                   else 1
+                   end as is_select
+        from iot_things_model m
+        left join iot_things_model_translate t on m.model_id = t.id
+        where m.product_id = #{productId}
+          and m.del_flag = '0'
+    </select>
+
+    <select id="selectThingsModelListByModelIds" resultType="com.fastbee.iot.domain.ThingsModel">
+        select model_id, type
+        from iot_things_model where model_id in
+        <foreach item="modelId" collection="modelIdList" open="(" separator="," close=")">
+            #{modelId}
+        </foreach>
+        and del_flag = '0'
+    </select>
+
+    <select id="selectThingsModelBySerialNumber" resultMap="ThingsModelVOResult">
+        select m.model_id, m.identifier,
+               case
+                   when #{language} = 'zh-CN' then m.model_name
+                   when #{language} = 'en-US' then t.en_us
+                   else m.model_name
+                   end as model_name
+        from iot_things_model m
+        inner join iot_device d on m.product_id = d.product_id
+        left join iot_things_model_translate t on m.model_id = t.id
+        where d.device_id = #{deviceId}
+        and m.is_readonly = 0
+          and m.del_flag = '0'
+    </select>
+
+    <select id="checkIdentifierList" resultType="java.lang.String">
+        select identifier
+        from iot_things_model
+        where identifier in
+            <foreach collection="identifierList" item="identifier" open="(" separator="," close=")">
+                #{identifier}
+            </foreach>
+        and product_id = #{productId}
+        and del_flag = '0'
+    </select>
+
+    <update id="restoreThingsModelByProductId" parameterType="Long">
+         update iot_things_model set del_flag = '0' where product_id = #{productId}
+    </update>
+
+    <select id="selectMaxModelOrderByProductId" resultType="java.lang.Integer">
+        SELECT MAX(model_order) FROM iot_things_model WHERE product_id = #{productId} and del_flag = '0'
+    </select>
+
+    <update id="updateSortToTop" parameterType="com.fastbee.iot.model.vo.ThingsModelVO">
+        UPDATE iot_things_model
+        SET model_order = (SELECT max_order FROM (SELECT MAX(model_order) AS max_order FROM iot_things_model WHERE product_id = #{thingsModelVO.productId} and del_flag = 0) AS temp) + 1
+        WHERE model_id = #{thingsModelVO.modelId}
+    </update>
+
+    <update id="swapSortWithPrevious" parameterType="com.fastbee.iot.model.vo.ThingsModelVO">
+        UPDATE iot_things_model t1
+            JOIN iot_things_model t2 ON t2.model_id = #{thingsModelVO.upModelId}
+            SET t1.model_order = t2.model_order, t2.model_order = t1.model_order
+        WHERE t1.model_id = #{thingsModelVO.modelId}
+    </update>
+
+    <update id="swapSortWithNext" parameterType="com.fastbee.iot.model.vo.ThingsModelVO">
+        UPDATE iot_things_model t1
+            JOIN iot_things_model t2 ON t2.model_id = #{thingsModelVO.downModelId}
+            SET t1.model_order = t2.model_order, t2.model_order = t1.model_order
+        WHERE t1.model_id = #{thingsModelVO.modelId}
+    </update>
+    
+    <delete id="deleteThingsModelByModelIds" parameterType="Long">
+        delete from iot_things_model where product_id = #{productId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,43 @@
+﻿### 查询SysClientController分页列表 => 成功
+GET {{baseUrl}}/system/sysclient/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/sysclient/list
+Authorization: Bearer {{token}}
+
+### 新增SysClientController => 成功
+POST {{baseUrl}}/system/sysclient
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/system/sysclient/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysClientController => 成功
+PUT {{baseUrl}}/system/sysclient
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysClientController => 成功
+DELETE {{baseUrl}}/system/sysclient/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/system/sysclient/{ids}
+Authorization: Bearer {{token}}

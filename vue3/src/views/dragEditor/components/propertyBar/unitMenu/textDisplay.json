@@ -1,0 +1,17 @@
+{
+  "title": "文字展示",
+  "items": [
+    {
+      "text": "标题文字",
+      "type": "caption-text",
+      "img": "components/textDisplay/caption_text.png",
+      "name": "captionText"
+    },
+    {
+      "text": "文字展示1",
+      "type": "text-display-1",
+      "img": "components/textDisplay/text1.png",
+      "name": "textDisplay1"
+    }
+  ]
+}

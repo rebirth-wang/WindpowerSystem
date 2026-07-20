@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.system.mapper.SysDeptMapper">
+
+	<resultMap type="com.fastbee.common.extend.core.domin.entity.SysDept" id="SysDeptResult">
+		<id     property="deptId"     column="dept_id"     />
+		<result property="deptUserId"   column="dept_user_id"   />
+		<result property="parentId"   column="parent_id"   />
+		<result property="ancestors"  column="ancestors"   />
+		<result property="deptName"   column="dept_name"   />
+		<result property="orderNum"   column="order_num"   />
+		<result property="leader"     column="leader"      />
+		<result property="phone"      column="phone"       />
+		<result property="email"      column="email"       />
+		<result property="status"     column="status"      />
+		<result property="delFlag"    column="del_flag"    />
+		<result property="parentName" column="parent_name" />
+		<result property="createBy"   column="create_by"   />
+		<result property="createTime" column="create_time" />
+		<result property="updateBy"   column="update_by"   />
+		<result property="updateTime" column="update_time" />
+		<result property="deptType" column="dept_type" />
+		<result property="deptLogo" column="dept_logo" />
+		<result property="logoName" column="logo_name" />
+		<result property="invitationCode" column="invitation_code" />
+	</resultMap>
+
+	<sql id="selectDeptVo">
+        select d.dept_id, d.dept_user_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time, d.dept_type, d.dept_logo, d.logo_name, d.invitation_code
+        from sys_dept d
+    </sql>
+
+	<select id="selectDeptList" parameterType="com.fastbee.common.extend.core.domin.entity.SysDept" resultMap="SysDeptResult">
+        <include refid="selectDeptVo"/>
+        where d.del_flag = '0'
+		<if test="deptId != null and deptId != 0">
+			AND dept_id = #{deptId}
+		</if>
+        <if test="parentId != null and parentId != 0">
+			AND parent_id = #{parentId}
+		</if>
+		<if test="deptName != null and deptName != ''">
+			AND dept_name like concat('%', #{deptName}, '%')
+		</if>
+		<if test="status != null">
+			AND status = #{status}
+		</if>
+		<!-- 数据范围过滤 -->
+		${params.dataScope}
+		order by d.parent_id, d.order_num
+    </select>
+
+    <select id="selectDeptListByRoleId" resultType="Long">
+		select d.dept_id
+		from sys_dept d
+            left join sys_role_dept rd on d.dept_id = rd.dept_id
+        where rd.role_id = #{roleId}
+			and d.del_flag = '0'
+            <if test="deptCheckStrictly">
+              and d.dept_id not in (select d.parent_id from sys_dept d inner join sys_role_dept rd on d.dept_id = rd.dept_id and rd.role_id = #{roleId})
+            </if>
+		order by d.parent_id, d.order_num
+	</select>
+
+    <select id="selectDeptById" parameterType="Long" resultMap="SysDeptResult">
+		select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.dept_type, d.dept_user_id, d.dept_logo, d.logo_name, d.invitation_code,
+			(select dept_name from sys_dept where dept_id = d.parent_id) parent_name
+		from sys_dept d
+		where d.dept_id = #{deptId} and d.del_flag = '0'
+	</select>
+
+    <select id="checkDeptExistUser" parameterType="Long" resultType="int">
+		select count(1) from sys_user where dept_id = #{deptId} and del_flag = '0'
+	</select>
+
+	<select id="hasChildByDeptId" parameterType="Long" resultType="int">
+		select count(1) from sys_dept
+		where del_flag = '0' and parent_id = #{deptId}
+	</select>
+
+
+	<select id="selectDeptByIds" resultMap="SysDeptResult">
+		<include refid="selectDeptVo"/>
+		where d.del_flag = '0'
+		and dept_id in
+			<foreach collection="deptIdList" item="deptId" open="(" separator="," close=")">
+				#{deptId}
+			</foreach>
+	</select>
+
+	<update id="updateDeptChildren" parameterType="java.util.List">
+	    update sys_dept set ancestors =
+	    <foreach collection="depts" item="item" index="index"
+	        separator=" " open="case dept_id" close="end">
+	        when #{item.deptId} then #{item.ancestors}
+	    </foreach>
+	    where dept_id in
+	    <foreach collection="depts" item="item" index="index"
+	        separator="," open="(" close=")">
+	        #{item.deptId}
+	    </foreach>
+	</update>
+
+	<update id="updateDeptStatusNormal" parameterType="Long">
+ 	    update sys_dept set status = 0 where dept_id in
+ 	    <foreach collection="array" item="deptId" open="(" separator="," close=")">
+        	#{deptId}
+        </foreach>
+	</update>
+
+    <update id="updateDeptUserId">
+		update sys_dept
+		set dept_user_id = #{deptUserId}
+		where dept_id = #{deptId}
+	</update>
+
+	<select id="selectSeniorDeptUser" resultType="java.lang.Long">
+		SELECT de.dept_user_id FROM sys_dept de
+		WHERE #{findInSetStr} and de.del_flag = '0'
+	</select>
+
+    <select id="selectRoleIdByDeptId" resultType="java.lang.Long">
+		select rd.role_id
+		from sys_dept d inner join sys_role_dept rd on d.dept_id = rd.dept_id
+						inner join sys_role r on rd.role_id = r.role_id
+		where d.dept_id = #{deptId}
+		  and r.role_key = 'webRegister'
+	</select>
+    <select id="selectRegisterRoleByDeptId" resultType="com.fastbee.common.extend.core.domin.entity.SysRole">
+		select r.role_id, r.role_name, r.role_key
+	    from sys_role_dept rd
+	    left join sys_role r on rd.role_id = r.role_id
+		where rd.dept_id = #{deptId}
+		  and r.role_key in ('manager','register')
+	</select>
+</mapper>

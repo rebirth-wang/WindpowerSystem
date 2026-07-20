@@ -1,0 +1,89 @@
+@use './common/style.scss';
+@use './pages/index.scss';
+
+[data-visual-big-screen-theme='dark'] body:has(.go-chart) .el-message,
+[data-visual-big-screen-theme='dark'] body:has(.go-edit) .el-message,
+[data-visual-big-screen-theme='dark'] body:has(.go-login-box) .el-message {
+  --el-message-bg-color: #1f2937;
+  --el-message-border-color: #374151;
+  background-color: var(--el-message-bg-color);
+  border-color: var(--el-message-border-color);
+}
+
+.el-message.go-items-static-message {
+  background-color: var(--el-message-bg-color) !important;
+  border-color: var(--el-message-border-color) !important;
+}
+
+.el-message.go-items-static-message.el-message--success {
+  --el-message-bg-color: var(--el-color-success-light-9);
+  --el-message-border-color: var(--el-color-success-light-8);
+  --el-message-text-color: var(--el-color-success);
+}
+
+.el-message.go-items-static-message.el-message--warning {
+  --el-message-bg-color: var(--el-color-warning-light-9);
+  --el-message-border-color: var(--el-color-warning-light-8);
+  --el-message-text-color: var(--el-color-warning);
+}
+
+.el-message.go-items-static-message.el-message--error {
+  --el-message-bg-color: var(--el-color-error-light-9);
+  --el-message-border-color: var(--el-color-error-light-8);
+  --el-message-text-color: var(--el-color-error);
+}
+
+.el-message.go-items-static-message.el-message--info {
+  --el-message-bg-color: var(--el-color-info-light-9);
+  --el-message-border-color: var(--el-color-info-light-8);
+  --el-message-text-color: var(--el-color-info);
+}
+
+.el-message.go-items-static-message .el-message__content,
+.el-message.go-items-static-message [class*='el-message-icon--'] {
+  color: var(--el-message-text-color) !important;
+}
+
+.el-message.el-message--success {
+  color: #67c23a !important;
+}
+
+.el-message.el-message--warning {
+  color: #e6a23c !important;
+}
+
+.el-message.el-message--error {
+  color: #f56c6c !important;
+}
+
+.el-message.el-message--info {
+  color: #909399 !important;
+}
+
+.go-visual-big-screen-dialog-modal {
+  z-index: 2147483000 !important;
+}
+
+.go-visual-big-screen-dialog {
+  z-index: 2147483001 !important;
+}
+
+[data-visual-big-screen-theme='dark'] .go-visual-big-screen-dialog {
+  --el-bg-color: #18181c;
+  --el-messagebox-title-color: #f4f4f5;
+  --el-messagebox-content-color: #d4d4d8;
+  --el-text-color-primary: #f4f4f5;
+  --el-text-color-regular: #d4d4d8;
+  --el-border-color: #3f3f46;
+  --el-border-color-light: #3f3f46;
+  --el-border-color-lighter: #27272a;
+  --el-fill-color-blank: #18181c;
+  --el-fill-color-light: #27272a;
+  border: 1px solid var(--el-border-color-light);
+}
+
+[data-visual-big-screen-theme='light'] .go-visual-big-screen-dialog {
+  --el-bg-color: #ffffff;
+  --el-messagebox-title-color: #303133;
+  --el-messagebox-content-color: #606266;
+}

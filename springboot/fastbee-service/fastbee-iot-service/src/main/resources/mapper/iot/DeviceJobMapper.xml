@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.DeviceJobMapper">
+
+	<resultMap type="com.fastbee.iot.domain.DeviceJob" id="DeviceJobResult">
+		<id     property="jobId"          column="job_id"          />
+		<result property="jobName"        column="job_name"        />
+		<result property="jobGroup"       column="job_group"       />
+		<result property="serialNumber"    column="serial_number"  />
+		<result property="deviceId"       column="device_id"       />
+		<result property="deviceName"       column="device_name"   />
+		<result property="actions"       column="actions"          />
+		<result property="alertTrigger"      column="alertTrigger" />
+		<result property="isAdvance"       column="is_advance"     />
+		<result property="cronExpression" column="cron_expression" />
+		<result property="misfirePolicy"  column="misfire_policy"  />
+		<result property="concurrent"     column="concurrent"      />
+		<result property="status"         column="status"          />
+		<result property="createBy"       column="create_by"       />
+		<result property="createTime"     column="create_time"     />
+		<result property="updateBy"       column="update_by"       />
+		<result property="updateTime"     column="update_time"     />
+		<result property="remark"         column="remark"          />
+		<result property="jobType"    column="job_type"    />
+		<result property="productId"    column="product_id"    />
+		<result property="productName"    column="product_name"    />
+		<result property="sceneId"    column="scene_id"    />
+		<result property="alertId"    column="alert_id"    />
+		<result property="datasourceId"    column="datasource_id"    />
+	</resultMap>
+
+	<sql id="selectJobVo">
+        select job_id, job_name, job_group,serial_number, device_id,device_name,actions,alert_trigger,is_advance, cron_expression, misfire_policy, concurrent, status, create_by, create_time, remark, job_type, product_id, product_name, scene_id, alert_id, datasource_id
+		from iot_device_job
+    </sql>
+
+	<select id="selectShortJobListByDeviceIds" parameterType="Long" resultMap="DeviceJobResult">
+		select job_id, job_name, job_group from iot_device_job
+		where device_id in
+		<foreach collection="array" item="deviceId" open="(" separator="," close=")">
+			#{deviceId}
+		</foreach>
+	</select>
+
+	<select id="selectShortJobListByAlertIds" parameterType="Long" resultMap="DeviceJobResult">
+		select job_id, job_name, job_group from iot_device_job
+		where alert_id in
+		<foreach collection="array" item="alertId" open="(" separator="," close=")">
+			#{alertId}
+		</foreach>
+	</select>
+
+	<select id="selectShortJobListBySceneIds" parameterType="Long" resultMap="DeviceJobResult">
+		select job_id, job_name, job_group from iot_device_job
+		where scene_id in
+		<foreach collection="array" item="sceneId" open="(" separator="," close=")">
+			#{sceneId}
+		</foreach>
+	</select>
+
+
+    <select id="selectListByJobTypeAndDatasourceIds" resultMap="DeviceJobResult">
+		select job_id, job_name, job_group from iot_device_job
+		where datasource_id in
+		<foreach collection="datasourceIds" item="datasourceId" open="(" separator="," close=")">
+			#{datasourceId}
+		</foreach>
+		and job_type = #{jobType}
+	</select>
+
+
+ 	<delete id="deleteJobByIds" parameterType="Long">
+ 		delete from iot_device_job where job_id in
+ 		<foreach collection="array" item="jobId" open="(" separator="," close=")">
+ 			#{jobId}
+        </foreach>
+ 	</delete>
+
+	<delete id="deleteJobByDeviceIds" parameterType="Long">
+		delete from iot_device_job where device_id in
+		<foreach collection="array" item="deviceId" open="(" separator="," close=")">
+			#{deviceId}
+		</foreach>
+	</delete>
+
+	<delete id="deleteJobByAlertIds" parameterType="Long">
+		delete from iot_device_job where alert_id in
+		<foreach collection="array" item="alertId" open="(" separator="," close=")">
+			#{alertId}
+		</foreach>
+	</delete>
+
+	<delete id="deleteJobBySceneIds" parameterType="Long">
+		delete from iot_device_job where scene_id in
+		<foreach collection="array" item="sceneId" open="(" separator="," close=")">
+			#{sceneId}
+		</foreach>
+	</delete>
+
+	<delete id="deleteJobByJobTypeAndDatasourceIds">
+		delete from iot_device_job where datasource_id in
+		<foreach collection="datasourceIds" item="datasourceId" open="(" separator="," close=")">
+			#{datasourceId}
+		</foreach>
+		and job_type = #{jobType}
+	</delete>
+
+	<delete id="deleteJobByJobTypeAndDeviceId">
+		delete from iot_device_job where device_id = #{deviceId} and job_type = #{jobType}
+	</delete>
+</mapper>

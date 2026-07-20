@@ -1,0 +1,61 @@
+﻿### 查询ThingsModelTemplateController分页列表 => 成功
+GET {{baseUrl}}/iot/template/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/template/list
+Authorization: Bearer {{token}}
+
+### 新增ThingsModelTemplateController => 成功
+POST {{baseUrl}}/iot/template
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/template/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/temp => 成功
+POST {{baseUrl}}/iot/template/temp
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/exportJson => 成功
+POST {{baseUrl}}/iot/template/exportJson
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ThingsModelTemplateController => 成功
+PUT {{baseUrl}}/iot/template
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ThingsModelTemplateController => 成功
+DELETE {{baseUrl}}/iot/template/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{templateIds} => 成功
+DELETE {{baseUrl}}/iot/template/{templateIds}
+Authorization: Bearer {{token}}

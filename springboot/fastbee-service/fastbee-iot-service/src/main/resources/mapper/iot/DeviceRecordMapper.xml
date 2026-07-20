@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.DeviceRecordMapper">
+
+    <resultMap type="DeviceRecord" id="DeviceRecordResult">
+        <result property="id"    column="id"    />
+        <result property="operateDeptId"    column="operate_dept_id"    />
+        <result property="targetDeptId"    column="target_dept_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="type"    column="type"    />
+        <result property="distributeType"    column="distribute_type"    />
+        <result property="total"    column="total"    />
+        <result property="successQuantity"    column="success_quantity"    />
+        <result property="failQuantity"    column="fail_quantity"    />
+        <result property="status"    column="status"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="parentId"    column="parent_id"    />
+    </resultMap>
+
+    <sql id="selectDeviceRecordVo">
+        select id, operate_dept_id, target_dept_id, product_id, device_id, type, distribute_type, total, success_quantity, fail_quantity, status, tenant_id, tenant_name, create_by, create_time, update_by, update_time, del_flag, serial_number, parent_id from iot_device_record
+    </sql>
+
+</mapper>

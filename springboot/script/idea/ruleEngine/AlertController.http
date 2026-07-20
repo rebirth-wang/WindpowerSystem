@@ -1,0 +1,60 @@
+﻿### 查询AlertController分页列表 => 成功
+GET {{baseUrl}}/iot/alert/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/alert/list
+Authorization: Bearer {{token}}
+
+### 查询/getScenesByAlertId/{alertId} => 成功
+GET {{baseUrl}}/iot/alert/getScenesByAlertId/{alertId}
+Authorization: Bearer {{token}}
+
+### 查询/listNotifyTemplate/{alertId} => 成功
+GET {{baseUrl}}/iot/alert/listNotifyTemplate/{alertId}
+Authorization: Bearer {{token}}
+
+### 新增AlertController => 成功
+POST {{baseUrl}}/iot/alert
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/alert/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/editStatus => 成功
+POST {{baseUrl}}/iot/alert/editStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改AlertController => 成功
+PUT {{baseUrl}}/iot/alert
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除AlertController => 成功
+DELETE {{baseUrl}}/iot/alert/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{alertIds} => 成功
+DELETE {{baseUrl}}/iot/alert/{alertIds}
+Authorization: Bearer {{token}}

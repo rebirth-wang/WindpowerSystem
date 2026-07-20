@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>fastbee-plugs</artifactId>
+        <groupId>com.fastbee</groupId>
+        <version>${revision}</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>fastbee-oss</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.12.272</version>
+        </dependency>
+<!--        &lt;!&ndash;  AWS SDK for Java 2.x  &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>software.amazon.awssdk</groupId>-->
+<!--            <artifactId>s3</artifactId>-->
+<!--            <exclusions>-->
+<!--                &lt;!&ndash; 将基于 CRT 的 HTTP 客户端从类路径中移除 &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>software.amazon.awssdk</groupId>-->
+<!--                    <artifactId>aws-crt-client</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; 将基于 Apache 的 HTTP 客户端从类路径中移除 &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>software.amazon.awssdk</groupId>-->
+<!--                    <artifactId>apache-client</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; 将配置基于 URL 连接的 HTTP 客户端从类路径中移除 &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>software.amazon.awssdk</groupId>-->
+<!--                    <artifactId>url-connection-client</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; 将基于 Netty 的 HTTP 客户端从类路径中移除 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>software.amazon.awssdk</groupId>-->
+<!--            <artifactId>netty-nio-client</artifactId>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; 基于 AWS CRT 的 S3 客户端的性能增强的 S3 传输管理器 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>software.amazon.awssdk</groupId>-->
+<!--            <artifactId>s3-transfer-manager</artifactId>-->
+<!--        </dependency>-->
+    </dependencies>
+
+</project>

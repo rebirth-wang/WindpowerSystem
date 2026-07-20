@@ -1,0 +1,43 @@
+﻿### 查询DeviceRecordController分页列表 => 成功
+GET {{baseUrl}}/iot/record/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/record/list
+Authorization: Bearer {{token}}
+
+### 新增DeviceRecordController => 成功
+POST {{baseUrl}}/iot/record
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/record/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改DeviceRecordController => 成功
+PUT {{baseUrl}}/iot/record
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除DeviceRecordController => 成功
+DELETE {{baseUrl}}/iot/record/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/iot/record/{ids}
+Authorization: Bearer {{token}}

@@ -1,0 +1,38 @@
+﻿### 查询TalkController分页列表 => 成功
+GET {{baseUrl}}/sip/talk/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/getPushUrl/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/talk/getPushUrl/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/broadcast/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/talk/broadcast/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 查询/broadcast/stop/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/talk/broadcast/stop/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 新增TalkController => 成功
+POST {{baseUrl}}/sip/talk
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改TalkController => 成功
+PUT {{baseUrl}}/sip/talk
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除TalkController => 成功
+DELETE {{baseUrl}}/sip/talk/1,2,3
+Authorization: Bearer {{token}}

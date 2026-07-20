@@ -1,0 +1,43 @@
+﻿### 查询ThingsModelTemplateTranslateController分页列表 => 成功
+GET {{baseUrl}}/iot/thingsModelTranslate/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/thingsModelTranslate/list
+Authorization: Bearer {{token}}
+
+### 新增ThingsModelTemplateTranslateController => 成功
+POST {{baseUrl}}/iot/thingsModelTranslate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/thingsModelTranslate/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ThingsModelTemplateTranslateController => 成功
+PUT {{baseUrl}}/iot/thingsModelTranslate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ThingsModelTemplateTranslateController => 成功
+DELETE {{baseUrl}}/iot/thingsModelTranslate/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/iot/thingsModelTranslate/{ids}
+Authorization: Bearer {{token}}

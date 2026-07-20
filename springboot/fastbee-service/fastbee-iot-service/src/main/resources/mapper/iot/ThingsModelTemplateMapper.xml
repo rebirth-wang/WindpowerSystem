@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ThingsModelTemplateMapper">
+
+    <resultMap type="com.fastbee.iot.domain.ThingsModelTemplate" id="ThingsModelTemplateResult">
+        <result property="templateId"    column="template_id"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="identifier"    column="identifier"    />
+        <result property="type"    column="type"    />
+        <result property="datatype"    column="datatype"    />
+        <result property="specs"    column="specs"    />
+        <result property="isSys"    column="is_sys"    />
+        <result property="isReadonly"    column="is_readonly"    />
+        <result property="isSharePerm"    column="is_share_perm"    />
+        <result property="isHistory"    column="is_history"    />
+        <result property="isMonitor"    column="is_monitor"    />
+        <result property="isApp" column="is_app"/>
+        <result property="formula"    column="formula"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="modelOrder"    column="model_order"    />
+        <result property="templateName_zh_CN"    column="templateName_zh_CN"    />
+        <result property="templateName_en_US"    column="templateName_en_US"    />
+    </resultMap>
+
+    <sql id="selectThingsModelTemplateVo">
+        select template_id, template_name, tenant_id, tenant_name, identifier, type, datatype, specs, is_sys, is_readonly, is_chart,is_share_perm, is_history, formula, del_flag, create_by, create_time, update_by, update_time, remark, model_order from iot_things_model_template
+    </sql>
+
+    <select id="selectThingsModelTemplateList" parameterType="com.fastbee.iot.model.vo.ThingsModelTemplateVO" resultMap="ThingsModelTemplateResult">
+        select m.template_id,
+        case
+        when #{thingsModelTemplateVO.language} = 'zh-CN' then m.template_name
+        when #{thingsModelTemplateVO.language} = 'en-US' then t.en_us
+        else m.template_name
+        end as template_name,
+        m.template_name as templateName_zh_CN,
+        t.en_us as templateName_en_US,
+        m.tenant_id, m.tenant_name, m.identifier, m.type, m.datatype, m.specs, m.is_sys, m.is_readonly, m.is_chart, m.is_share_perm, m.is_history, m.formula, m.del_flag, m.create_by, m.create_time, m.update_by, m.update_time, m.remark, m.model_order, m.is_monitor
+        from iot_things_model_template m
+        left join iot_things_model_template_translate t on m.template_id = t.id
+        <where>
+            m.del_flag = '0'
+            <if test="thingsModelTemplateVO.templateName != null  and thingsModelTemplateVO.templateName != ''"> and m.template_name like concat('%', #{thingsModelTemplateVO.templateName}, '%')</if>
+            <if test="thingsModelTemplateVO.type != null "> and m.type = #{thingsModelTemplateVO.type}</if>
+            <if test="thingsModelTemplateVO.specs != null  and thingsModelTemplateVO.specs != ''"> and m.specs = #{thingsModelTemplateVO.specs}</if>
+            <if test="thingsModelTemplateVO.tenantId != null  and thingsModelTemplateVO.tenantId != ''"> and (m.tenant_id = #{thingsModelTemplateVO.tenantId} or m.is_sys = 1)</if>
+            <if test="thingsModelTemplateVO.adminFlag">
+                <if test="thingsModelTemplateVO.isSys != null">
+                    and m.is_sys = #{thingsModelTemplateVO.isSys}
+                </if>
+            </if>
+            <if test="!thingsModelTemplateVO.adminFlag">
+                <if test="thingsModelTemplateVO.isSys != null and thingsModelTemplateVO.isSys == 1">
+                    and m.is_sys = 1
+                </if>
+                <if test="thingsModelTemplateVO.isSys != null and thingsModelTemplateVO.isSys == 0 and thingsModelTemplateVO.params.dataScope != null  and thingsModelTemplateVO.params.dataScope != ''">
+                    and ${thingsModelTemplateVO.params.dataScope}
+                </if>
+                <if test="thingsModelTemplateVO.isSys == null">
+                    <!-- 数据范围过滤 -->
+                    <if test="thingsModelTemplateVO.params.dataScope != null  and thingsModelTemplateVO.params.dataScope != '' and thingsModelTemplateVO.isSys == null">
+                        and (${thingsModelTemplateVO.params.dataScope} or m.is_sys = 1)
+                    </if>
+                </if>
+            </if>
+        </where>
+        order by m.template_id desc, m.create_time desc
+    </select>
+
+    <select id="selectThingsModelTemplateByTemplateId" resultMap="ThingsModelTemplateResult">
+        select m.template_id,
+               case
+                   when #{language} = 'zh-CN' then m.template_name
+                   when #{language} = 'en-US' then t.en_us
+                   else m.template_name
+                   end as template_name,
+               m.template_name as templateName_zh_CN,
+               t.en_us as templateName_en_US,
+               m.tenant_id, m.tenant_name, m.identifier, m.type, m.datatype, m.specs, m.is_sys, m.is_readonly, m.is_chart, m.is_share_perm, m.is_history, m.formula, m.del_flag, m.create_by, m.create_time, m.update_by, m.update_time, m.remark, m.model_order, m.is_monitor
+        from iot_things_model_template m
+                 left join iot_things_model_template_translate t on m.template_id = t.id
+        where m.template_id = #{thingsModelTemplateVO.templateId}
+        <if test="thingsModelTemplateVO.params.dataScope != null  and thingsModelTemplateVO.params.dataScope != ''">
+            and (${thingsModelTemplateVO.params.dataScope} or m.is_sys = 1)
+        </if>
+        and m.del_flag = '0'
+    </select>
+
+    <select id="selectThingsModelTemplateByTemplateIds" resultMap="ThingsModelTemplateResult">
+        select m.template_id,
+        case
+        when #{language} = 'zh-CN' then m.template_name
+        when #{language} = 'en-US' then t.en_us
+        else m.template_name
+        end as template_name,
+        m.template_name as templateName_zh_CN,
+        t.en_us as templateName_en_US,
+        m.tenant_id, m.tenant_name, m.identifier, m.type, m.datatype, m.specs, m.is_sys, m.is_readonly, m.is_chart, m.is_share_perm, m.is_history, m.formula, m.del_flag, m.create_by, m.create_time, m.update_by, m.update_time, m.remark, m.model_order, m.is_monitor
+        from iot_things_model_template m
+        left join iot_things_model_template_translate t on m.template_id = t.id
+        where m.template_id in
+        <foreach item="templateId" collection="templateIds" open="(" separator="," close=")">
+            #{templateId}
+        </foreach>
+        and m.del_flag = '0'
+    </select>
+
+    <select id="selectByIdentifiers" resultMap="ThingsModelTemplateResult">
+        select * from iot_things_model_template
+        where identifier in
+        <foreach item="identifier" collection="identifiers" open="(" separator="," close=")">
+            #{identifier}
+        </foreach>
+        and del_flag = '0'
+    </select>
+
+
+</mapper>

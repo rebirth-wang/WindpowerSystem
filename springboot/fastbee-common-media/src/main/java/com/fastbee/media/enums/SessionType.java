@@ -1,0 +1,5 @@
+package com.fastbee.media.enums;
+
+public enum SessionType {
+    PLAY,PLAYRECORD,PLAYBACK,DOWNLOAD,PUSH,PROXY,CLOUD_RECORD_PUSH,CLOUD_RECORD_PROXY,BROADCAST,TALK
+}

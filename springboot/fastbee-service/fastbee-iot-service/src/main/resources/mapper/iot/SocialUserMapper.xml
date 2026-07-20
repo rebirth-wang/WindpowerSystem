@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.social.mapper.SocialUserMapper">
+
+    <resultMap type="com.fastbee.social.domain.SocialUser" id="SocialUserResult">
+        <result property="socialUserId" column="social_user_id"/>
+        <result property="uuid" column="uuid"/>
+        <result property="source" column="source"/>
+        <result property="accessToken" column="access_token"/>
+        <result property="expireIn" column="expire_in"/>
+        <result property="refreshToken" column="refresh_token"/>
+        <result property="openId" column="open_id"/>
+        <result property="uid" column="uid"/>
+        <result property="accessCode" column="access_code"/>
+        <result property="unionId" column="union_id"/>
+        <result property="scope" column="scope"/>
+        <result property="tokenType" column="token_type"/>
+        <result property="idToken" column="id_token"/>
+        <result property="macAlgorithm" column="mac_algorithm"/>
+        <result property="macKey" column="mac_key"/>
+        <result property="code" column="code"/>
+        <result property="oauthToken" column="oauth_token"/>
+        <result property="oauthTokenSecret" column="oauth_token_secret"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="status" column="status"/>
+        <result property="sysUserId" column="sys_user_id"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="gender" column="gender"/>
+        <result property="sourceClient" column="source_client"/>
+    </resultMap>
+
+    <sql id="selectSocialUserVo">
+        select social_user_id,
+               uuid,
+               source,
+               access_token,
+               expire_in,
+               refresh_token,
+               open_id,
+               uid,
+               access_code,
+               union_id,
+               scope,
+               token_type,
+               id_token,
+               mac_algorithm,
+               mac_key,
+               code,
+               oauth_token,
+               oauth_token_secret,
+               create_time,
+               create_by,
+               update_time,
+               update_by,
+               del_flag,
+               status,
+               sys_user_id,
+               username,
+               nickname,
+               avatar,
+               gender,
+               source_client
+        from iot_social_user
+    </sql>
+
+    <select id="selectSocialUserList" parameterType="com.fastbee.social.domain.SocialUser" resultMap="SocialUserResult">
+        <include refid="selectSocialUserVo"/>
+        <where>
+            <if test="uuid != null  and uuid != ''">and uuid = #{uuid}</if>
+            <if test="source != null  and source != ''">and source = #{source}</if>
+            <if test="accessToken != null  and accessToken != ''">and access_token = #{accessToken}</if>
+            <if test="expireIn != null ">and expire_in = #{expireIn}</if>
+            <if test="refreshToken != null  and refreshToken != ''">and refresh_token = #{refreshToken}</if>
+            <if test="openId != null  and openId != ''">and open_id = #{openId}</if>
+            <if test="uid != null  and uid != ''">and uid = #{uid}</if>
+            <if test="accessCode != null  and accessCode != ''">and access_code = #{accessCode}</if>
+            <if test="unionId != null  and unionId != ''">and union_id = #{unionId}</if>
+            <if test="scope != null  and scope != ''">and scope = #{scope}</if>
+            <if test="tokenType != null  and tokenType != ''">and token_type = #{tokenType}</if>
+            <if test="idToken != null  and idToken != ''">and id_token = #{idToken}</if>
+            <if test="macAlgorithm != null  and macAlgorithm != ''">and mac_algorithm = #{macAlgorithm}</if>
+            <if test="macKey != null  and macKey != ''">and mac_key = #{macKey}</if>
+            <if test="code != null  and code != ''">and code = #{code}</if>
+            <if test="oauthToken != null  and oauthToken != ''">and oauth_token = #{oauthToken}</if>
+            <if test="oauthTokenSecret != null  and oauthTokenSecret != ''">and oauth_token_secret =
+                #{oauthTokenSecret}
+            </if>
+            <if test="status != null">and status = #{status}</if>
+            <if test="sysUserId != null ">and sys_user_id = #{sysUserId}</if>
+            <if test="username != null  and username != ''">and username like concat('%', #{username}, '%')</if>
+            <if test="nickname != null  and nickname != ''">and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="avatar != null  and avatar != ''">and avatar = #{avatar}</if>
+            <if test="gender != null ">and gender = #{gender}</if>
+            and del_flag = '0'
+        </where>
+    </select>
+
+    <select id="selectSysUserIdByUnionId" resultType="java.lang.Long">
+        select sys_user_id
+        from iot_social_user
+        where union_id = #{unionId}
+        and sys_user_id is not null
+        and del_flag = '0'
+        order by social_user_id desc
+    </select>
+
+    <select id="listWechatPublicAccountOpenId" resultType="com.fastbee.social.domain.SocialUser">
+        select DISTINCT u.sys_user_id, s.open_id
+        from iot_social_user u left join iot_social_user s on u.union_id = s.union_id
+        where u.sys_user_id in
+            <foreach collection="userIdList" item="userId" open="(" separator="," close=")">
+                #{userId}
+            </foreach>
+          and u.`status` = 1
+          and u.del_flag = '0'
+          and s.del_flag = '0'
+          and s.`status` =1
+          and s.source_client = 'wechat_open_public_account'
+    </select>
+
+</mapper>

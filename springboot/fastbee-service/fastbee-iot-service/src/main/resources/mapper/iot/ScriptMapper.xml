@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ScriptMapper">
+
+    <resultMap type="com.fastbee.iot.domain.Script" id="RuleScriptResult">
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="sceneId"    column="scene_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="scriptEvent"    column="script_event"    />
+        <result property="scriptAction"    column="script_action"    />
+        <result property="scriptPurpose"    column="script_purpose"    />
+        <result property="scriptOrder"    column="script_order"    />
+        <result property="applicationName"    column="application_name"    />
+        <result property="scriptId"    column="script_id"    />
+        <result property="scriptName"    column="script_name"    />
+        <result property="scriptData"    column="script_data"    />
+        <result property="scriptType"    column="script_type"    />
+        <result property="scriptLanguage"    column="script_language"    />
+        <result property="enable"    column="enable"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.ScriptVO" id="RuleScriptVOResult">
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="sceneId"    column="scene_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="bridgeId"    column="bridge_id"    />
+        <result property="bridgeName"    column="bridge_name"    />
+        <result property="scriptEvent"    column="script_event"    />
+        <result property="scriptAction"    column="script_action"    />
+        <result property="scriptPurpose"    column="script_purpose"    />
+        <result property="scriptOrder"    column="script_order"    />
+        <result property="applicationName"    column="application_name"    />
+        <result property="scriptId"    column="script_id"    />
+        <result property="scriptName"    column="script_name"    />
+        <result property="scriptData"    column="script_data"    />
+        <result property="scriptType"    column="script_type"    />
+        <result property="scriptLanguage"    column="script_language"    />
+        <result property="enable"    column="enable"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectRuleScriptVo">
+        select user_id, user_name, scene_id,product_id,product_name,script_event,script_action,script_purpose,script_order,application_name, script_id, script_name, script_data, script_type, script_language,enable, del_flag, create_by, create_time, update_by, update_time, remark from iot_script
+    </sql>
+
+    <sql id="selectRuleScriptList">
+        select user_id, user_name, scene_id,product_id,product_name, script_event,script_action,script_purpose,script_order,application_name, script_id, script_name, script_type, script_language,enable, create_by, create_time, update_by, update_time from iot_script
+    </sql>
+
+    <select id="selectRuleScriptList" parameterType="com.fastbee.iot.model.ScriptCondition" resultMap="RuleScriptVOResult">
+        select s.script_event,s.script_action,s.script_purpose,s.script_order,s.application_name, s.script_name, s.script_type, s.script_language,
+                s.user_id, s.user_name,s.scene_id,s.product_id,s.product_name,
+               s.script_id, s.enable, s.create_by, s.create_time, s.update_by, s.update_time,
+               b.id as bridge_id, b.name as bridge_name
+        from iot_script s
+        left join iot_script_bridge sb on s.script_id = sb.script_id
+        left join iot_bridge b on b.id = sb.bridge_id
+        <where>
+            s.del_flag = '0'
+            <if test="ruleScript.applicationName != null  and ruleScript.applicationName != ''"> and s.application_name like concat('%', #{ruleScript.applicationName}, '%')</if>
+            <if test="ruleScript.scriptId != null  and ruleScript.scriptId != ''"> and s.script_id = #{ruleScript.scriptId}</if>
+            <if test="ruleScript.userId != null  and ruleScript.userId != ''"> and s.user_id = #{ruleScript.userId}</if>
+            <if test="ruleScript.sceneId != null  and ruleScript.sceneId != ''"> and s.scene_id = #{ruleScript.sceneId}</if>
+            <if test="ruleScript.productId != null  and ruleScript.productId != ''"> and s.product_id = #{ruleScript.productId}</if>
+            <if test="ruleScript.productName != null  and ruleScript.productName != ''"> and s.product_name like concat('%', #{ruleScript.productName}, '%')</if>
+            <if test="ruleScript.scriptEvent != null  and ruleScript.scriptEvent != ''"> and s.script_event = #{ruleScript.scriptEvent}</if>
+            <if test="ruleScript.scriptAction != null  and ruleScript.scriptAction != ''"> and s.script_action = #{ruleScript.scriptAction}</if>
+            <if test="ruleScript.scriptPurpose != null  and ruleScript.scriptPurpose != ''"> and s.script_purpose = #{ruleScript.scriptPurpose}</if>
+            <if test="ruleScript.scriptName != null  and ruleScript.scriptName != ''"> and s.script_name like concat('%', #{ruleScript.scriptName}, '%')</if>
+            <if test="ruleScript.scriptType != null  and ruleScript.scriptType != ''"> and s.script_type = #{ruleScript.scriptType}</if>
+            <if test="ruleScript.enable != null"> and s.enable = #{ruleScript.enable}</if>
+            <if test="ruleScript.scriptLanguage != null  and ruleScript.scriptLanguage != ''"> and s.script_language = #{ruleScript.scriptLanguage}</if>
+            <!-- 数据范围过滤 -->
+            <if test="ruleScript.params.dataScope != null  and ruleScript.params.dataScope != ''">
+                and ${ruleScript.params.dataScope}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectExecRuleScriptList" parameterType="com.fastbee.iot.model.ScriptCondition" resultMap="RuleScriptResult">
+        select s.script_id, s.script_name, s.script_action, s.script_event, s.script_data
+        from iot_script s
+        left join iot_script_bridge sb on s.script_id = sb.script_id
+        left join iot_bridge b on b.id = sb.bridge_id
+        <where>
+            s.enable = 1 and s.del_flag = '0'
+            <if test="sceneId != null  and sceneId != ''"> and scene_id = #{sceneId}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="scriptId != null  and scriptId != ''"> and script_id = #{scriptId}</if>
+            <if test="scriptEvent != null  and scriptEvent != ''"> and s.script_event = #{scriptEvent}</if>
+            <if test="scriptPurpose != null  and scriptPurpose != ''"> and s.script_purpose = #{scriptPurpose}</if>
+            <if test="scriptAction != null  and scriptAction != ''"> and script_action = #{scriptAction}</if>
+            <if test="route != null and route != ''" > and b.route = #{route}</if>
+            <if test="clientId != null and clientId != ''" > and b.config_json like concat('%', #{clientId}, '%')</if>
+        </where>
+        order by script_order
+    </select>
+
+    <select id="selectRuleScriptIdArray" parameterType="com.fastbee.iot.model.ScriptCondition" resultType="String">
+        select script_id from iot_script
+        <where>
+            enable = 1 and del_flag = '0'
+            <if test="applicationName != null  and applicationName != ''"> and application_name like concat('%', #{applicationName}, '%')</if>
+            <if test="sceneId != null  and sceneId != ''"> and scene_id = #{sceneId}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="scriptId != null  and scriptId != ''"> and script_id = #{scriptId}</if>
+            <if test="scriptEvent != null  and scriptEvent != ''"> and script_event = #{scriptEvent}</if>
+            <if test="scriptAction != null  and scriptAction != ''"> and script_action = #{scriptAction}</if>
+            <if test="scriptPurpose != null  and scriptPurpose != ''"> and script_purpose = #{scriptPurpose}</if>
+            <if test="scriptLanguage != null  and scriptLanguage != ''"> and script_language = #{scriptLanguage}</if>
+            <if test="userId != null  and userId != ''"> and (user_id = #{userId} or user_id = #{tencentId})</if>
+        </where>
+        order by script_order
+    </select>
+
+    <select id="selectRuleScriptIdCount" parameterType="String" resultType="int">
+        select count(script_id) from iot_script where script_id = #{scriptId} and del_flag = '0'
+    </select>
+
+    <select id="selectRuleScriptById" parameterType="String" resultMap="RuleScriptVOResult">
+        select script_event,script_action,script_purpose,script_order,application_name, script_name, script_data, script_type, script_language,
+               user_id, user_name,scene_id,product_id,product_name,
+               s.script_id, s.enable, s.create_by, s.create_time, s.update_by, s.update_time,
+               b.id as bridge_id, b.name as bridge_name
+        from iot_script s
+                 left join iot_script_bridge sb on s.script_id = sb.script_id
+                 left join iot_bridge b on b.id = sb.bridge_id
+        where s.script_id = #{script.scriptId}
+        and s.del_flag = '0'
+        <!-- 数据范围过滤 -->
+        <if test="script.params.dataScope != null  and script.params.dataScope != ''">
+            and ${script.params.dataScope}
+        </if>
+    </select>
+
+    <insert id="insertScriptBridge">
+        insert into iot_script_bridge
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scriptId != null and scriptId != ''">script_id,</if>
+            <if test="bridgeId != null and bridgeId != ''">bridge_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scriptId != null and scriptId != ''">#{scriptId},</if>
+            <if test="bridgeId != null and bridgeId != ''">#{bridgeId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateScriptBridge">
+        update iot_script_bridge
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bridgeId != null and bridgeId != ''">bridge_id = #{bridgeId},</if>
+        </trim>
+        where script_id = #{scriptId}
+    </update>
+
+    <delete id="deleteScriptBridge" parameterType="String">
+        delete from iot_script_bridge where script_id = #{scriptId}
+    </delete>
+</mapper>

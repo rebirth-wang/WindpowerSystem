@@ -1,0 +1,100 @@
+﻿### 查询ToolController分页列表 => 成功
+GET {{baseUrl}}/iot/tool/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/userList => 成功
+GET {{baseUrl}}/iot/tool/userList
+Authorization: Bearer {{token}}
+
+### 查询/ntp => 成功
+GET {{baseUrl}}/iot/tool/ntp
+Authorization: Bearer {{token}}
+
+### 查询/genSdk => 成功
+GET {{baseUrl}}/iot/tool/genSdk
+Authorization: Bearer {{token}}
+
+### 查询/getTopics => 成功
+GET {{baseUrl}}/iot/tool/getTopics
+Authorization: Bearer {{token}}
+
+### 查询/decode => 成功
+GET {{baseUrl}}/iot/tool/decode
+Authorization: Bearer {{token}}
+
+### 新增ToolController => 成功
+POST {{baseUrl}}/iot/tool
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/register => 成功
+POST {{baseUrl}}/iot/tool/register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/mqtt/auth => 成功
+POST {{baseUrl}}/iot/tool/mqtt/auth
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/mqtt/authv5 => 成功
+POST {{baseUrl}}/iot/tool/mqtt/authv5
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/mqtt/webhook => 成功
+POST {{baseUrl}}/iot/tool/mqtt/webhook
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/mqtt/webhookv5 => 成功
+POST {{baseUrl}}/iot/tool/mqtt/webhookv5
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/upload => 成功
+POST {{baseUrl}}/iot/tool/upload
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ToolController => 成功
+PUT {{baseUrl}}/iot/tool
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ToolController => 成功
+DELETE {{baseUrl}}/iot/tool/1,2,3
+Authorization: Bearer {{token}}

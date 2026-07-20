@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sa-OAuth2-认证中心-登录页</title>
+		<style type="text/css">
+			body{background-color: #f6f8fb; font-family: Arial, "Microsoft YaHei", sans-serif;}
+			*{margin: 0px; padding: 0px;}
+			.login-box{width: 360px; margin: 20vh auto; padding: 28px; background: #fff; border: 1px solid #dcdfe6;}
+			.login-box h2{font-size: 20px; margin-bottom: 20px;}
+			.login-box label{display: block; margin-bottom: 12px; color: #303133;}
+			.login-box input{box-sizing: border-box; width: 100%; line-height: 32px; margin-top: 6px; padding: 0 8px; border: 1px solid #dcdfe6;}
+			.login-box button{width: 100%; line-height: 34px; margin-top: 8px; border: 0; background: #1677ff; color: #fff; cursor: pointer; }
+			.login-box .message{min-height: 20px; margin-top: 12px; color: #d93026;}
+		</style>
+	</head>
+	<body>
+		<div class="login-box">
+			<h2>统一认证中心</h2>
+			<label>账号<input name="name" autocomplete="username" /></label>
+			<label>密码<input name="pwd" type="password" autocomplete="current-password" /></label>
+			<button onclick="doLogin()">登录</button>
+			<div class="message" id="message"></div>
+		</div>
+		<script type="text/javascript">
+			reuseExistingLogin();
+
+			function reuseExistingLogin() {
+				if (getParam('Authorization')) {
+					return;
+				}
+				var token = getCookie('Admin-Token');
+				if (token) {
+					reloadWithToken(token);
+				}
+			}
+
+			function doLogin() {
+				var body = new URLSearchParams();
+				body.set('name', document.querySelector('[name=name]').value);
+				body.set('pwd', document.querySelector('[name=pwd]').value);
+				fetch('/oauth2/doLogin', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+					body: body.toString()
+				}).then(function(response) {
+					return response.json();
+				}).then(function(res) {
+					if (res.code === 200) {
+						reloadWithToken(res.satoken || (res.data && res.data.satoken));
+						return;
+					}
+					showMessage(res.msg || '登录失败');
+				}).catch(function() {
+					showMessage('登录请求失败');
+				});
+			}
+
+			function reloadWithToken(token) {
+				if (!token) {
+					location.reload();
+					return;
+				}
+				var url = new URL(window.location.href);
+				url.searchParams.set('Authorization', token.indexOf('Bearer ') === 0 ? token : 'Bearer ' + token);
+				window.location.replace(url.toString());
+			}
+
+			function getCookie(name) {
+				var prefix = encodeURIComponent(name) + '=';
+				var cookies = document.cookie ? document.cookie.split('; ') : [];
+				for (var i = 0; i < cookies.length; i++) {
+					if (cookies[i].indexOf(prefix) === 0) {
+						return decodeURIComponent(cookies[i].substring(prefix.length));
+					}
+				}
+				return '';
+			}
+
+			function getParam(name, defaultValue) {
+				var value = new URLSearchParams(window.location.search).get(name);
+				return value == null ? (defaultValue === undefined ? '' : defaultValue) : value;
+			}
+
+			function showMessage(message) {
+				document.getElementById('message').textContent = message;
+			}
+		</script>
+	</body>
+</html>

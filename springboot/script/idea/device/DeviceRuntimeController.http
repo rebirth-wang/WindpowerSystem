@@ -1,0 +1,45 @@
+﻿### 鏌ヨDeviceRuntimeController鍒嗛〉鍒楄〃 => 鎴愬姛
+GET {{baseUrl}}/iot/runtime/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 鏂板DeviceRuntimeController => 鎴愬姛
+POST {{baseUrl}}/iot/runtime
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "娴嬭瘯鏁版嵁"
+}
+
+### 鎵ц/service/invoke => 鎴愬姛
+POST {{baseUrl}}/iot/runtime//service/invoke
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 鎵ц/runScene => 鎴愬姛
+POST {{baseUrl}}/iot/runtime//runScene
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 淇敼DeviceRuntimeController => 鎴愬姛
+PUT {{baseUrl}}/iot/runtime
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "鏇存柊鍚庣殑鍚嶇О"
+}
+
+### 鍒犻櫎DeviceRuntimeController => 鎴愬姛
+DELETE {{baseUrl}}/iot/runtime/1,2,3
+Authorization: Bearer {{token}}
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.DeviceExtParamValueMapper">
+        <resultMap type="DeviceExtParamValue" id="DeviceExtParamValueResult">
+        <result property="id"    column="id"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="paramId"    column="param_id"    />
+        <result property="paramValue"    column="param_value"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDeviceExtParamValueVo">
+        select id, device_id, param_id, param_value, update_by, update_time from iot_device_ext_param_value
+    </sql>
+    
+    
+
+    </mapper>

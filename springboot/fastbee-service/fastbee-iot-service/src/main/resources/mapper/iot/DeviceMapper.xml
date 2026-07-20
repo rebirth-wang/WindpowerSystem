@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.DeviceMapper">
+
+    <resultMap type="com.fastbee.iot.domain.Device" id="DeviceResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="firmwareVersion"    column="firmware_version"    />
+        <result property="status"    column="status"    />
+        <result property="rssi"    column="rssi"    />
+        <result property="isShadow"    column="is_shadow"    />
+        <result property="locationWay"    column="location_way"    />
+        <result property="thingsModelValue"    column="things_model_value"    />
+        <result property="networkAddress"    column="network_address"    />
+        <result property="networkIp"    column="network_ip"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="activeTime"    column="active_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="summary"    column="summary"    />
+        <result property="gwDevCode" column="gw_dev_code"/>
+        <result property="slaveId"    column="slave_id" />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.DeviceVO" id="DeviceVOResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="firmwareVersion"    column="firmware_version"    />
+        <result property="status"    column="status"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="rssi"    column="rssi"    />
+        <result property="isShadow"    column="is_shadow"    />
+        <result property="locationWay"    column="location_way"    />
+        <result property="thingsModelValue"    column="things_model_value"    />
+        <result property="networkAddress"    column="network_address"    />
+        <result property="networkIp"    column="network_ip"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="activeTime"    column="active_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="summary"    column="summary"    />
+        <result property="isOwner"    column="is_owner"    />
+        <result property="gwDevCode" column="gw_dev_code"/>
+        <result property="transport" column="transport" />
+        <result property="guid" column="guid" />
+        <result property="protocolCode" column="protocol_code" />
+        <result property="firmwareType" column="firmware_type" />
+        <result property="deviceIp" column="device_ip" />
+        <result property="createBy" column="create_by" />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.DeviceShortOutput" id="DeviceShortResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="firmwareVersion"    column="firmware_version"    />
+        <result property="status"    column="status"    />
+        <result property="activeTime"    column="active_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="rssi"    column="rssi"    />
+        <result property="isShadow"    column="is_shadow"    />
+        <result property="locationWay"    column="location_way"    />
+        <result property="thingsModelValue"    column="things_model_value"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="isOwner"    column="is_owner"    />
+        <result property="gwDevCode" column="gw_dev_code"/>
+        <result property="subDeviceCount" column="sub_device_count"/>
+        <result property="slaveId" column="slave_id" />
+        <result property="protocolCode" column="protocol_code"/>
+        <result property="transport" column="transport" />
+        <result property="guid" column="guid" />
+        <result property="createBy" column="create_by" />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.DeviceAllShortOutput" id="DeviceAllShortResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="productName"    column="product_name"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="userName"    column="tenant_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="firmwareVersion"    column="firmware_version"    />
+        <result property="status"    column="status"    />
+        <result property="activeTime"    column="active_time"    />
+        <result property="rssi"    column="rssi"    />
+        <result property="isShadow"    column="is_shadow"    />
+        <result property="locationWay"    column="location_way"    />
+        <result property="networkAddress"    column="network_address"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="isOwner"    column="is_owner"    />
+        <result property="subDeviceCount" column="sub_device_count"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.UserAndTenant" id="UserAndTenantResult">
+        <result property="userId"    column="user_id"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.ProductAuthenticateModel" id="DeviceAuthenticateResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="status"    column="status"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productStatus"    column="product_status"    />
+        <result property="isAuthorize"    column="is_authorize"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="account"    column="account"    />
+        <result property="authPassword"    column="auth_password"    />
+        <result property="secret"    column="secret"    />
+        <result property="vertificateMethod"    column="vertificate_method"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.ThingsModels.ThingsModelValuesOutput" id="DeviceThingsValueResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="status"    column="status"    />
+        <result property="isShadow"    column="is_shadow"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="thingsModelValue"    column="things_model_value"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="slaveId" column="slave_id" />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.DeviceMqttVO" id="DeviceMqttVOResult">
+        <result property="deviceId" column="device_id"/>
+        <result property="serialNumber" column="serial_number"/>
+        <result property="productId" column="product_id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="account" column="account"/>
+        <result property="authPassword" column="auth_password"/>
+        <result property="secret" column="secret"/>
+        <result property="vertificateMethod" column="vertificate_method"/>
+        <result property="isAuthorize" column="is_authorize"/>
+        <result property="transport" column="transport"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.DeviceRelateAlertLogVO" id="DeviceRelateAlertLogVOResult">
+        <result property="deviceId" column="device_id"/>
+        <result property="serialNumber" column="serial_number"/>
+        <result property="deviceName"    column="device_name"    />
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.DeviceNumberStatus" id="DeviceStatusResult">
+        <result property="serialNumber" column="serial_number"/>
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.common.extend.core.domin.model.device.DeviceAndProtocol" id="DeviceAndProtocolResult">
+        <result property="serialNumber" column="serial_number"/>
+        <result property="protocolCode" column="protocol_code"/>
+        <result property="productId" column="product_id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="status" column="status"/>
+        <result property="transport" column="transport"/>
+        <result property="deviceType" column="device_type"/>
+        <result property="address" column="address"/>
+        <result property="gwProductId" column="gw_product_id"/>
+        <result property="gwSerialNumber" column="gw_serial_number"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="modbusAddress" column="modbus_address"/>
+        <result property="devicePort" column="device_port"/>
+        <result property="deviceIp" column="device_ip"/>
+    </resultMap>
+
+    <resultMap id="DeviceResultModbusMap" type="com.fastbee.common.extend.core.domin.mq.message.ModbusDevice">
+        <id property="deviceId" column="device_id"/>
+        <result property="deviceIp" column="device_ip"/>
+        <result property="command" column="command"/>
+        <result property="status" column="status"/>
+        <result property="serialNumber" column="serial_number"/>
+    </resultMap>
+
+    <sql id="selectDeviceVo">
+        select device_id, device_name, product_id, product_name, tenant_id, tenant_name, serial_number,gw_dev_code, firmware_version, status, rssi,is_shadow ,location_way,things_model_value,network_address, network_ip, longitude, latitude, active_time, create_by, create_time, update_time, img_url,summary,remark,slave_id,del_flag from iot_device
+    </sql>
+
+    <sql id="selectDeviceShortVo">
+        select device_id, device_name, product_id, product_name, tenant_id, tenant_name, serial_number, firmware_version, status,rssi,is_shadow ,location_way,things_model_value, active_time,img_url,slave_id from iot_device
+    </sql>
+
+    <sql id="selectWebhookDeviceVo">
+        select device_id, device_name,product_id, serial_number,tenant_id, tenant_name, status,is_shadow,rssi ,location_way,things_model_value, active_time, create_by from iot_device
+    </sql>
+
+    <select id="selectUnAuthDeviceList" parameterType="com.fastbee.iot.model.vo.DeviceVO" resultMap="DeviceResult">
+        select d.device_id, d.device_name, d.product_id, d.product_name, d.tenant_id, d.tenant_name,
+                d.serial_number,d.gw_dev_code, d.firmware_version, d.status,
+                d.is_shadow ,d.location_way,d.active_time,d.img_url,a.device_id as auth_device_id
+        from iot_device d
+        left join iot_product_authorize a on a.device_id = d.device_id and d.del_flag = '0' and a.del_flag = '0'
+        <where>
+            a.device_id IS NULL
+            <if test="deviceVO.deviceName != null  and deviceVO.deviceName != ''"> and d.device_name like concat('%', #{deviceVO.deviceName}, '%')</if>
+            <if test="deviceVO.productId != null "> and d.product_id = #{deviceVO.productId}</if>
+            <if test="deviceVO.productName != null  and deviceVO.productName != ''"> and d.product_name like concat('%', #{deviceVO.productName}, '%')</if>
+            <if test="deviceVO.tenantId != null "> and d.tenant_id = #{deviceVO.tenantId}</if>
+            <if test="deviceVO.tenantName != null  and deviceVO.tenantName != ''"> and d.tenant_name like concat('%', #{deviceVO.tenantName}, '%')</if>
+            <if test="deviceVO.serialNumber != null  and deviceVO.serialNumber != ''"> and d.serial_number = #{deviceVO.serialNumber}</if>
+            <if test="deviceVO.gwDevCode != null and deviceVO.gwDevCode != ''">and d.gw_dev_code = #{deviceVO.gwDevCode,jdbcType=VARCHAR}</if>
+            <if test="deviceVO.status != null "> and d.status = #{deviceVO.status}</if>
+<!--            <if test="deviceVO.deptId != null and deviceVO.deptId != 0 and deviceVO.showChild != null and deviceVO.showChild">-->
+<!--                and d.tenant_id in (SELECT u.user_id FROM sys_user u-->
+<!--                join sys_dept de on u.dept_id = de.dept_id-->
+<!--                WHERE #{deviceVO.params.findInSetStr} OR de.dept_id = #{deviceVO.deptId})-->
+<!--            </if>-->
+<!--            <if test="deviceVO.deptId != null and deviceVO.deptId != 0 and deviceVO.showChild != null and !deviceVO.showChild">-->
+<!--                and d.tenant_id = (SELECT dept_user_id FROM sys_dept WHERE dept_id = #{deviceVO.deptId})-->
+<!--            </if>-->
+            <if test="deviceVO.params.beginActiveTime != null and deviceVO.params.beginActiveTime != '' and deviceVO.params.endActiveTime != null and deviceVO.params.endActiveTime != ''"> and d.active_time between #{deviceVO.params.beginActiveTime} and #{deviceVO.params.endActiveTime}</if>
+            <!-- 数据范围过滤 -->
+            <if test="deviceVO.params.dataScope != null  and deviceVO.params.dataScope != ''">
+                and ${deviceVO.params.dataScope}
+            </if>
+        </where>
+        order by d.create_time desc
+    </select>
+
+    <select id="selectDeviceListByGroup" parameterType="com.fastbee.iot.model.vo.DeviceVO" resultMap="DeviceVOResult">
+        SELECT
+        d.device_id,
+        d.device_name,
+        d.product_name,
+        d.serial_number,
+        d.firmware_version,
+        d.STATUS,
+        d.rssi,
+        d.is_shadow,
+        d.location_way,
+        d.active_time,
+        d.network_address,
+        d.longitude,
+        d.latitude,
+        p.device_type
+        FROM
+        iot_device d
+        left join iot_product p on d.product_id = p.product_id
+        <where>
+            d.del_flag = '0'
+            and p.del_flag = '0'
+            <if test="deviceVO.productId != null ">
+                and d.product_id = #{deviceVO.productId}
+            </if>
+            <if test="deviceVO.deviceName != null  and deviceVO.deviceName != ''">
+                and d.device_name like concat('%', #{deviceVO.deviceName}, '%')
+            </if>
+            <if test="deviceVO.productName != null  and deviceVO.productName != ''">
+                and d.product_name like concat('%', #{deviceVO.productName}, '%')
+            </if>
+            <if test="deviceVO.serialNumber != null  and deviceVO.serialNumber != ''">
+                and d.serial_number = #{deviceVO.serialNumber}
+            </if>
+            <if test="deviceVO.status != null ">
+                and d.status = #{deviceVO.status}
+            </if>
+            <if test="deviceVO.networkAddress != null  and deviceVO.networkAddress != ''">
+                and d.network_address like concat('%', #{deviceVO.networkAddress}, '%')
+            </if>
+            <if test="deviceVO.params.beginActiveTime != null and deviceVO.params.beginActiveTime != '' and deviceVO.params.endActiveTime != null and deviceVO.params.endActiveTime != ''">
+                and d.active_time between #{deviceVO.params.beginActiveTime} and #{deviceVO.params.endActiveTime}
+            </if>
+<!--            <if test="deviceVO.deptId != null and deviceVO.deptId != 0 and deviceVO.showChild != null and deviceVO.showChild">-->
+<!--                and d.tenant_id in (-->
+<!--                    SELECT u.user_id FROM sys_user u-->
+<!--                    WHERE u.dept_id IN (-->
+<!--                        SELECT dept_id FROM sys_dept-->
+<!--                        WHERE #{deviceVO.params.findInSetStr}-->
+<!--                            OR dept_id =#{deviceVO.deptId}-->
+<!--                    )-->
+<!--                )-->
+<!--            </if>-->
+<!--            <if test="deviceVO.deptId != null and deviceVO.deptId != 0 and deviceVO.showChild != null and !deviceVO.showChild">-->
+<!--                and d.tenant_id = (SELECT dept_user_id FROM sys_dept WHERE dept_id = #{deviceVO.deptId})-->
+<!--            </if>-->
+            <if test="deviceVO.firmwareVersion != null">
+                and firmware_version = #{deviceVO.firmwareVersion}
+            </if>
+            <if test="deviceVO.query != null and deviceVO.query != ''">
+                and (d.serial_number like concat('%', #{deviceVO.query}, '%') or d.device_name like concat('%', #{deviceVO.query}, '%'))
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="deviceVO.params.dataScope != null  and deviceVO.params.dataScope != ''">
+                and ${deviceVO.params.dataScope}
+            </if>
+        </where>
+        group by d.device_id,d.tenant_id
+        order by d.create_time desc
+    </select>
+
+    <select id="selectSerialNumberByProductId" parameterType="Long" resultType="String">
+        select serial_number from iot_device where product_id = #{productId} and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceCountByProductId" parameterType="Long" resultType="Integer">
+        select count(device_id) from iot_device where product_id = #{productId} and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceThingsModelValueBySerialNumber" parameterType="String" resultMap="DeviceThingsValueResult">
+        select product_id,product_name,device_id,device_name,serial_number,gw_dev_code,is_shadow,status,tenant_id, tenant_name,things_model_value from iot_device where serial_number = #{serialNumber} and del_flag = '0'
+    </select>
+
+    <update id="updateDeviceThingsModelValue" parameterType="com.fastbee.common.extend.core.domin.thingsModel.ThingsModelValuesInput">
+        update iot_device set things_model_value=#{stringValue} where device_id = #{deviceId}
+    </update>
+
+    <select id="selectDeviceShortList" parameterType="com.fastbee.iot.model.vo.DeviceVO" resultMap="DeviceShortResult">
+        select d.device_id, d.device_name,d.tenant_id, d.tenant_name, d.serial_number,d.gw_dev_code,
+            d.firmware_version, d.status,d.rssi,d.is_shadow,d.location_way,
+            d.things_model_value, d.active_time,d.create_time,d.create_by,
+            p.product_id, p.product_name,p.device_type,p.protocol_code,p.transport,p.guid,
+            CASE
+                WHEN d.img_url IS NULL OR d.img_url = ''
+                THEN p.img_url
+                ELSE d.img_url
+            END AS img_url,
+            case
+               when (select count(device_id) from iot_device_share du
+                     where du.device_id = d.device_id and du.user_id = #{deviceVO.tenantId}) > 0
+               then 0
+               else 1
+            end as is_owner
+        from iot_device d
+        left join iot_product p on p.product_id = d.product_id
+        <if test="deviceVO.groupId != null and deviceVO.groupId !=0  "> left join iot_device_group g on g.device_id = d.device_id </if>
+        <where>
+            d.del_flag = '0'
+            and p.del_flag = '0'
+            and d.gw_dev_code is null
+            <if test="deviceVO.groupId != null and deviceVO.groupId !=0  "> and g.group_id = #{deviceVO.groupId}</if>
+            <if test="deviceVO.deviceName != null  and deviceVO.deviceName != ''"> and d.device_name like concat('%', #{deviceVO.deviceName}, '%')</if>
+            <if test="deviceVO.productId != null "> and d.product_id = #{deviceVO.productId}</if>
+            <if test="deviceVO.deviceType != null "> and p.device_type = #{deviceVO.deviceType}</if>
+            <if test="deviceVO.productName != null  and deviceVO.productName != ''"> and d.product_name like concat('%', #{deviceVO.productName}, '%')</if>
+            <if test="deviceVO.serialNumber != null  and deviceVO.serialNumber != ''"> and d.serial_number = #{deviceVO.serialNumber}</if>
+            <if test="deviceVO.gwDevCode != null and deviceVO.gwDevCode != ''"> and d.gw_dev_code = #{deviceVO.gwDevCode}</if>
+            <if test="deviceVO.status != null "> and d.status = #{deviceVO.status}</if>
+            <if test="deviceVO.params.beginActiveTime != null and deviceVO.params.beginActiveTime != '' and deviceVO.params.endActiveTime != null and deviceVO.params.endActiveTime != ''"> and d.active_time between #{params.beginActiveTime} and #{params.endActiveTime}</if>
+            <if test="deviceVO.deptId != null and deviceVO.deptId != 0 and deviceVO.showChild != null and deviceVO.showChild">
+                and
+                (   d.tenant_id in (
+                        SELECT u.user_id FROM sys_user u
+                        join sys_dept de on u.dept_id = de.dept_id
+                        WHERE ${deviceVO.params.findInSetStr} OR de.dept_id = #{deviceVO.deptId}
+                    )
+                    or d.device_id in (
+                        select du.device_id from iot_device_share du
+                        where du.user_id = #{deviceVO.tenantId}
+                    )
+                )
+            </if>
+            <if test="deviceVO.deptId != null and deviceVO.deptId != 0 and deviceVO.showChild != null and !deviceVO.showChild">
+                and (
+                    d.tenant_id = (SELECT dept_user_id FROM sys_dept WHERE dept_id = #{deviceVO.deptId})
+                    or d.device_id in (select du.device_id from iot_device_share du where du.user_id = #{deviceVO.tenantId})
+                )
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="deviceVO.params.dataScope != null and deviceVO.params.dataScope != ''">
+                and ${deviceVO.params.dataScope}
+            </if>
+        </where>
+        group by d.create_by,d.device_id, d.tenant_id, d.device_name, d.tenant_name, d.serial_number, d.gw_dev_code,
+            d.firmware_version, d.status, d.rssi, d.is_shadow, d.location_way, d.things_model_value,
+            d.active_time, d.create_time,
+            p.product_id, p.product_name, p.device_type, p.protocol_code, p.transport, p.guid,
+        CASE
+            WHEN d.img_url IS NULL OR d.img_url = '' THEN p.img_url
+            ELSE d.img_url
+        END
+        <choose>
+            <when test="deviceVO.sortType != null">
+                <if test="deviceVO.sortType == 1">
+                    order by d.device_name desc
+                </if>
+                <if test="deviceVO.sortType == 2">
+                    order by d.device_name asc
+                </if>
+                <if test="deviceVO.sortType == 3">
+                    order by d.create_time desc
+                </if>
+                <if test="deviceVO.sortType == 4">
+                    order by d.create_time asc
+                </if>
+            </when>
+            <otherwise>
+                order by d.create_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="selectDeviceByDeviceId" resultMap="DeviceVOResult">
+        select d.device_id, d.device_name, d.product_id, p.product_name, d.tenant_id, d.tenant_name,
+               d.serial_number, d.firmware_version, d.status, d.rssi,d.is_shadow ,d.location_way,d.things_model_value,
+               d.network_address, d.network_ip, d.longitude, d.latitude, d.active_time, d.create_time, d.update_time, p.panel_enable, p.panel_models_json,
+               d.img_url,d.summary,d.remark,p.guid, p.transport, p.protocol_code,p.device_type,p.firmware_type, d.device_port, d.device_ip, d.create_by from iot_device d
+        left join iot_product p on p.product_id=d.product_id
+        where device_id = #{device.deviceId}
+        <!-- 数据范围过滤 -->
+        <if test="device.params.dataScope != null and device.params.dataScope != ''">
+            and ${device.params.dataScope}
+        </if>
+        and d.del_flag = '0'
+        and p.del_flag = '0'
+    </select>
+
+    <select id="selectDeviceBySerialNumber" parameterType="String" resultMap="DeviceResult">
+        <include refid="selectDeviceVo"/>
+        where serial_number = #{serialNumber}
+        and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceCountBySerialNumber" parameterType="String" resultType="int">
+        select count(device_id) from iot_device
+        where serial_number = #{serialNumber}
+        and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceProductAlertCount" parameterType="Long" resultType="com.fastbee.iot.model.DeviceStatistic">
+        <bind name="deptCondition" value="@com.fastbee.framework.mybatis.helper.DataBaseHelper@getDeptCondition(deptId)" />
+        select
+        <!--设备数量-->
+        (select count(distinct concat(d.device_id, '|', d.tenant_id))
+        from iot_device d
+        <where>
+            d.del_flag = '0'
+            <if test="deptId != null and deptId != 0">
+                and d.tenant_id in (${deptCondition})
+            </if>
+        </where>
+        ) as deviceCount,
+
+        <!--在线设备数量-->
+        (select count(distinct concat(d.device_id, '|', d.tenant_id))
+        from iot_device d
+        <where>
+            d.status = 3
+            and d.del_flag = '0'
+            <if test="deptId != null and deptId != 0">
+                and d.tenant_id in (${deptCondition})
+            </if>
+        </where>
+        ) as deviceOnlineCount,
+
+        <!--离线设备数量-->
+        (select count(distinct concat(d.device_id, '|', d.tenant_id))
+        from iot_device d
+        <where>
+            d.status = 4
+            and d.del_flag = '0'
+            <if test="deptId != null and deptId != 0">
+                and d.tenant_id in (${deptCondition})
+            </if>
+        </where>
+        ) as deviceOfflineCount,
+
+        <!--产品数量-->
+        (select count(product_id)
+        from iot_product p
+        <where>
+            p.del_flag = '0'
+            <if test="deptId != null and deptId != 0">
+                and p.tenant_id in (${deptCondition})
+            </if>
+        </where>
+        ) as productCount,
+
+        <!--告警数量-->
+        (select count(distinct alert_log_id)
+        from iot_alert_log l
+        left join iot_device d on l.serial_number = d.serial_number
+        <where>
+            d.del_flag = '0'
+            <if test="deptId != null and deptId != 0">
+                and l.user_id in (${deptCondition})
+            </if>
+        </where>
+        ) as alertCount
+    </select>
+
+
+    <select id="selectProductAuthenticate" parameterType="com.fastbee.iot.model.AuthenticateInputModel" resultMap="DeviceAuthenticateResult">
+        SELECT p.auth_password,p.account, p.secret,p.is_authorize,p.product_id,p.product_name,p.vertificate_method,p.STATUS as product_status,d.device_id,d.device_name,d.STATUS,d.serial_number
+        FROM iot_product p
+                LEFT JOIN ( SELECT device_id, device_name, STATUS, product_id, product_name, serial_number
+                FROM iot_device
+                WHERE serial_number = #{serialNumber} and del_flag = '0') AS d ON d.product_id = p.product_id
+        WHERE
+            p.product_id = #{productId}
+        and p.del_flag = '0'
+    </select>
+
+    <select id="selectShortDeviceBySerialNumber" parameterType="String" resultMap="DeviceResult">
+        <include refid="selectWebhookDeviceVo"/>
+        where serial_number = #{serialNumber}
+        and del_flag = '0'
+    </select>
+
+    <select id="getProtocolBySerialNumber" resultType="com.fastbee.iot.model.ProductCode">
+        select p.protocol_code as protocolCode,
+               p.product_id as productId,
+               d.serial_number as serialNumber,
+               d.tenant_id as userId
+        from
+            iot_product p
+                inner join iot_device d on p.product_id = d.product_id
+                and d.serial_number = #{serialNumber,jdbcType=VARCHAR}
+        where p.del_flag = '0'
+        and d.del_flag = '0'
+    </select>
+
+    <select id="selectDeviceRunningStatusByDeviceId" parameterType="Long" resultMap="DeviceShortResult">
+        <include refid="selectDeviceShortVo"/>
+        where device_id = #{device.deviceId}
+        and del_flag = '0'
+        <!-- 数据范围过滤 -->
+        <if test="device.params.dataScope != null and device.params.dataScope != ''">
+            and ${device.params.dataScope}
+        </if>
+    </select>
+
+    <update id="updateDeviceStatus" parameterType="com.fastbee.iot.domain.Device">
+        update iot_device
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status != null">status = #{status},</if>
+            <if test="networkAddress != null">network_address = #{networkAddress},</if>
+            <if test="networkIp != null">network_ip = #{networkIp},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="activeTime != null">active_time = #{activeTime},</if>
+            <if test="updateTime !=null">update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+        </trim>
+        where del_flag = '0' and (serial_number = #{serialNumber} or gw_dev_code = #{serialNumber})
+    </update>
+
+    <update id="updateDeviceFirmwareVersion" parameterType="com.fastbee.iot.domain.Device">
+        update iot_device
+            set firmware_version = #{firmwareVersion,jdbcType=DECIMAL}
+        where serial_number = #{serialNumber,jdbcType=VARCHAR}
+          and del_flag = '0'
+    </update>
+
+    <update id="resetDeviceStatus" parameterType="String">
+        -- 设备状态（1-未激活，2-禁用，3-在线，4-离线）
+        update iot_device set status = 4
+        where serial_number = #{serialNumber} and status = 3 and del_flag = '0'
+    </update>
+
+    <select id="getDeviceNumCount" parameterType="String" resultType="int">
+        select count(1) from iot_device where serial_number = #{deviceNum} and del_flag = '0'
+    </select>
+
+    <delete id="deleteDeviceGroupByDeviceId" parameterType="com.fastbee.iot.model.UserIdDeviceIdModel">
+        delete from iot_device_group
+        <where>
+            and device_id = #{deviceId}
+            <if test="userId != null"> and group_id in(select group_id from iot_group where user_id = #{userId})</if>
+        </where>
+    </delete>
+
+    <select id="selectProtocolBySerialNumber" parameterType="java.lang.String"
+            resultMap="DeviceAndProtocolResult">
+        select
+               d.device_id,
+               d.device_name,
+               d.serial_number,
+               d.device_ip,
+               d.device_port,
+               d.status,
+               p.protocol_code,
+               p.product_id,
+               p.transport,
+               p.device_type,
+               g.address,
+               g.parent_product_id gw_product_id,
+               g.parent_client_id gw_serial_number,
+               d.tenant_id,
+               d.tenant_name,
+               d.create_by,
+               mp.address as modbus_address
+        from iot_device d
+                 inner join
+             iot_product p on d.product_id = p.product_id
+             left join iot_sub_gateway g on g.sub_client_id = d.serial_number
+             left join iot_modbus_params mp on p.product_id = mp.product_id
+        where d.serial_number = #{serialNumber,jdbcType=VARCHAR}
+        and d.del_flag = '0'
+        and p.del_flag = '0'
+    </select>
+
+    <select id="selectDevicesByProductId" resultMap="DeviceResult">
+        select d.serial_number,
+               d.device_name
+        from iot_device d
+        where d.product_id = #{productId,jdbcType=BIGINT}
+        <if test="hasSub != null and hasSub == 2">
+            and d.gw_dev_code is NULL
+        </if>
+        and d.del_flag = '0'
+    </select>
+
+
+    <update id="batchChangeOnline">
+        update iot_device d
+            set d.status = 3,
+                d.update_time = now()
+        where d.serial_number in
+            <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+          and d.del_flag = '0'
+    </update>
+
+    <update id="batchChangeOffline">
+        update iot_device d
+        set d.status = 4,
+        d.update_time = now()
+        where d.serial_number in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and d.del_flag = '0'
+    </update>
+
+
+    <select id="selectMqttConnectData" resultMap="DeviceMqttVOResult">
+        select d.device_id,
+               d.serial_number,
+               d.product_id,
+               d.tenant_id,
+               p.account,
+               p.auth_password,
+               p.secret,
+               p.vertificate_method,
+               p.is_authorize,
+               p.transport
+        from iot_device d inner join iot_product p on d.product_id = p.product_id
+        where d.device_id = #{deviceId}
+        and d.del_flag = '0'
+        and p.del_flag = '0'
+    </select>
+
+    <select id="selectDeviceBySerialNumbers" resultMap="DeviceRelateAlertLogVOResult">
+        select device_id, serial_number, device_name
+        from iot_device
+        where serial_number in
+            <foreach collection="deviceNumbers" item="deviceNumber" index="index" open="(" separator="," close=")">
+                #{deviceNumber}
+            </foreach>
+        and del_flag = '0'
+    </select>
+    <select id="selectRelateAlertLogBySerialNumber" parameterType="java.lang.String" resultMap="DeviceRelateAlertLogVOResult">
+        select device_id, serial_number, device_name
+        from iot_device
+        where serial_number = #{deviceNumber}
+        and del_flag = '0'
+    </select>
+
+    <select id="getDeviceNumsByProductId" parameterType="Long" resultType="String">
+        select serial_number from iot_device
+        where product_id = #{productId} and gw_dev_code is NULL
+        and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceStatusByNumbers" parameterType="String" resultMap="DeviceStatusResult">
+        select serial_number, status
+        from iot_device
+        where serial_number in
+        <foreach collection="deviceNumbers" item="deviceNumber" index="index" open="(" separator="," close=")">
+            #{deviceNumber}
+        </foreach>
+        and del_flag = '0'
+    </select>
+
+
+    <select id="checkExistBySerialNumbers" resultType="java.lang.String">
+        select serial_number
+        from iot_device
+        where serial_number in
+            <foreach collection="serialNumberList" item="serialNumber" open="(" separator="," close=")">
+                #{serialNumber}
+            </foreach>
+        and del_flag = '0'
+    </select>
+
+    <select id="listTerminalUser" parameterType="com.fastbee.iot.model.vo.DeviceVO" resultMap="DeviceShortResult">
+        select d.device_id, d.device_name, d.product_id, d.product_name,p.device_type,
+        d.tenant_id, d.tenant_name, d.serial_number,d.gw_dev_code,
+        d.firmware_version, d.status,d.rssi,d.is_shadow ,d.location_way,
+        d.things_model_value, d.active_time,d.create_time,d.img_url,
+        (select count(1) from iot_device d1 where d1.gw_dev_code = d.serial_number) as sub_device_count,
+        p.protocol_code,p.transport, u.is_owner
+        from (
+                select device_id, 1 AS is_owner
+                from iot_device_user
+                where user_id = #{deviceVO.tenantId} and del_flag = '0'
+                union
+                select device_id, 0 AS is_owner
+                from iot_device_share
+                where user_id = #{deviceVO.tenantId} and del_flag = '0'
+        ) as u
+        inner join iot_device d on u.device_id = d.device_id
+        inner join iot_product p on d.product_id = p.product_id
+        <if test="deviceVO.groupId != null and deviceVO.groupId !=0  "> left join iot_device_group g on g.device_id=d.device_id </if>
+        <where>
+            d.del_flag = '0'
+            and p.del_flag = '0'
+            and d.gw_dev_code is null
+            <if test="deviceVO.groupId != null and deviceVO.groupId !=0  "> and g.group_id = #{deviceVO.groupId}</if>
+            <if test="deviceVO.deviceName != null  and deviceVO.deviceName != ''"> and d.device_name like concat('%', #{deviceVO.deviceName}, '%')</if>
+            <if test="deviceVO.productId != null "> and d.product_id = #{deviceVO.productId}</if>
+            <if test="deviceVO.deviceType != null "> and p.device_type = #{deviceVO.deviceType}</if>
+            <if test="deviceVO.productName != null  and deviceVO.productName != ''"> and d.product_name like concat('%', #{deviceVO.productName}, '%')</if>
+            <if test="deviceVO.serialNumber != null  and deviceVO.serialNumber != ''"> and d.serial_number = #{deviceVO.serialNumber}</if>
+            <if test="deviceVO.gwDevCode != null and deviceVO.gwDevCode != ''"> and d.gw_dev_code = #{deviceVO.gwDevCode}</if>
+            <if test="deviceVO.status != null "> and d.status = #{deviceVO.status}</if>
+            <if test="deviceVO.params.beginActiveTime != null and deviceVO.params.beginActiveTime != '' and deviceVO.params.endActiveTime != null and deviceVO.params.endActiveTime != ''"> and d.active_time between #{deviceVO.params.beginActiveTime} and #{deviceVO.params.endActiveTime}</if>
+        </where>
+        order by u.is_owner desc, d.create_time desc
+    </select>
+
+    <select id="listTerminalUserByGroup" resultType="com.fastbee.iot.model.vo.DeviceVO">
+        select d.device_id, d.device_name, d.product_name, d.serial_number,d.gw_dev_code, d.firmware_version, d.status,d.rssi,d.is_shadow ,
+        d.location_way, d.active_time,d.network_address,d.longitude,d.latitude, p.device_type
+        from (
+                select device_id, 1 AS is_owner
+                from iot_device_user
+                where user_id = #{tenantId} and del_flag = '0'
+                union
+                select device_id, 0 AS is_owner
+                from iot_device_share
+                where user_id = #{tenantId} and del_flag = '0'
+        ) as u
+        inner join iot_device d on u.device_id = d.device_id
+        inner join iot_product p on d.product_id = p.product_id
+        <where>
+            d.del_flag = '0'
+            and p.del_flag = '0'
+            <if test="deviceName != null  and deviceName != ''"> and d.device_name like concat('%', #{deviceName}, '%')</if>
+        </where>
+        order by u.is_owner desc, d.create_time desc
+    </select>
+
+    <update id="reSetDeviceStatus">
+        update iot_device set status = 4 where status = 3 and del_flag = '0'
+    </update>
+
+    <select id="selectDeviceActive" resultType="com.fastbee.iot.model.vo.DeviceStatusVO">
+        select d.status, d.serial_number as serialNumber, d.rssi, d.active_time as activeTime, d.is_shadow, d.product_id, p.transport
+        from iot_device d inner join iot_product p on d.product_id = p.product_id
+        where d.status in (3,4) and p.transport not in ('GB28181')
+        and d.del_flag = '0' and p.del_flag = '0' and d.device_port is null
+    </select>
+
+    <select id="selectModbusTcpDevice" resultType="com.fastbee.iot.model.vo.DeviceStatusVO" >
+        SELECT r.STATUS, r.serial_number, r.product_id
+        FROM (
+                 SELECT
+                     sd.STATUS,
+                     sd.serial_number,
+                     sd.product_id
+                 FROM
+                     iot_device d
+                         LEFT JOIN iot_sub_gateway g ON d.serial_number = g.parent_client_id
+                         LEFT JOIN iot_device sd ON g.sub_client_id = sd.serial_number
+                 WHERE
+                     d.STATUS IN (3, 4)
+                   AND d.del_flag = '0'
+                   AND d.device_port IS NOT NULL and d.device_port != '' and d.device_ip IS NOT NULL and d.device_ip != ''
+                 UNION ALL
+                 SELECT
+                     d.STATUS,
+                     d.serial_number,
+                     d.product_id
+                 FROM
+                     iot_device d
+                 WHERE
+                     d.STATUS IN (3, 4)
+                   AND d.del_flag = '0'
+                   AND d.device_port IS NOT NULL and d.device_port != '' and d.device_ip IS NOT NULL and d.device_ip != ''
+             ) AS r
+        WHERE r.serial_number IS NOT NULL
+    </select>
+
+    <select id="countByTenantId" resultType="java.lang.Integer">
+        select count(1)
+        from iot_device
+        where tenant_id = #{tenantId}
+          and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceListByDeviceIds" resultMap="DeviceResult">
+        <include refid="selectDeviceShortVo"/>
+        where device_id in
+        <foreach collection="deviceIdList" item="deviceId" open="(" separator="," close=")">
+            #{deviceId}
+        </foreach>
+        and del_flag = '0'
+    </select>
+
+
+    <update id="updateTenantIdByDeptIds">
+        update iot_device
+        set tenant_id = #{tenantId},
+            tenant_name = #{tenantName},
+            create_by = #{createBy}
+        where device_id in
+            <foreach collection="deviceIdList" item="deviceId" open="(" separator="," close=")">
+                #{deviceId}
+            </foreach>
+          and del_flag = '0'
+    </update>
+
+    <update id="updateChannelTenantId">
+        update sip_device_channel
+        set tenant_id = #{tenantId}
+        where
+            device_sip_id = #{deviceSipId}
+    </update>
+
+    <update id="syncStatusBatch">
+        UPDATE iot_device
+        SET status = CASE
+        <foreach collection="statusMap" item="status" index="deviceId">
+            WHEN device_id = #{deviceId} THEN #{status}
+        </foreach>
+        END
+        WHERE device_id IN
+        <foreach collection="statusMap" item="status" index="deviceId" open="(" separator="," close=")">
+            #{deviceId}
+        </foreach>
+    </update>
+
+    <select id="selectDeviceByChannelId" resultMap="DeviceResult">
+        select device_name,device_id from iot_device
+        where channel_id = #{channelId}
+        and del_flag = '0'
+    </select>
+
+    <select id="selectDeviceStatusAndTransportStatus" resultType="com.fastbee.iot.model.vo.DeviceStatusVO">
+        SELECT
+            d.status,
+            d.serial_number,
+            p.transport,
+            p.product_id,
+            p.device_type,
+            p.protocol_code,
+            d.tenant_id
+        FROM iot_device d
+        inner join iot_product p on d.product_id = p.product_id
+        WHERE d.serial_number = #{serialNumber,jdbcType=VARCHAR}
+        and d.del_flag = '0' and p.del_flag = '0'
+    </select>
+
+    <select id="selectDeviceStatusAndTransportStatusByIp" resultType="com.fastbee.iot.model.vo.DeviceStatusVO">
+        SELECT
+            d.status,
+            d.serial_number,
+            p.transport,
+            p.product_id,
+            p.device_type
+        FROM iot_device d
+                 inner join iot_product p on d.product_id = p.product_id
+        WHERE d.device_ip = #{deviceIp,jdbcType=VARCHAR}
+          and d.del_flag = '0' and p.del_flag = '0'
+    </select>
+
+    <select id="listDeviceGroupByGroupIds" resultType="com.fastbee.iot.domain.DeviceGroup">
+        select device_id, group_id
+        from iot_device_group
+        <where>
+            <if test="collection != null and collection.size() > 0">
+                and group_id in
+                <foreach collection="collection" index="index" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSerialNumbersByProductId" resultType="string">
+        select d.serial_number
+        from iot_device d
+        where d.product_id = #{productId,jdbcType=BIGINT}
+        and d.del_flag = '0'
+    </select>
+
+    <select id="selectDeptNameByDeptUserIdList" resultType="com.fastbee.iot.domain.Device">
+        select dept_id, dept_user_id as tenant_id, dept_name
+        from sys_dept
+        where dept_user_id in
+            <foreach collection="deptUserIdList" item="deptUserId" open="(" separator="," close=")">
+                #{deptUserId}
+            </foreach>
+        and del_flag = '0'
+    </select>
+
+    <select id="selectAllDevicesWithCommands" resultMap="DeviceResultModbusMap">
+        SELECT
+            d.device_id,
+            d.serial_number,
+            d.device_ip,
+            d.status,
+            d.device_port,
+            j.command
+        FROM
+            iot_device d JOIN iot_modbus_job j ON d.device_id = j.device_id
+        where d.device_port is not null and d.del_flag = '0' and j.command_type = 1
+    </select>
+
+    <select id="pageModbusTcpHost" resultType="com.fastbee.iot.model.vo.DeviceVO">
+        select d.device_id, d.device_name, d.serial_number, d.device_port, d.device_ip
+        from iot_product p left join iot_device d on d.product_id = p.product_id
+        where p.protocol_code = 'MODBUS-TCP'
+          and d.tenant_id = #{deviceVO.tenantId}
+          and d.del_flag = 0
+          and p.del_flag = 0
+    </select>
+
+    <select id="selectDelDeviceVO" resultType="com.fastbee.iot.domain.Device">
+        <include refid="selectDeviceVo"/>
+        <where>
+            del_flag IS NULL
+            <if test="device.serialNumber != null and device.serialNumber != ''">
+                AND serial_number = #{device.serialNumber}
+            </if>
+            <if test="device.productId != null">
+                AND product_id = #{device.productId}
+            </if>
+            <if test="device.deviceName != null and device.deviceName != ''">
+                <bind name="patternDeviceName" value="'%' + device.deviceName + '%'"/>
+                AND device_name LIKE #{patternDeviceName}
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="device.params.dataScope != null  and device.params.dataScope != ''">
+                and ${device.params.dataScope}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectListByDeviceId" resultType="Device">
+        <include refid="selectDeviceVo"/>
+        WHERE device_id = #{deviceId}
+    </select>
+
+    <delete id="deleteByDeviceId" parameterType="Long">
+        DELETE FROM iot_device WHERE device_id = #{deviceId} and del_flag is NULL
+    </delete>
+
+    <update id="restoreDevice" parameterType="device">
+        UPDATE iot_device
+        SET del_flag = '0'
+        WHERE device_id = #{deviceId}
+    </update>
+
+</mapper>

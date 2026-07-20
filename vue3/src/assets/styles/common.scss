@@ -1,0 +1,42 @@
+// ----------- button -----------
+
+.el-button--text {
+  color: #303133;
+}
+
+.el-button--text:hover,
+.el-button--text:focus {
+  color: #909399;
+}
+
+.el-button--text i {
+  color: #bebfbf;
+}
+
+// ----------- card -----------
+.el-card {
+  box-shadow: none !important; /* 去掉阴影 */
+  border-radius: 8px;
+}
+
+// ----------- form -----------
+.el-form--inline .el-form-item {
+  margin-right: 24px;
+}
+
+// ----------- vue-treeselect -----------
+.vue-treeselect__list-item {
+  font-size: 14px;
+  line-height: 34px;
+}
+
+.vue-treeselect__option--selected {
+  color: #486ff2 !important;
+  background-color: transparent !important;
+  font-weight: bold;
+}
+
+.vue-treeselect__option--highlight {
+  background-color: #f5f7fa !important;
+  line-height: 34px;
+}

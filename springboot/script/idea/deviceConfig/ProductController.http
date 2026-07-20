@@ -1,0 +1,116 @@
+﻿### 查询ProductController分页列表 => 成功
+GET {{baseUrl}}/iot/product/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/product/list
+Authorization: Bearer {{token}}
+
+### 查询/shortList => 成功
+GET {{baseUrl}}/iot/product/shortList
+Authorization: Bearer {{token}}
+
+### 查询/deviceCount/{productId} => 成功
+GET {{baseUrl}}/iot/product/deviceCount/{productId}
+Authorization: Bearer {{token}}
+
+### 查询/queryByTemplateId => 成功
+GET {{baseUrl}}/iot/product/queryByTemplateId
+Authorization: Bearer {{token}}
+
+### 查询/getGuid => 成功
+GET {{baseUrl}}/iot/product/getGuid
+Authorization: Bearer {{token}}
+
+### 查询/deleted/list => 成功
+GET {{baseUrl}}/iot/product/deleted/list
+Authorization: Bearer {{token}}
+
+### 查询/downloadJson => 成功
+GET {{baseUrl}}/iot/product/downloadJson
+Authorization: Bearer {{token}}
+
+### 新增ProductController => 成功
+POST {{baseUrl}}/iot/product
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/product/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/copy => 成功
+POST {{baseUrl}}/iot/product/copy
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/importJson => 成功
+POST {{baseUrl}}/iot/product/importJson
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/panelBgUpload => 成功
+POST {{baseUrl}}/iot/product/panelBgUpload
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ProductController => 成功
+PUT {{baseUrl}}/iot/product
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/status => 成功
+PUT {{baseUrl}}/iot/product/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/restore => 成功
+PUT {{baseUrl}}/iot/product/restore
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除ProductController => 成功
+DELETE {{baseUrl}}/iot/product/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{productIds} => 成功
+DELETE {{baseUrl}}/iot/product/{productIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/remove/{productIds} => 成功
+DELETE {{baseUrl}}/iot/product/remove/{productIds}
+Authorization: Bearer {{token}}

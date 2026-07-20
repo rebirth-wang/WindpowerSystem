@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.media.mapper.CommonChannelMapper">
+    <resultMap type="CommonChannel" id="CommonChannelResult">
+        <result property="id"    column="id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="registerTime"    column="register_time"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="channelType"    column="channel_type"    />
+        <result property="dataType"    column="data_type"    />
+        <result property="cityCode"    column="city_code"    />
+        <result property="civilCode"    column="civil_code"    />
+        <result property="manufacture"    column="manufacture"    />
+        <result property="model"    column="model"    />
+        <result property="owner"    column="owner"    />
+        <result property="password"    column="password"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="ipAddress"    column="ip_address"    />
+        <result property="port"    column="port"    />
+        <result property="ptzType"    column="ptz_type"    />
+        <result property="ptzTypeText"    column="ptz_type_text"    />
+        <result property="status"    column="status"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="streamId"    column="stream_id"    />
+        <result property="playUrl"    column="play_url"    />
+        <result property="proxyUrl"    column="proxy_url"    />
+        <result property="hasAudio"    column="has_audio"    />
+        <result property="hasBroadcast"    column="has_broadcast"    />
+        <result property="ctrlConfig"    column="ctrl_config"    />
+        <result property="extendInfo"    column="extend_info"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+
+    <sql id="selectCommonChannelVo">
+        select id, tenant_id, product_id, device_id, channel_id, channel_name, register_time, device_type, channel_type, data_type, city_code, civil_code, manufacture, model, owner, password, parent_id, ip_address, port, ptz_type, ptz_type_text, status, longitude, latitude, stream_id, play_url, proxy_url, has_audio, has_broadcast, ctrl_config, extend_info, del_flag, create_by, create_time, update_by, update_time, remark from common_channel
+    </sql>
+
+    <select id="selectChannelWithCivilCodeAndLength" resultMap="CommonChannelResult">
+        <include refid="selectCommonChannelVo"/>
+        where device_id = #{deviceId} and del_flag = '0'
+        <if test='parentId != null and length != null' > and parent_id = #{parentId} or left(channel_id, LENGTH(#{parentId})) = #{parentId} and length(channel_id) = #{length} </if>
+        <if test='parentId == null and length != null' > and parent_id = #{parentId} or length(channel_id) = #{length} </if>
+        <if test='parentId == null and length == null' > and parent_id = #{parentId} </if>
+        <if test='parentId != null and length == null' > and parent_id = #{parentId} or left(channel_id, LENGTH(#{parentId})) = #{parentId} </if>
+    </select>
+
+    <select id="selectChannelByCivilCode" resultMap="CommonChannelResult">
+        <include refid="selectCommonChannelVo"/>
+        where device_id = #{deviceId} and length(channel_id)>14 and civil_code=#{parentId} and del_flag = '0'
+    </select>
+
+    <select id="selectChannelWithoutCiviCode" resultMap="CommonChannelResult">
+        <include refid="selectCommonChannelVo"/>
+        where device_id=#{deviceId} and civil_code not in (select civil_code from common_channel where del_flag = '0' and device_id=#{deviceId} group by civil_code)
+    </select>
+
+    <select id="getChannelMinLength" resultType="Integer">
+        select min(length(channel_id)) as minLength
+        from common_channel
+        where device_id = #{deviceId} and del_flag = '0'
+    </select>
+
+        <select id="getBindingChannel" resultType="com.fastbee.media.domain.BindingCommonChannel">
+                select s.channel_id as channelId,
+                       d.device_id as deviceId,
+                       d.device_name as deviceName,
+                       m.scene_model_id as sceneModelId,
+                       m.scene_model_name as sceneModelName
+                from common_channel s
+                             left join iot_sip_relation sr on s.channel_sip_id = sr.channel_id
+                             left join iot_device d on sr.re_device_id = d.device_id
+                             left join scene_model m on m.scene_model_id = sr.re_scene_model_id
+                where s.channel_id = #{channelId} and s.del_flag = '0' and d.del_flag = '0' and m.del_flag = '0'
+        </select>
+
+        <select id="selectDeviceRelSipDeviceChannelList" resultType="com.fastbee.media.domain.CommonChannel">
+                select sc.id, sr.re_device_id, sc.channel_name, sc.device_id, sc.channel_id, sc.status, sc.play_url, sc.proxy_url
+                from iot_device d left join iot_sip_relation sr on d.device_id = sr.re_device_id
+                                  left join common_channel sc on sr.channel_id = sc.channel_id
+                where d.del_flag = 0
+                  and sc.del_flag = 0
+                  and d.serial_number = #{serialNumber}
+        </select>
+
+        <select id="selectSceneRelSipDeviceChannelList" resultType="com.fastbee.media.domain.CommonChannel">
+                select sc.id, sr.re_device_id, sc.channel_name, sc.device_id, sc.channel_id, sc.status, sc.play_url, sc.proxy_url
+                from iot_sip_relation sr
+                             left join common_channel sc on sr.channel_id = sc.channel_id
+                where sc.del_flag = 0
+                  and sr.re_scene_model_id = #{sceneModelId}
+        </select>
+
+    </mapper>

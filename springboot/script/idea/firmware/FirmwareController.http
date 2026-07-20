@@ -1,0 +1,47 @@
+﻿### 查询FirmwareController分页列表 => 成功
+GET {{baseUrl}}/iot/firmware/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/firmware/list
+Authorization: Bearer {{token}}
+
+### 查询/upGradeVersionList => 成功
+GET {{baseUrl}}/iot/firmware/upGradeVersionList
+Authorization: Bearer {{token}}
+
+### 新增FirmwareController => 成功
+POST {{baseUrl}}/iot/firmware
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/firmware/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改FirmwareController => 成功
+PUT {{baseUrl}}/iot/firmware
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除FirmwareController => 成功
+DELETE {{baseUrl}}/iot/firmware/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{firmwareIds} => 成功
+DELETE {{baseUrl}}/iot/firmware/{firmwareIds}
+Authorization: Bearer {{token}}

@@ -1,0 +1,76 @@
+package ${packageName}.convert;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.model.vo.${ClassName}VO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+import java.util.List;
+
+/**
+ * ${functionName}Convert转换类
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${ClassName}Convert
+{
+    /** 代码生成区域 可直接覆盖**/
+    ${ClassName}Convert INSTANCE = Mappers.getMapper(${ClassName}Convert.class);
+
+    /**
+     * 实体类转换为VO类
+     *
+     * @param ${className}
+     * @return ${functionName}集合
+     */
+    ${ClassName}VO convert${ClassName}VO(${ClassName} ${className});
+
+    /**
+     * VO类转换为实体类集合
+     *
+     * @param ${className}VO
+     * @return ${functionName}集合
+     */
+    ${ClassName} convert${ClassName}(${ClassName}VO ${className}VO);
+
+    /**
+     * 实体类转换为VO类集合
+     *
+     * @param ${className}List
+     * @return ${functionName}集合
+     */
+    List<${ClassName}VO> convert${ClassName}VOList(List<${ClassName}> ${className}List);
+
+    /**
+     * VO类转换为实体类
+     *
+     * @param ${className}VOList
+     * @return ${functionName}集合
+     */
+    List<${ClassName}> convert${ClassName}List(List<${ClassName}VO> ${className}VOList);
+
+    /**
+     * 实体类转换为VO类分页
+     *
+     * @param ${className}Page
+     * @return ${functionName}分页
+     */
+    Page<${ClassName}VO> convert${ClassName}VOPage(Page<${ClassName}> ${className}Page);
+
+    /**
+     * VO类转换为实体类
+     *
+     * @param ${className}VOPage
+     * @return ${functionName}分页
+     */
+    Page<${ClassName}> convert${ClassName}Page(Page<${ClassName}VO> ${className}VOPage);
+    /** 代码生成区域 可直接覆盖END**/
+
+    /** 自定义代码区域 **/
+
+
+    /** 自定义代码区域 END**/
+}

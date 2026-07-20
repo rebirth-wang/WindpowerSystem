@@ -1,0 +1,28 @@
+/**
+ * Element Plus theme customization.
+ * Uses CSS custom properties (not SCSS variables) because Element Plus
+ * consumes :root vars at runtime.
+ */
+
+/* Keep a single SCSS variable for the :export block below */
+$--color-primary: #486ff2;
+
+/* Element Plus CSS variable overrides */
+:root {
+  --el-color-primary: #486ff2;
+  --el-color-primary-light-3: #7d99f6;
+  --el-color-primary-light-5: #a3b7f8;
+  --el-color-primary-light-7: #c9d5fb;
+  --el-color-primary-light-8: #dce4fc;
+  --el-color-primary-light-9: #eef2fd;
+  --el-color-primary-dark-2: #3a59c2;
+  --el-color-success: #13ce66;
+  --el-color-warning: #ffba00;
+  --el-color-danger: #ff4949;
+  --el-button-font-weight: 400;
+}
+
+// Expose theme color to JS (used by settings store)
+:export {
+  theme: $--color-primary;
+}

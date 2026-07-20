@@ -1,0 +1,27 @@
+# ONVIF 配置
+onvif:
+  # WebSocket 鉴权 Server ID，ONVIF 代理节点连接 /onvif/{serverId}/{id} 时使用
+  server-id: onvif-server
+
+  # WebSocket 心跳配置，单位：秒；heartbeat-interval 为 0 表示禁用心跳
+  heartbeat-interval: 30
+  heartbeat-timeout: 90
+
+  # 启动时是否执行本机 WS-Discovery 扫描
+  scan-on-startup: true
+
+  # 是否启用定时 WS-Discovery 扫描
+  scheduled-scan-enabled: true
+
+  # 定时扫描 cron，默认每 5 分钟扫描一次
+  scan-cron: 0 */5 * * * ?
+
+  # WS-Discovery 接收响应超时时间，单位：毫秒
+  discovery-timeout: 10000
+
+  # 是否将发现到的 ONVIF 设备同步到 iot_device 和 common_channel
+  sync-to-iot-enabled: true
+
+  # 可选：默认 ONVIF 账号密码。留空时只做无认证发现，设备详情/Profiles/PTZ 能力可能无法补全
+  default-username: admin
+  default-password: admin@iot

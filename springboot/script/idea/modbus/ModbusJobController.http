@@ -1,0 +1,48 @@
+﻿### 查询ModbusJobController分页列表 => 成功
+GET {{baseUrl}}/modbus/job/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/modbus/job/list
+Authorization: Bearer {{token}}
+
+### 新增ModbusJobController => 成功
+POST {{baseUrl}}/modbus/job
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/modbus/job/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/del => 成功
+POST {{baseUrl}}/modbus/job/del
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ModbusJobController => 成功
+PUT {{baseUrl}}/modbus/job
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ModbusJobController => 成功
+DELETE {{baseUrl}}/modbus/job/1,2,3
+Authorization: Bearer {{token}}

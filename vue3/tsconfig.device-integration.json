@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["vite/client", "node", "@playwright/test"],
+    "noEmit": true
+  },
+  "include": [
+    "src/api/schema.d.ts",
+    "src/api/iot/device-contract.ts",
+    "src/mocks/device.ts",
+    "src/mocks/integration.ts",
+    "e2e/fixtures/fastbeeMock.ts",
+    "e2e/device-management.spec.ts",
+    "e2e/integration-rollout.spec.ts"
+  ]
+}

@@ -1,0 +1,21 @@
+package ${packageName}.mapper;
+
+import ${packageName}.domain.${ClassName};
+import com.fastbee.common.mybatis.mapper.BaseMapperX;
+#if($table.sub)
+import ${packageName}.domain.${subClassName};
+#end
+
+/**
+ * ${functionName}Mapper接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Mapper extends BaseMapperX<${ClassName}>
+{
+    /** 自定义代码区域 **/
+
+
+    /** 自定义代码区域 END**/
+}

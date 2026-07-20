@@ -1,0 +1,50 @@
+﻿### 查询SysDeptController分页列表 => 成功
+GET {{baseUrl}}/system/dept/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/dept/list
+Authorization: Bearer {{token}}
+
+### 查询/list/exclude/{deptId} => 成功
+GET {{baseUrl}}/system/dept/list/exclude/{deptId}
+Authorization: Bearer {{token}}
+
+### 查询/getDeptType => 成功
+GET {{baseUrl}}/system/dept/getDeptType
+Authorization: Bearer {{token}}
+
+### 查询/getRole => 成功
+GET {{baseUrl}}/system/dept/getRole
+Authorization: Bearer {{token}}
+
+### 查询/refreshCache => 成功
+GET {{baseUrl}}/system/dept/refreshCache
+Authorization: Bearer {{token}}
+
+### 新增SysDeptController => 成功
+POST {{baseUrl}}/system/dept
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改SysDeptController => 成功
+PUT {{baseUrl}}/system/dept
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysDeptController => 成功
+DELETE {{baseUrl}}/system/dept/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{deptId} => 成功
+DELETE {{baseUrl}}/system/dept/{deptId}
+Authorization: Bearer {{token}}

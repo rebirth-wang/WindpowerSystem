@@ -1,0 +1,65 @@
+# 单元测试配置文件
+spring:
+  # 允许 Bean 覆盖（用于 Redis 自定义配置覆盖默认配置）
+  main:
+    allow-bean-definition-overriding: true
+  
+  # 数据源配置 - 使用 H2 内存数据库
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MYSQL
+    username: sa
+    password: 
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 10
+      max-wait: 60000
+  
+  # Redis 配置 - 使用内嵌 Redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 
+    database: 0
+    timeout: 10000
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 1
+  
+  # SQL 初始化配置
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/test_user.sql
+      data-locations: classpath:sql/test_user.sql
+      encoding: utf-8
+  
+  # 禁用某些自动配置
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
+# MyBatis Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: cn.iocoder.yudao.framework.test.core.ut.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    cn.iocoder.yudao.framework.test: DEBUG
+    com.fastbee: DEBUG

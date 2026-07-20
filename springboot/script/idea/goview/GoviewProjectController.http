@@ -1,0 +1,56 @@
+﻿### 查询GoviewProjectController分页列表 => 成功
+GET {{baseUrl}}/goview/project/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/goview/project/list
+Authorization: Bearer {{token}}
+
+### 查询/getData => 成功
+GET {{baseUrl}}/goview/project/getData
+Authorization: Bearer {{token}}
+
+### 新增GoviewProjectController => 成功
+POST {{baseUrl}}/goview/project
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/save/data => 成功
+POST {{baseUrl}}/goview/project/save/data
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/upload => 成功
+POST {{baseUrl}}/goview/project/upload
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改GoviewProjectController => 成功
+PUT {{baseUrl}}/goview/project
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除GoviewProjectController => 成功
+DELETE {{baseUrl}}/goview/project/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/goview/project/{ids}
+Authorization: Bearer {{token}}

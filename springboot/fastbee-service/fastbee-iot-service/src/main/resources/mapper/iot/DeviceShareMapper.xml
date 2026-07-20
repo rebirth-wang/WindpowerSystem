@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.DeviceShareMapper">
+
+    <resultMap type="com.fastbee.iot.domain.DeviceShare" id="DeviceShareResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="phonenumber" column="phonenumber"    />
+        <result property="perms"    column="perms"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.DeviceShareVO" id="DeviceShareVOResult">
+        <result property="deviceId"    column="device_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="phonenumber" column="phonenumber"    />
+        <result property="perms"    column="perms"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.common.extend.core.domin.entity.SysUser" id="ShareUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="email"        column="email"        />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="createTime"   column="create_time"  />
+        <result property="remark"       column="remark"       />
+    </resultMap>
+
+    <sql id="selectDeviceShareVo">
+        select device_id, user_id, phonenumber, perms, del_flag, create_by, create_time, update_by, update_time, remark from iot_device_share
+    </sql>
+
+    <select id="selectDeviceShareList" parameterType="com.fastbee.iot.domain.DeviceShare" resultMap="DeviceShareVOResult">
+
+        select d.device_id, d.user_id, d.phonenumber, d.perms, d.del_flag,
+               d.create_by, d.create_time, d.update_by, d.update_time, d.remark,
+               su.user_name
+        from iot_device_share d left join sys_user su on d.user_id = su.user_id
+        <where>
+            d.del_flag = '0'
+            and su.del_flag = 0
+            and d.device_id = #{deviceShare.deviceId}
+            <if test="deviceShare.userId != null and deviceShare.userId != 0"> and d.user_id = #{deviceShare.userId}</if>
+            <if test="deviceShare.phonenumber != null  and deviceShare.phonenumber != ''"> and d.phonenumber = #{deviceShare.phonenumber}</if>
+        </where>
+    </select>
+
+    <select id="selectShareUser" parameterType="com.fastbee.iot.domain.DeviceShare" resultMap="ShareUserResult">
+        SELECT
+            u.user_id,
+            u.nick_name,
+            u.user_name,
+            u.email,
+            u.avatar,
+            u.phonenumber,
+            u.sex,
+            u.create_time
+        FROM
+            sys_user u
+                LEFT JOIN (
+                SELECT
+                    *
+                FROM
+                    iot_device_share
+                WHERE
+                    iot_device_share.device_id = #{deviceId} and iot_device_share.del_flag = '0') d on u.user_id = d.user_id
+
+        WHERE
+              u.del_flag = 0
+          AND u.STATUS = 0
+          AND u.phonenumber = #{phonenumber} and d.device_id is null
+          and u.dept_id IS NULL
+    </select>
+</mapper>

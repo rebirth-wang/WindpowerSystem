@@ -1,0 +1,60 @@
+﻿### 查询SceneModelController分页列表 => 成功
+GET {{baseUrl}}/scene/model/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/scene/model/list
+Authorization: Bearer {{token}}
+
+### 查询/delList => 成功
+GET {{baseUrl}}/scene/model/delList
+Authorization: Bearer {{token}}
+
+### 新增SceneModelController => 成功
+POST {{baseUrl}}/scene/model
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/scene/model/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SceneModelController => 成功
+PUT {{baseUrl}}/scene/model
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/restore => 成功
+PUT {{baseUrl}}/scene/model/restore
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除SceneModelController => 成功
+DELETE {{baseUrl}}/scene/model/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{sceneModelIds} => 成功
+DELETE {{baseUrl}}/scene/model/{sceneModelIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/physicDel/{sceneModelIds} => 成功
+DELETE {{baseUrl}}/scene/model/physicDel/{sceneModelIds}
+Authorization: Bearer {{token}}

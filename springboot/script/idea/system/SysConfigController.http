@@ -1,0 +1,47 @@
+﻿### 查询SysConfigController分页列表 => 成功
+GET {{baseUrl}}/system/config/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/config/list
+Authorization: Bearer {{token}}
+
+### 新增SysConfigController => 成功
+POST {{baseUrl}}/system/config
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/system/config/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysConfigController => 成功
+PUT {{baseUrl}}/system/config
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysConfigController => 成功
+DELETE {{baseUrl}}/system/config/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{configIds} => 成功
+DELETE {{baseUrl}}/system/config/{configIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/refreshCache => 成功
+DELETE {{baseUrl}}/system/config/refreshCache
+Authorization: Bearer {{token}}

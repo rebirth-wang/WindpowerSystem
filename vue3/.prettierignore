@@ -1,0 +1,10 @@
+dist
+node_modules
+public
+*.min.js
+*.min.css
+*.wasm
+package-lock.json
+# 自动生成的类型声明文件，由 unplugin-auto-import / unplugin-vue-components 生成
+src/auto-imports.d.ts
+src/components.d.ts

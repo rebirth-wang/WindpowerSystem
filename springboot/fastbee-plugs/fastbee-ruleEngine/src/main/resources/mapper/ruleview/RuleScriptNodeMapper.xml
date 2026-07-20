@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.rule.mapper.RuleScriptNodeMapper">
+        <resultMap type="RuleScriptNode" id="RuleScriptNodeResult">
+        <result property="id"    column="id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="applicationName"    column="application_name"    />
+        <result property="scriptNodeId"    column="script_node_id"    />
+        <result property="scriptNodeName"    column="script_node_name"    />
+        <result property="scriptNodeType"    column="script_node_type"    />
+        <result property="scriptNodeData"    column="script_node_data"    />
+        <result property="scriptLanguage"    column="script_language"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectRuleScriptNodeVo">
+        select tenant_id, id, application_name, script_node_id, script_node_name, script_node_type, script_node_data, script_language, create_by, create_time, update_by, update_time, del_flag from rule_script_node
+    </sql>
+
+
+
+    </mapper>

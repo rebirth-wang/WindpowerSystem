@@ -1,0 +1,51 @@
+﻿### 查询SysDictTypeController分页列表 => 成功
+GET {{baseUrl}}/system/dict/type/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/dict/type/list
+Authorization: Bearer {{token}}
+
+### 查询/optionselect => 成功
+GET {{baseUrl}}/system/dict/type/optionselect
+Authorization: Bearer {{token}}
+
+### 新增SysDictTypeController => 成功
+POST {{baseUrl}}/system/dict/type
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/system/dict/type/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysDictTypeController => 成功
+PUT {{baseUrl}}/system/dict/type
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysDictTypeController => 成功
+DELETE {{baseUrl}}/system/dict/type/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{dictIds} => 成功
+DELETE {{baseUrl}}/system/dict/type/{dictIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/refreshCache => 成功
+DELETE {{baseUrl}}/system/dict/type/refreshCache
+Authorization: Bearer {{token}}

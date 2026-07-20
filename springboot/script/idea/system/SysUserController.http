@@ -1,0 +1,117 @@
+﻿### 查询SysUserController分页列表 => 成功
+GET {{baseUrl}}/system/user/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/user/list
+Authorization: Bearer {{token}}
+
+### 查询/authRole/{userId} => 成功
+GET {{baseUrl}}/system/user/authRole/{userId}
+Authorization: Bearer {{token}}
+
+### 查询/deptTree => 成功
+GET {{baseUrl}}/system/user/deptTree
+Authorization: Bearer {{token}}
+
+### 查询/listTerminal => 成功
+GET {{baseUrl}}/system/user/listTerminal
+Authorization: Bearer {{token}}
+
+### 查询/getByDeptId => 成功
+GET {{baseUrl}}/system/user/getByDeptId
+Authorization: Bearer {{token}}
+
+### 新增SysUserController => 成功
+POST {{baseUrl}}/system/user
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/system/user/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/importData => 成功
+POST {{baseUrl}}/system/user/importData
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/importTemplate => 成功
+POST {{baseUrl}}/system/user/importTemplate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysUserController => 成功
+PUT {{baseUrl}}/system/user
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/resetPwd => 成功
+PUT {{baseUrl}}/system/user/resetPwd
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/changeStatus => 成功
+PUT {{baseUrl}}/system/user/changeStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/authRole => 成功
+PUT {{baseUrl}}/system/user/authRole
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/forgetPwdReset => 成功
+PUT {{baseUrl}}/system/user/forgetPwdReset
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除SysUserController => 成功
+DELETE {{baseUrl}}/system/user/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{userIds} => 成功
+DELETE {{baseUrl}}/system/user/{userIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/logout => 成功
+DELETE {{baseUrl}}/system/user/logout
+Authorization: Bearer {{token}}

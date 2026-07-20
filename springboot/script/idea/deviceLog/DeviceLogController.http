@@ -1,0 +1,55 @@
+﻿### 查询DeviceLogController分页列表 => 成功
+GET {{baseUrl}}/iot/deviceLog/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/deviceLog/list
+Authorization: Bearer {{token}}
+
+### 查询/monitor => 成功
+GET {{baseUrl}}/iot/deviceLog/monitor
+Authorization: Bearer {{token}}
+
+### 查询/history => 成功
+GET {{baseUrl}}/iot/deviceLog/history
+Authorization: Bearer {{token}}
+
+### 查询/historyGroupByCreateTime => 成功
+GET {{baseUrl}}/iot/deviceLog/historyGroupByCreateTime
+Authorization: Bearer {{token}}
+
+### 新增DeviceLogController => 成功
+POST {{baseUrl}}/iot/deviceLog
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/deviceLog/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改DeviceLogController => 成功
+PUT {{baseUrl}}/iot/deviceLog
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除DeviceLogController => 成功
+DELETE {{baseUrl}}/iot/deviceLog/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{logIds} => 成功
+DELETE {{baseUrl}}/iot/deviceLog/{logIds}
+Authorization: Bearer {{token}}

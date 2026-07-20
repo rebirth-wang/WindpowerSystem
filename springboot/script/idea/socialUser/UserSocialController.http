@@ -1,0 +1,38 @@
+﻿### 查询UserSocialController分页列表 => 成功
+GET {{baseUrl}}/iot/social//list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/bindId/{bindId} => 成功
+GET {{baseUrl}}/iot/social//bindId/{bindId}
+Authorization: Bearer {{token}}
+
+### 查询/bind/{platform} => 成功
+GET {{baseUrl}}/iot/social//bind/{platform}
+Authorization: Bearer {{token}}
+
+### 查询/unbind/{socialUserId} => 成功
+GET {{baseUrl}}/iot/social//unbind/{socialUserId}
+Authorization: Bearer {{token}}
+
+### 新增UserSocialController => 成功
+POST {{baseUrl}}/iot/social/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改UserSocialController => 成功
+PUT {{baseUrl}}/iot/social/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除UserSocialController => 成功
+DELETE {{baseUrl}}/iot/social//1,2,3
+Authorization: Bearer {{token}}

@@ -1,0 +1,11 @@
+{
+  "title": "数值控制",
+  "items": [
+    {
+      "text": "数值控制1",
+      "type": "num-control-1",
+      "img": "components/numControl/num1.png",
+      "name": "numControl1"
+    }
+  ]
+}

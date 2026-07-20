@@ -1,0 +1,100 @@
+﻿### 查询SysRoleController分页列表 => 成功
+GET {{baseUrl}}/system/role/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/role/list
+Authorization: Bearer {{token}}
+
+### 查询/optionselect => 成功
+GET {{baseUrl}}/system/role/optionselect
+Authorization: Bearer {{token}}
+
+### 查询/authUser/allocatedList => 成功
+GET {{baseUrl}}/system/role/authUser/allocatedList
+Authorization: Bearer {{token}}
+
+### 查询/authUser/unallocatedList => 成功
+GET {{baseUrl}}/system/role/authUser/unallocatedList
+Authorization: Bearer {{token}}
+
+### 新增SysRoleController => 成功
+POST {{baseUrl}}/system/role
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/system/role/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysRoleController => 成功
+PUT {{baseUrl}}/system/role
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/dataScope => 成功
+PUT {{baseUrl}}/system/role/dataScope
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/changeStatus => 成功
+PUT {{baseUrl}}/system/role/changeStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/authUser/cancel => 成功
+PUT {{baseUrl}}/system/role/authUser/cancel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/authUser/cancelAll => 成功
+PUT {{baseUrl}}/system/role/authUser/cancelAll
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 执行/authUser/selectAll => 成功
+PUT {{baseUrl}}/system/role/authUser/selectAll
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除SysRoleController => 成功
+DELETE {{baseUrl}}/system/role/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{roleIds} => 成功
+DELETE {{baseUrl}}/system/role/{roleIds}
+Authorization: Bearer {{token}}

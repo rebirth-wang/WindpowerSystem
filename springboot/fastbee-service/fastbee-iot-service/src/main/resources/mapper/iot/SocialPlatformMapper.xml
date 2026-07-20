@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.social.mapper.SocialPlatformMapper">
+
+    <resultMap type="com.fastbee.social.domain.SocialPlatform" id="SocialPlatformResult">
+        <result property="socialPlatformId" column="social_platform_id"/>
+        <result property="platform" column="platform"/>
+        <result property="status" column="status"/>
+        <result property="clientId" column="client_id"/>
+        <result property="secretKey" column="secret_key"/>
+        <result property="redirectUri" column="redirect_uri"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="remark" column="remark"/>
+        <result property="bindUri" column="bind_uri"/>
+        <result property="redirectLoginUri" column="redirect_login_uri"/>
+        <result property="errorMsgUri" column="error_msg_uri"/>
+    </resultMap>
+
+    <sql id="selectSocialPlatformVo">
+        select social_platform_id,
+               platform,
+               status,
+               client_id,
+               secret_key,
+               redirect_uri,
+               del_flag,
+               create_by,
+               create_time,
+               update_time,
+               update_by,
+               remark,
+               bind_uri,
+               redirect_login_uri,
+               error_msg_uri
+        from iot_social_platform
+    </sql>
+
+</mapper>

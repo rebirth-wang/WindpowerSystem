@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ProductAuthorizeMapper">
+
+    <resultMap type="com.fastbee.iot.domain.ProductAuthorize" id="ProductAuthorizeResult">
+        <result property="authorizeId"    column="authorize_id"    />
+        <result property="authorizeCode"    column="authorize_code"    />
+        <result property="productId"    column="product_id"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectProductAuthorizeVo">
+        select authorize_id, authorize_code, product_id, device_id, serial_number, user_id, user_name,status, del_flag, create_by, create_time, update_by, update_time, remark from iot_product_authorize
+    </sql>
+
+    <select id="selectFirstAuthorizeByAuthorizeCode" parameterType="com.fastbee.iot.domain.ProductAuthorize" resultMap="ProductAuthorizeResult">
+        <include refid="selectProductAuthorizeVo"/>
+        where
+        del_flag = 0
+        and authorize_code = #{authorize.authorizeCode}
+        and product_id = #{authorize.productId}
+    </select>
+
+</mapper>

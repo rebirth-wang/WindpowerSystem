@@ -1,0 +1,235 @@
+# 数据源配置
+spring:
+  datasource:
+    druid:
+      webStatFilter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+        allow:
+        url-pattern: /druid/*
+        loginUsername: fastbee
+        loginPassword: fastbee
+    type: com.alibaba.druid.pool.DruidDataSource
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 10
+        max-wait: 60000
+        max-active: 20
+        timeBetweenEvictionRunsMillis: 60000  # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis: 300000    # 配置一个连接在池中最小生存的时间，单位是毫秒
+        maxEvictableIdleTimeMillis: 900000    # 配置一个连接在池中最大生存的时间，单位是毫秒
+        validation-query: 'SELECT 1'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+      datasource:
+        master:
+          type: ${spring.datasource.type}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/fastbee?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: fastbee
+          druid:
+            filters: stat,wall
+            stat:
+              # 慢SQL记录
+              log-slow-sql: true
+              slow-sql-millis: 1000
+              merge-sql: true
+            wall:
+              none-base-statement-allow: true
+        taos: # 配置 taos 数据源
+          enabled: true
+          type: ${spring.datasource.type}
+          driver-class-name: com.taosdata.jdbc.ws.WebSocketDriver
+          url: jdbc:TAOS-WS://fastbee:6041/fastbee_log?timezone=UTC-8&charset=utf-8
+#          driver-class-name: com.taosdata.jdbc.rs.RestfulDriver
+#          url: jdbc:TAOS-RS://fastbee:6041/fastbee_log?timezone=UTC-8&charset=utf-8
+#          driver-class-name: com.taosdata.jdbc.TSDBDriver
+#          url: jdbc:TAOS://fastbee:6030/fastbee_log?timezone=UTC-8&charset=utf-8
+          username: root
+          password: taosdata
+          dbName: fastbee_log
+        influx: # 配置 influx 数据源
+          enabled: false
+          url: http://localhost:8086
+          token: inX0k-IPfSgKg6AIfoZm6Mv0DQyQOKCkfvs5ZF3a836Yzx2Ew9QgxsHev40_2gztuMn6tofwyS6nfbT4cD-SeA==
+          bucket: device_log
+          org: fastbee
+          measurement: device_log
+        iotdb:
+          enabled: false
+          driver-class-name: org.apache.iotdb.jdbc.IoTDBDriver
+          url: jdbc:iotdb://81.71.97.58:6667/
+          username: root
+          password: root
+          dbName: root.ln
+          druid:
+            validation-query: ''
+#        sqlServer: # 配置 SQLServer 数据源
+#          type: ${spring.datasource.type}
+#          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#          url: jdbc:sqlserver://localhost:1433;databaseName=fastbee
+#          username: sa
+#          password: fastbee@123
+#        postgres: # 配置 postgres 数据源
+#          type: ${spring.datasource.type}
+#          driver-class-name: org.postgresql.Driver
+#          url: jdbc:postgresql://101.33.237.12:5432/fastbee?useUnicode=true&characterEncoding=utf8&useSSL=true&autoReconnect=true&reWriteBatchedInserts=true
+#          username: root
+#          password: fastbee@123
+#        dameng: # 配置达梦数据源
+#          type: ${spring.datasource.type}
+#          driver-class-name: dm.jdbc.driver.DmDriver
+#          url: jdbc:dm://192.168.5.28:5236/fastbee?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#          username: root
+#          password: fastbee@123
+#          druid:
+#            filters: stat
+#        oracle: # 配置 oracle 数据源
+#          type: ${spring.datasource.type}
+#          driver-class-name: oracle.jdbc.driver.OracleDriver
+#          url: jdbc:oracle:thin:@101.33.237.12:1521:fastbee
+#          username: root
+#          password: fastbee@123
+#          druid:
+#           validation-query: 'SELECT 1 FROM DUAL'
+#        kingbase:  # sys_catalog不可删除也不可调换顺序，否则会报错
+#          type: ${spring.datasource.type}
+#          driver-class-name: com.kingbase8.Driver
+#          url: jdbc:kingbase8://localhost:54321/fastbee?currentSchema=fastbee,sys_catalog
+#          username: system
+#          password: 123456
+#          druid:
+#            filters: stat
+#        slave:
+#          type: ${spring.datasource.type}
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://localhost:3306/fastbee1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#          username: root
+#          password: fastbee
+
+  shardingsphere:
+    enabled: false
+#    props:
+#      # 是否显示 ShardingSpher 的sql，用于Debug
+#      sql-show: false
+#    datasource:
+#      # 配置真实数据源
+#      names: ds0
+#      ds0: # 配置 mysql 数据源
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/fastbee?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#        username: root
+#        password: fastbee
+#        filters: stat,wall
+#        filter:
+#          stat:
+#            enabled: true
+#            # 慢SQL记录
+#            log-slow-sql: true
+#            slow-sql-millis: 1000
+#            merge-sql: true
+#          wall:
+#            config:
+#              multi-statement-allow: true
+#
+#    rules: # 配置表规则
+#      sharding:
+#        # 表策略配置
+#        tables:
+#          # iot_device_log 是逻辑表
+#          iot_device_log:
+#            actualDataNodes: ds0.iot_device_log_$->{2024..2030}0$->{1..9},ds0.iot_device_log_$->{2024..2030}1$->{0..2}
+#            tableStrategy:
+#              # 使用标准分片策略
+#              standard:
+#                # 配置分片字段
+#                shardingColumn: create_time
+#                # 分片算法名称，不支持大写字母和下划线，否则启动就会报错
+#                shardingAlgorithmName: time-sharding-algorithm
+#        # 分片算法配置
+#        shardingAlgorithms:
+#          # 分片算法名称，不支持大写字母和下划线，否则启动就会报错
+#          time-sharding-algorithm:
+#            # 类型：自定义策略
+#            type: CLASS_BASED
+#            props:
+#              # 分片策略
+#              strategy: standard
+#              # 分片算法类
+#              algorithmClassName: com.fastbee.framework.config.sharding.TimeShardingAlgorithm
+
+  # redis 配置
+  data:
+    redis:
+      host: localhost                         # 地址
+      port: 6379                              # 端口，默认为6379
+      database: 3                             # 数据库索引
+      password: admin123                       # 密码
+      timeout: 10s                            # 连接超时时间
+      lettuce:
+        pool:
+          min-idle: 0                         # 连接池中的最小空闲连接
+          max-idle: 8                         # 连接池中的最大空闲连接
+          max-active: 8                       # 连接池的最大数据库连接数
+          max-wait: -1ms                      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+  # mqtt 配置
+  mqtt:
+    username: fastbee                       # 账号
+    password: fastbee                       # 密码
+    host-url: tcp://localhost:1884          # mqtt连接tcp地址
+    client-id: ${random.int}                # 客户端Id，不能相同，采用随机数 ${random.value}
+    default-topic: test                     # 默认主题
+    timeout: 30                             # 超时时间
+    keepalive: 30                           # 保持连接
+    clearSession: true                      # 清除会话(设置为false,断开连接，重连后使用原来的会话 保留订阅的主题，能接收离线期间的消息)
+
+# sip 配置
+sip:
+  enabled: false                            # 是否启用视频监控SIP，true为启用
+  ## 默认为容器IP，IDE启动可以写本地网卡内网IP或者127.0.0.1
+  ## 本地调试需保持设备与服务器在同一局域网
+  ip: 192.168.5.102
+  port: 5061                                # SIP端口(保持默认)
+  domain: 3402000000                        # 由省级、市级、区级、基层编号组成
+  id: 34020000002000000001                  # 同上，另外增加编号，(可保持默认)
+  password: 12345678                        # 监控设备接入的密码
+  log: true
+  zlmRecordPath: /opt/media/bin/www
+
+# 日志配置
+logging:
+  level:
+    com.fastbee: debug
+    com.yomahub: debug
+    org.dromara: warn
+    org.springframework: warn
+    com.baomidou: debug
+
+# Swagger配置
+swagger:
+  enabled: true                             # 是否开启swagger
+  pathMapping: /dev-api                     # 请求前缀
+
+license:
+  subject: common
+  licensePath: classpath:license.lic
+  publicKeysStorePath: classpath:publicCerts.keystore
+
+emqx:
+  api:
+    enable: false #控制是否启用API检查
+    base-url: http://localhost:18083/api/v5
+    key: ee26b0dd4af7e749
+    secret: gurQAj6NjUhPIm6bDIJwOW0o9ASbKF8vcEdCQ1Jj9CxDJ
+
+# 连接池配置
+rest-template:
+  max-connections: 30
+  max-per-route: 10
+  connection-timeout: 5000
+  read-timeout: 3000

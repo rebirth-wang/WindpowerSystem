@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sa-OAuth2-认证中心-确认授权页</title>
+		<style type="text/css">
+			body{background-color: #f6f8fb; font-family: Arial, "Microsoft YaHei", sans-serif;}
+			*{margin: 0px; padding: 0px;}
+			.login-box{width: 460px; margin: 18vh auto; padding: 28px; background: #fff; border: 1px solid #dcdfe6;}
+			.login-box h2{font-size: 20px; margin-bottom: 18px;}
+			.login-box .row{margin-bottom: 14px; color: #303133;}
+			.login-box .label{display: block; margin-bottom: 8px; font-weight: bold;}
+			.login-box .value{line-height: 24px;}
+			.login-box .scope-list{border: 1px solid #dcdfe6; background: #fafafa;}
+			.login-box .scope-item{display: flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 12px; border-bottom: 1px solid #ebeef5; cursor: pointer;}
+			.login-box .scope-item:last-child{border-bottom: 0;}
+			.login-box .scope-item input{width: 14px; height: 14px; margin: 0;}
+			.login-box .actions{margin-top: 20px;}
+			.login-box button{padding: 8px 18px; margin-right: 8px; border: 1px solid #dcdfe6; cursor: pointer; }
+			.login-box button.primary{border-color: #1677ff; background: #1677ff; color: #fff;}
+			.login-box .message{min-height: 20px; margin-top: 12px; color: #d93026;}
+		</style>
+	</head>
+	<body>
+		<div class="login-box">
+			<h2>确认授权</h2>
+			<div>
+				<div class="row">
+					<span class="label">应用ID</span>
+					<span class="value" th:text="${clientId}"></span>
+				</div>
+				<div class="row">
+					<span class="label">请求授权</span>
+					<div class="scope-list" id="scopeList">
+						<label class="scope-item" th:each="item : ${scope}">
+							<input type="checkbox" name="scopeItem" th:value="${item}" checked />
+							<span th:text="${item}">userinfo</span>
+						</label>
+					</div>
+				</div>
+				<div class="actions">
+					<button class="primary" onclick="yes()">同意</button>
+					<button onclick="no()">拒绝</button>
+				</div>
+				<div class="message" id="message"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			initScopeList();
+
+			function yes() {
+				var scope = getSelectedScope();
+				if (!scope) {
+					showMessage('请至少选择一项授权内容');
+					return;
+				}
+				var body = new URLSearchParams();
+				body.set('client_id', getParam('client_id'));
+				body.set('scope', scope);
+				body.set('build_redirect_uri', 'true');
+				body.set('response_type', getParam('response_type'));
+				body.set('redirect_uri', getParam('redirect_uri'));
+				body.set('state', getParam('state'));
+				body.set('Authorization', getParam('Authorization'));
+				fetch('/oauth2/doConfirm', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+						'Authorization': getParam('Authorization')
+					},
+					body: body.toString()
+				}).then(function(response) {
+					return response.json();
+				}).then(function(res) {
+					if (res.code === 200) {
+						location.href = res.redirect_uri || location.href;
+						return;
+					}
+					showMessage('授权失败：' + (res.msg || '未知错误'));
+				}).catch(function() {
+					showMessage('授权请求失败');
+				});
+			}
+
+			function initScopeList() {
+				var list = document.getElementById('scopeList');
+				if (list.querySelector('[name=scopeItem]')) {
+					return;
+				}
+				parseScopes(getParam('scope')).forEach(function(scope) {
+					var label = document.createElement('label');
+					label.className = 'scope-item';
+					var checkbox = document.createElement('input');
+					checkbox.type = 'checkbox';
+					checkbox.name = 'scopeItem';
+					checkbox.value = scope;
+					checkbox.checked = true;
+					var text = document.createElement('span');
+					text.textContent = scope;
+					label.appendChild(checkbox);
+					label.appendChild(text);
+					list.appendChild(label);
+				});
+			}
+
+			function getSelectedScope() {
+				var scopes = Array.prototype.slice.call(document.querySelectorAll('[name=scopeItem]:checked'))
+					.map(function(item) {
+						return item.value;
+					})
+					.filter(Boolean);
+				var originalScope = getParam('scope');
+				return scopes.join(originalScope.indexOf(' ') >= 0 ? ' ' : ',');
+			}
+
+			function parseScopes(value) {
+				return (value || '')
+					.split(/[,\s]+/)
+					.map(function(item) {
+						return item.trim();
+					})
+					.filter(Boolean);
+			}
+
+			function no() {
+				var url = joinParam(getParam('redirect_uri'), "error=access_denied&error_description=" + encodeURIComponent("用户拒绝了授权"));
+				location.href = url;
+			}
+
+			function getParam(name, defaultValue) {
+				var value = new URLSearchParams(window.location.search).get(name);
+				return value == null ? (defaultValue === undefined ? '' : defaultValue) : value;
+			}
+
+			function joinParam(url, parameStr) {
+				if (!url || !parameStr) {
+					return url;
+				}
+				var joiner = url.indexOf('?') === -1 ? '?' : (url.endsWith('?') || url.endsWith('&') ? '' : '&');
+				return url + joiner + parameStr;
+			}
+
+			function showMessage(message) {
+				document.getElementById('message').textContent = message;
+			}
+		</script>
+	</body>
+</html>

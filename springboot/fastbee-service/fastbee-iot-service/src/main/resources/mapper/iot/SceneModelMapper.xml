@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.SceneModelMapper">
+
+    <resultMap type="com.fastbee.iot.domain.SceneModel" id="SceneModelResult">
+        <result property="sceneModelId"    column="scene_model_id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="sceneModelName"    column="scene_model_name"    />
+        <result property="status"    column="status"    />
+        <result property="guid"    column="guid"    />
+        <result property="sceneDesc"    column="scene_desc"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="imgUrl" column="img_url"/>
+    </resultMap>
+
+    <resultMap type="com.fastbee.iot.model.vo.SceneModelVO" id="SceneModelVOResult">
+        <result property="sceneModelId"    column="scene_model_id"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="sceneModelName"    column="scene_model_name"    />
+        <result property="status"    column="status"    />
+        <result property="guid"    column="guid"    />
+        <result property="sceneDesc"    column="scene_desc"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="imgUrl" column="img_url"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="deviceTotal" column="device_total"/>
+    </resultMap>
+
+    <sql id="selectSceneModelVo">
+        select scene_model_id, tenant_id, scene_model_name, status, guid, scene_desc, del_flag, create_by, create_time, update_by, update_time, remark, img_url from scene_model
+    </sql>
+
+    <select id="selectSceneModelVoPage" parameterType="com.fastbee.iot.model.vo.SceneModelVO" resultMap="SceneModelVOResult">
+        select sm.scene_model_id, sm.tenant_id, sm.scene_model_name, sm.status, sm.guid, sm.scene_desc, sm.del_flag, sm.create_by, sm.create_time, sm.update_by, sm.update_time, sm.remark, sm.img_url,
+        d.dept_id, d.dept_name,
+        (select count(smd.cus_device_id) from scene_model_device smd where sm.scene_model_id = smd.scene_model_id and smd.variable_type = 1 and smd.del_flag = '0') as device_total
+        from scene_model sm left join sys_dept d on sm.tenant_id = d.dept_user_id
+        <where>
+            sm.del_flag = '0'
+            and d.del_flag = '0'
+            <if test="sceneModelVO.tenantId != null "> and sm.tenant_id = #{sceneModelVO.tenantId}</if>
+            <if test="sceneModelVO.sceneModelName != null  and sceneModelVO.sceneModelName != ''"> and sm.scene_model_name like concat('%', #{sceneModelVO.sceneModelName}, '%')</if>
+            <if test="sceneModelVO.status != null "> and sm.status = #{sceneModelVO.status}</if>
+            <if test="sceneModelVO.guid != null  and sceneModelVO.guid != ''"> and sm.guid = #{sceneModelVO.guid}</if>
+            <if test="sceneModelVO.sceneDesc != null  and sceneModelVO.sceneDesc != ''"> and sm.scene_desc = #{sceneModelVO.sceneDesc}</if>
+            <!-- 数据范围过滤 -->
+            <if test="sceneModelVO.params.dataScope != null  and sceneModelVO.params.dataScope != ''">
+                and ${sceneModelVO.params.dataScope}
+            </if>
+        </where>
+        order by sm.scene_model_id desc
+    </select>
+
+    <select id="selectSceneModelBySceneModelId" parameterType="Long" resultMap="SceneModelVOResult">
+        select sm.scene_model_id, sm.tenant_id, sm.scene_model_name, sm.status, sm.guid, sm.scene_desc, sm.del_flag, sm.create_by, sm.create_time, sm.update_by, sm.update_time, sm.remark, sm.img_url,
+               d.dept_id, d.dept_name
+        from scene_model sm left join sys_dept d on sm.tenant_id = d.dept_user_id
+        where sm.scene_model_id = #{sceneModel.sceneModelId}
+        and sm.del_flag = '0'
+        and d.del_flag = '0'
+        <!-- 数据范围过滤 -->
+        <if test="sceneModel.params.dataScope != null  and sceneModel.params.dataScope != ''">
+            and ${sceneModel.params.dataScope}
+        </if>
+    </select>
+
+    <select id="selectListScadaIdByGuidS" resultType="com.fastbee.iot.model.vo.SceneModelVO">
+        select id scadaId, guid
+        from scada
+        where guid in
+        <foreach collection="guidList" item="guid" open="(" separator="," close=")">
+            #{guid}
+        </foreach>
+        and del_flag = 0
+    </select>
+
+    <select id="delList" resultType="com.fastbee.iot.model.vo.SceneModelVO">
+        select scene_model_id, tenant_id, scene_model_name, status, guid, scene_desc, del_flag, create_by, create_time, update_by, update_time, remark, img_url
+        from scene_model
+        where del_flag = '1'
+        <if test="sceneModel.sceneModelName != null  and sceneModel.sceneModelName != ''">
+            <bind name="patternSceneModelName" value="'%' + sceneModel.sceneModelName + '%'"/>
+            and scene_model_name like #{patternSceneModelName}
+        </if>
+        <!-- 数据范围过滤 -->
+        <if test="sceneModel.params.dataScope != null  and sceneModel.params.dataScope != ''">
+            and ${sceneModel.params.dataScope}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <delete id="phyDeleteBatchIds">
+        delete from scene_model where scene_model_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")" index="index">
+            #{item}
+        </foreach>
+        and del_flag = '1'
+    </delete>
+
+    <select id="selectByModelId" parameterType="Long" resultMap="SceneModelResult">
+        <include refid="selectSceneModelVo"/>
+        where scene_model_id = #{sceneModelId}
+    </select>
+
+    <update id="restoreById">
+        update scene_model set del_flag = '0' where scene_model_id = #{sceneModelId}
+    </update>
+
+
+</mapper>

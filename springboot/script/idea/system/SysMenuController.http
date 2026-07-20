@@ -1,0 +1,38 @@
+﻿### 查询SysMenuController分页列表 => 成功
+GET {{baseUrl}}/system/menu/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/menu/list
+Authorization: Bearer {{token}}
+
+### 查询/treeselect => 成功
+GET {{baseUrl}}/system/menu/treeselect
+Authorization: Bearer {{token}}
+
+### 新增SysMenuController => 成功
+POST {{baseUrl}}/system/menu
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改SysMenuController => 成功
+PUT {{baseUrl}}/system/menu
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysMenuController => 成功
+DELETE {{baseUrl}}/system/menu/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{menuId} => 成功
+DELETE {{baseUrl}}/system/menu/{menuId}
+Authorization: Bearer {{token}}

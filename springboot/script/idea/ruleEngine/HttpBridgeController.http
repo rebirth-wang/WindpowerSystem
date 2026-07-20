@@ -1,0 +1,26 @@
+﻿### 查询HttpBridgeController分页列表 => 成功
+GET {{baseUrl}}/bridge/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增HttpBridgeController => 成功
+POST {{baseUrl}}/bridge
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 修改HttpBridgeController => 成功
+PUT {{baseUrl}}/bridge
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除HttpBridgeController => 成功
+DELETE {{baseUrl}}/bridge/1,2,3
+Authorization: Bearer {{token}}

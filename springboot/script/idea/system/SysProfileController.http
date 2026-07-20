@@ -1,0 +1,44 @@
+﻿### 查询SysProfileController分页列表 => 成功
+GET {{baseUrl}}/system/user/profile/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 新增SysProfileController => 成功
+POST {{baseUrl}}/system/user/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/avatar => 成功
+POST {{baseUrl}}/system/user/profile/avatar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysProfileController => 成功
+PUT {{baseUrl}}/system/user/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/updatePwd => 成功
+PUT {{baseUrl}}/system/user/profile/updatePwd
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除SysProfileController => 成功
+DELETE {{baseUrl}}/system/user/profile/1,2,3
+Authorization: Bearer {{token}}

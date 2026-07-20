@@ -1,0 +1,47 @@
+﻿### 查询CategoryController分页列表 => 成功
+GET {{baseUrl}}/iot/category/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/category/list
+Authorization: Bearer {{token}}
+
+### 查询/shortlist => 成功
+GET {{baseUrl}}/iot/category/shortlist
+Authorization: Bearer {{token}}
+
+### 新增CategoryController => 成功
+POST {{baseUrl}}/iot/category
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/category/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改CategoryController => 成功
+PUT {{baseUrl}}/iot/category
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除CategoryController => 成功
+DELETE {{baseUrl}}/iot/category/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{categoryIds} => 成功
+DELETE {{baseUrl}}/iot/category/{categoryIds}
+Authorization: Bearer {{token}}

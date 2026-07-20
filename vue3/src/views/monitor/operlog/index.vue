@@ -1,0 +1,397 @@
+<template>
+  <div class="monitor-operlog">
+    <el-card v-show="showSearch" class="search-card">
+      <div class="form-wrap">
+        <el-form @submit.prevent :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+          <el-form-item prop="title">
+            <el-input
+              v-model="queryParams.title"
+              :placeholder="$t('operlog.874509-1')"
+              clearable
+              style="width: 192px"
+              @keyup.enter="handleQuery"
+            />
+          </el-form-item>
+          <el-form-item prop="operName">
+            <el-input
+              v-model="queryParams.operName"
+              :placeholder="$t('operlog.874509-3')"
+              clearable
+              style="width: 192px"
+              @keyup.enter="handleQuery"
+            />
+          </el-form-item>
+          <el-form-item prop="businessType">
+            <el-select
+              v-model="queryParams.businessType"
+              :placeholder="$t('operlog.874509-4')"
+              clearable
+              style="width: 192px"
+            >
+              <el-option
+                v-for="item in dict.type.sys_oper_type"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+          <template v-if="searchShow">
+            <el-form-item prop="status">
+              <el-select
+                v-model="queryParams.status"
+                :placeholder="$t('operlog.874509-5')"
+                clearable
+                style="width: 192px"
+              >
+                <el-option
+                  v-for="item in dict.type.sys_common_status"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </template>
+          <template v-if="searchShow">
+            <el-form-item>
+              <el-date-picker
+                v-model="dateRange"
+                style="width: 240px"
+                value-format="YYYY-MM-DD"
+                type="daterange"
+                range-separator="-"
+                :start-placeholder="$t('system.dict.index.880996-3')"
+                :end-placeholder="$t('system.dict.index.880996-4')"
+              />
+            </el-form-item>
+          </template>
+        </el-form>
+        <div class="search-btn-group">
+          <el-button type="primary" :icon="Search" @click="handleQuery">{{ $t('search') }}</el-button>
+          <el-button :icon="Refresh" @click="resetQuery">{{ $t('reset') }}</el-button>
+          <el-button type="primary" link @click="searchChange">
+            <span style="color: #486ff2; margin-left: 14px">
+              {{ searchShow ? t('template.index.891112-113') : t('template.index.891112-112') }}
+            </span>
+            <el-icon style="color: #486ff2; margin-left: 10px">
+              <ArrowDown v-if="!searchShow" />
+              <ArrowUp v-else />
+            </el-icon>
+          </el-button>
+        </div>
+      </div>
+    </el-card>
+
+    <el-card>
+      <el-row :gutter="10" style="margin-bottom: 16px">
+        <el-col :span="1.5">
+          <el-button type="primary" plain :icon="Delete" @click="handleClean" v-hasPermi="['monitor:operlog:remove']">
+            {{ $t('operlog.874509-7') }}
+          </el-button>
+        </el-col>
+        <el-col :span="1.5">
+          <el-button
+            plain
+            :icon="Delete"
+            :disabled="multiple"
+            @click="handleDelete()"
+            v-hasPermi="['monitor:operlog:remove']"
+          >
+            {{ $t('del') }}
+          </el-button>
+        </el-col>
+        <el-col :span="1.5">
+          <el-button plain :icon="Download" @click="handleExport" v-hasPermi="['monitor:operlog:export']">
+            {{ $t('export') }}
+          </el-button>
+        </el-col>
+        <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" />
+      </el-row>
+
+      <el-table
+        v-loading="loading"
+        :data="listData"
+        :border="false"
+        @selection-change="handleSelectionChange"
+        :default-sort="defaultSort"
+        @sort-change="handleSortChange"
+        ref="multipleTableRef"
+        :row-key="getRowKeys"
+      >
+        <el-table-column :reserve-selection="true" type="selection" width="55" align="center" />
+        <el-table-column :label="$t('operlog.874509-8')" align="center" prop="operId" min-width="90" />
+        <el-table-column :label="$t('operlog.874509-0')" align="left" prop="title" min-width="200" />
+        <el-table-column :label="$t('operlog.874509-4')" align="center" prop="businessType" min-width="120">
+          <template #default="scope">
+            <dict-tag :options="dict.type.sys_oper_type" :value="scope.row.businessType" />
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('operlog.874509-9')" align="center" prop="requestMethod" min-width="100" />
+        <el-table-column
+          :label="$t('operlog.874509-2')"
+          align="center"
+          prop="operName"
+          min-width="150"
+          :show-overflow-tooltip="true"
+          sortable="custom"
+          :sort-orders="['descending', 'ascending']"
+        />
+        <el-table-column
+          :label="$t('operlog.874509-10')"
+          align="center"
+          prop="operIp"
+          min-width="140"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          :label="$t('operlog.874509-11')"
+          align="center"
+          prop="operLocation"
+          :show-overflow-tooltip="true"
+          min-width="150"
+        />
+        <el-table-column :label="$t('operlog.874509-30')" align="center" prop="status" min-width="100">
+          <template #default="scope">
+            <dict-tag :options="dict.type.sys_common_status" :value="scope.row.status" />
+          </template>
+        </el-table-column>
+        <el-table-column
+          :label="$t('operlog.874509-12')"
+          align="center"
+          prop="operTime"
+          sortable="custom"
+          :sort-orders="['descending', 'ascending']"
+          min-width="180"
+        >
+          <template #default="scope">
+            <span>{{ parseTime(scope.row.operTime) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          :label="$t('opation')"
+          align="center"
+          class-name="small-padding fixed-width"
+          min-width="90"
+        >
+          <template #default="scope">
+            <el-button
+              size="small"
+              link
+              :icon="View"
+              @click="handleView(scope.row)"
+              v-hasPermi="['monitor:operlog:query']"
+            >
+              {{ $t('operlog.874509-13') }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <pagination
+        style="margin-bottom: 20px"
+        v-show="total > 0"
+        :total="total"
+        v-model:page="queryParams.pageNum"
+        v-model:limit="queryParams.pageSize"
+        @pagination="getList"
+      />
+    </el-card>
+
+    <!-- 操作日志详细 -->
+    <el-dialog :title="$t('operlog.874509-14')" v-model="open" width="780px" append-to-body>
+      <el-form ref="detailFormRef" :model="form" label-width="110px" size="small">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item :label="$t('operlog.874509-15')">{{ form.title }} / {{ typeFormat(form) }}</el-form-item>
+            <el-form-item :label="$t('operlog.874509-16')">
+              {{ form.operName }} / {{ form.operIp }} / {{ form.operLocation }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item :label="$t('operlog.874509-17')">{{ form.operUrl }}</el-form-item>
+            <el-form-item :label="$t('operlog.874509-18')">{{ form.requestMethod }}</el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('operlog.874509-19')">{{ form.method }}</el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('operlog.874509-20')">
+              <div style="width: 514px; text-align: justify">{{ form.operParam }}</div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('operlog.874509-21')">
+              <div style="width: 514px; text-align: justify">{{ form.jsonResult }}</div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item :label="$t('operlog.874509-22')">
+              <div v-if="form.status === 0">{{ $t('operlog.874509-23') }}</div>
+              <div v-else-if="form.status === 1">{{ $t('operlog.874509-24') }}</div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item :label="$t('operlog.874509-25')">{{ parseTime(form.operTime) }}</el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('operlog.874509-26')" v-if="form.status === 1">{{ form.errorMsg }}</el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="open = false">{{ $t('close') }}</el-button>
+        </div>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive, getCurrentInstance, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { Search, Refresh, Delete, Download, View, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import { list, delOperlog, cleanOperlog } from '@/api/monitor/operlog';
+import { useDict } from '@/utils/dict/useDict';
+import { parseTime, addDateRange, selectDictLabel } from '@/utils/ruoyi';
+
+const { t } = useI18n();
+const { proxy } = getCurrentInstance()!;
+const { dict } = useDict('sys_oper_type', 'sys_common_status');
+
+const loading = ref(true);
+const ids = ref<any[]>([]);
+const multiple = ref(true);
+const showSearch = ref(true);
+const searchShow = ref(false);
+const total = ref(0);
+const listData = ref<any[]>([]);
+const open = ref(false);
+const dateRange = ref<any[]>([]);
+const defaultSort = reactive({ prop: 'operTime', order: 'descending' as const });
+const form = ref<any>({});
+const queryFormRef = ref();
+const multipleTableRef = ref();
+
+const queryParams = reactive<any>({
+  pageNum: 1,
+  pageSize: 10,
+  title: undefined,
+  operName: undefined,
+  businessType: undefined,
+  status: undefined,
+});
+
+function getList() {
+  loading.value = true;
+  list(addDateRange(queryParams, dateRange.value)).then((response: any) => {
+    listData.value = response.rows;
+    total.value = response.total;
+    loading.value = false;
+  });
+}
+
+function typeFormat(row: any) {
+  return selectDictLabel(dict.type.sys_oper_type, row.businessType);
+}
+
+function handleQuery() {
+  queryParams.pageNum = 1;
+  getList();
+}
+
+function resetQuery() {
+  dateRange.value = [];
+  queryFormRef.value?.resetFields();
+  queryParams.pageNum = 1;
+  getList();
+}
+
+function handleSelectionChange(selection: any[]) {
+  ids.value = selection.map((item) => item.operId);
+  multiple.value = !selection.length;
+}
+
+function handleSortChange(column: any) {
+  queryParams.orderByColumn = column.prop;
+  queryParams.isAsc = column.order;
+  getList();
+}
+
+function handleView(row: any) {
+  open.value = true;
+  form.value = row;
+}
+
+function handleDelete() {
+  const operIds = ids.value;
+  (proxy as any).$modal
+    .confirm(t('operlog.874509-27', [operIds]))
+    .then(() => {
+      return delOperlog(operIds);
+    })
+    .then(() => {
+      getList();
+      (proxy as any).$modal.msgSuccess(t('delSuccess'));
+      multipleTableRef.value?.clearSelection();
+    })
+    .catch(() => {});
+}
+
+function handleClean() {
+  (proxy as any).$modal
+    .confirm(t('operlog.874509-28'))
+    .then(() => {
+      return cleanOperlog();
+    })
+    .then(() => {
+      getList();
+      (proxy as any).$modal.msgSuccess(t('operlog.874509-29'));
+      multipleTableRef.value?.clearSelection();
+    })
+    .catch(() => {});
+}
+
+function handleExport() {
+  (proxy as any).download('monitor/operlog/export', { ...queryParams }, `operlog_${new Date().getTime()}.xlsx`);
+}
+
+function searchChange() {
+  searchShow.value = !searchShow.value;
+}
+
+function getRowKeys(row: any) {
+  return row.operId;
+}
+
+onMounted(() => {
+  getList();
+});
+</script>
+
+<style lang="scss" scoped>
+.monitor-operlog {
+  padding: 20px;
+
+  .search-card {
+    margin-bottom: 15px;
+    padding: 3px 0;
+
+    .form-wrap {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: -22.5px;
+
+      .search-btn-group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 22px;
+      }
+    }
+  }
+}
+</style>

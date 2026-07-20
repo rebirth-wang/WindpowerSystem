@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.onvif.mapper.OnvifPlatformMapper">
+        <resultMap type="com.fastbee.onvif.domain.OnvifPlatform" id="OnvifPlatformResult">
+        <result property="id"    column="id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="platformId"    column="platform_id"    />
+        <result property="catalogId"    column="catalog_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectOnvifPlatformVo">
+        select id, channel_id, platform_id, catalog_id, create_by, create_time, update_by, update_time, remark from onvif_platform
+    </sql>
+
+    </mapper>

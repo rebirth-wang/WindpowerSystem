@@ -1,0 +1,52 @@
+﻿### 查询ModbusConfigController分页列表 => 成功
+GET {{baseUrl}}/modbus/config/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/modbus/config/list
+Authorization: Bearer {{token}}
+
+### 新增ModbusConfigController => 成功
+POST {{baseUrl}}/modbus/config
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/addBatch => 成功
+POST {{baseUrl}}/modbus/config/addBatch
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/modbusTemplate => 成功
+POST {{baseUrl}}/modbus/config/modbusTemplate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ModbusConfigController => 成功
+PUT {{baseUrl}}/modbus/config
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除ModbusConfigController => 成功
+DELETE {{baseUrl}}/modbus/config/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/modbus/config/{ids}
+Authorization: Bearer {{token}}

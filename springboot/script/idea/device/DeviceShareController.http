@@ -1,0 +1,47 @@
+﻿### 查询DeviceShareController分页列表 => 成功
+GET {{baseUrl}}/iot/share/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/share/list
+Authorization: Bearer {{token}}
+
+### 查询/shareUser => 成功
+GET {{baseUrl}}/iot/share/shareUser
+Authorization: Bearer {{token}}
+
+### 新增DeviceShareController => 成功
+POST {{baseUrl}}/iot/share
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/share/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改DeviceShareController => 成功
+PUT {{baseUrl}}/iot/share
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除DeviceShareController => 成功
+DELETE {{baseUrl}}/iot/share/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{deviceIds} => 成功
+DELETE {{baseUrl}}/iot/share/{deviceIds}
+Authorization: Bearer {{token}}

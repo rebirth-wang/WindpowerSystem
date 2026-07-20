@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastbee.iot.mapper.ThingsModelTagMapper">
+        <resultMap type="ThingsModelTag" id="ThingsModelTagResult">
+        <result property="id"    column="id"    />
+        <result property="identifier"    column="identifier"    />
+        <result property="alias"    column="alias"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="operation"    column="operation"    />
+        <result property="sourceModelId"    column="source_model_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectThingsModelTagVo">
+        select id, identifier, alias, model_id, operation, source_model_id, del_flag, create_by, create_time, update_by, update_time, remark from iot_things_model_tag
+    </sql>
+    
+    
+
+    </mapper>

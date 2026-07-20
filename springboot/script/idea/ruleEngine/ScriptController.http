@@ -1,0 +1,69 @@
+﻿### 查询ScriptController分页列表 => 成功
+GET {{baseUrl}}/iot/script/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/script/list
+Authorization: Bearer {{token}}
+
+### 查询/allowpackage => 成功
+GET {{baseUrl}}/iot/script/allowpackage
+Authorization: Bearer {{token}}
+
+### 新增ScriptController => 成功
+POST {{baseUrl}}/iot/script
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/script/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/validate => 成功
+POST {{baseUrl}}/iot/script/validate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改ScriptController => 成功
+PUT {{baseUrl}}/iot/script
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 执行/allowpackage => 成功
+PUT {{baseUrl}}/iot/script/allowpackage
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 删除ScriptController => 成功
+DELETE {{baseUrl}}/iot/script/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{scriptIds} => 成功
+DELETE {{baseUrl}}/iot/script/{scriptIds}
+Authorization: Bearer {{token}}
+
+### 执行删除/allowpackage => 成功
+DELETE {{baseUrl}}/iot/script/allowpackage
+Authorization: Bearer {{token}}

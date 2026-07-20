@@ -1,0 +1,55 @@
+﻿### 查询MediaServerController分页列表 => 成功
+GET {{baseUrl}}/sip/mediaserver/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/sip/mediaserver/list
+Authorization: Bearer {{token}}
+
+### 查询/mediaList/{schema}/{stream} => 成功
+GET {{baseUrl}}/sip/mediaserver/mediaList/{schema}/{stream}
+Authorization: Bearer {{token}}
+
+### 查询/listRtpServer => 成功
+GET {{baseUrl}}/sip/mediaserver/listRtpServer
+Authorization: Bearer {{token}}
+
+### 查询/matchsData/{deviceId}/{channelId} => 成功
+GET {{baseUrl}}/sip/mediaserver/matchsData/{deviceId}/{channelId}
+Authorization: Bearer {{token}}
+
+### 新增MediaServerController => 成功
+POST {{baseUrl}}/sip/mediaserver
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/sip/mediaserver/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改MediaServerController => 成功
+PUT {{baseUrl}}/sip/mediaserver
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除MediaServerController => 成功
+DELETE {{baseUrl}}/sip/mediaserver/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/sip/mediaserver/{ids}
+Authorization: Bearer {{token}}

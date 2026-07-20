@@ -1,0 +1,47 @@
+﻿### 查询SysPostController分页列表 => 成功
+GET {{baseUrl}}/system/post/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/system/post/list
+Authorization: Bearer {{token}}
+
+### 查询/optionselect => 成功
+GET {{baseUrl}}/system/post/optionselect
+Authorization: Bearer {{token}}
+
+### 新增SysPostController => 成功
+POST {{baseUrl}}/system/post
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/system/post/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改SysPostController => 成功
+PUT {{baseUrl}}/system/post
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除SysPostController => 成功
+DELETE {{baseUrl}}/system/post/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{postIds} => 成功
+DELETE {{baseUrl}}/system/post/{postIds}
+Authorization: Bearer {{token}}

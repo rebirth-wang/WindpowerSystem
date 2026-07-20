@@ -1,0 +1,69 @@
+﻿### 查询WorkOrderController分页列表 => 成功
+GET {{baseUrl}}/iot/workOrder/list?pageNum=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 查询/list => 成功
+GET {{baseUrl}}/iot/workOrder/list
+Authorization: Bearer {{token}}
+
+### 查询/listMyself => 成功
+GET {{baseUrl}}/iot/workOrder/listMyself
+Authorization: Bearer {{token}}
+
+### 查询/listLog => 成功
+GET {{baseUrl}}/iot/workOrder/listLog
+Authorization: Bearer {{token}}
+
+### 新增WorkOrderController => 成功
+POST {{baseUrl}}/iot/workOrder
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "测试数据"
+}
+
+### 执行/export => 成功
+POST {{baseUrl}}/iot/workOrder/export
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/changeStatus => 成功
+POST {{baseUrl}}/iot/workOrder/changeStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 执行/endUserAdd => 成功
+POST {{baseUrl}}/iot/workOrder/endUserAdd
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "key": "value"
+}
+
+### 修改WorkOrderController => 成功
+PUT {{baseUrl}}/iot/workOrder
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "更新后的名称"
+}
+
+### 删除WorkOrderController => 成功
+DELETE {{baseUrl}}/iot/workOrder/1,2,3
+Authorization: Bearer {{token}}
+
+### 执行删除/{ids} => 成功
+DELETE {{baseUrl}}/iot/workOrder/{ids}
+Authorization: Bearer {{token}}
