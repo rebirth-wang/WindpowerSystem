@@ -1,12 +1,13 @@
 package com.fastbee.scada.convert;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fastbee.scada.domain.ScadaGallery;
-import com.fastbee.scada.vo.ScadaGalleryVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+import com.fastbee.scada.domain.ScadaGallery;
+import com.fastbee.scada.vo.ScadaGalleryVO;
 
 /**
  * 组态图库Convert转换类

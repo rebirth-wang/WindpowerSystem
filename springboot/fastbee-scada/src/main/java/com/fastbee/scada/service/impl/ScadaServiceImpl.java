@@ -1,5 +1,18 @@
 package com.fastbee.scada.service.impl;
 
+import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
+import static com.fastbee.common.extend.utils.SecurityUtils.getUsername;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
@@ -8,6 +21,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fastbee.common.annotation.DataScope;
 import com.fastbee.common.config.RuoYiConfig;
 import com.fastbee.common.constant.Constants;
@@ -18,7 +35,6 @@ import com.fastbee.common.core.redis.RedisCache;
 import com.fastbee.common.enums.DeviceLogTypeEnum;
 import com.fastbee.common.exception.ServiceException;
 import com.fastbee.common.extend.aspectj.DataScopeAspect;
-import com.fastbee.common.extend.core.domin.entity.SysRole;
 import com.fastbee.common.extend.core.domin.entity.SysUser;
 import com.fastbee.common.extend.core.domin.model.LoginUser;
 import com.fastbee.common.extend.enums.scenemodel.SceneModelVariableTypeEnum;
@@ -39,7 +55,6 @@ import com.fastbee.iot.mapper.DeviceMapper;
 import com.fastbee.iot.mapper.SceneModelDeviceMapper;
 import com.fastbee.iot.mapper.SceneModelTagMapper;
 import com.fastbee.iot.model.DeviceMetaData;
-import com.fastbee.iot.model.DeviceShortOutput;
 import com.fastbee.iot.model.HistoryModel;
 import com.fastbee.iot.model.ThingsModelItem.Datatype;
 import com.fastbee.iot.model.ThingsModelItem.ThingsModel;
@@ -48,7 +63,6 @@ import com.fastbee.iot.model.ThingsModels.ValueItem;
 import com.fastbee.iot.model.dto.ThingsModelDTO;
 import com.fastbee.iot.model.scenemodel.SceneModelTagCacheVO;
 import com.fastbee.iot.model.vo.AlertLogVO;
-import com.fastbee.iot.model.vo.DeviceVO;
 import com.fastbee.iot.model.vo.EventLogVO;
 import com.fastbee.iot.model.vo.FunctionLogVO;
 import com.fastbee.iot.service.IDeviceLogService;
@@ -68,24 +82,8 @@ import com.fastbee.scada.mapper.ScadaMapper;
 import com.fastbee.scada.service.IScadaDeviceShareService;
 import com.fastbee.scada.service.IScadaService;
 import com.fastbee.scada.utils.ScadaCollectionUtils;
-import com.fastbee.scada.utils.ScadaConstant;
 import com.fastbee.scada.vo.*;
 import com.fastbee.system.service.sys.SysLoginService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
-import static com.fastbee.common.extend.utils.SecurityUtils.getUsername;
-
 
 /**
  * 组态中心Service业务层处理

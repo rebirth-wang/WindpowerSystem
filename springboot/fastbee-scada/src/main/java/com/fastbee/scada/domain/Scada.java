@@ -1,25 +1,18 @@
 package com.fastbee.scada.domain;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fastbee.common.annotation.Excel;
-import com.fastbee.common.core.domain.BaseEntity;
-import com.fastbee.common.core.domain.PageEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.fastbee.common.core.domain.PageEntity;
 
 /**
  * 组态页面对象 scada

@@ -1,12 +1,12 @@
 package com.fastbee.scada.vo;
 
-import com.fastbee.common.annotation.Excel;
-import com.fastbee.common.core.domain.PageEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import com.fastbee.common.annotation.Excel;
+import com.fastbee.common.core.domain.PageEntity;
 
 /**
  * 组态设备关联对象 scada_device_bind

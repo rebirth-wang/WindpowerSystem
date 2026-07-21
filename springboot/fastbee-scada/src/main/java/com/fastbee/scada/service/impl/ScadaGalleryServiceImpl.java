@@ -1,39 +1,37 @@
 package com.fastbee.scada.service.impl;
 
+import static com.fastbee.common.extend.utils.SecurityUtils.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.annotation.Resource;
+
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fastbee.common.annotation.DataScope;
 import com.fastbee.common.config.RuoYiConfig;
 import com.fastbee.common.core.domain.AjaxResult;
 import com.fastbee.common.extend.aspectj.DataScopeAspect;
 import com.fastbee.common.extend.core.domin.entity.SysUser;
 import com.fastbee.common.extend.core.domin.model.LoginUser;
-import com.fastbee.common.extend.utils.SecurityUtils;
 import com.fastbee.common.utils.DateUtils;
 import com.fastbee.common.utils.MessageUtils;
 import com.fastbee.common.utils.StringUtils;
 import com.fastbee.common.utils.file.FileUploadUtils;
-import com.fastbee.iot.domain.Category;
-import com.fastbee.iot.domain.ThingsModelTemplate;
 import com.fastbee.scada.convert.ScadaGalleryConvert;
 import com.fastbee.scada.domain.ScadaGallery;
 import com.fastbee.scada.mapper.ScadaGalleryMapper;
 import com.fastbee.scada.service.IScadaGalleryService;
 import com.fastbee.scada.vo.ScadaGalleryVO;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static com.fastbee.common.extend.utils.SecurityUtils.*;
-
 
 /**
  * 图库管理Service业务层处理

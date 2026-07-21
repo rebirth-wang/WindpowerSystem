@@ -1,11 +1,12 @@
 package com.fastbee.scada.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import com.fastbee.scada.domain.ScadaEchart;
 import com.fastbee.scada.vo.ScadaEchartVO;
-
-import java.util.List;
 
 /**
  * 图表管理Service接口

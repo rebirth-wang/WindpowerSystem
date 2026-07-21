@@ -3,6 +3,7 @@ package com.fastbee.scada.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import com.fastbee.scada.domain.ScadaDeviceBind;
 import com.fastbee.scada.vo.ScadaDeviceBindVO;
 

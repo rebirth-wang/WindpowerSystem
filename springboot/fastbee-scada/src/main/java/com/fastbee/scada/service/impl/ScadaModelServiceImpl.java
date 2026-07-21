@@ -1,13 +1,24 @@
 package com.fastbee.scada.service.impl;
 
+import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
+import static com.fastbee.common.extend.utils.SecurityUtils.isAdmin;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.annotation.Resource;
+
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+
 import com.fastbee.common.annotation.DataScope;
 import com.fastbee.common.extend.aspectj.DataScopeAspect;
-import com.fastbee.common.extend.core.domin.entity.SysRole;
 import com.fastbee.common.extend.core.domin.entity.SysUser;
 import com.fastbee.common.utils.DateUtils;
 import com.fastbee.common.utils.StringUtils;
@@ -15,19 +26,7 @@ import com.fastbee.scada.convert.ScadaModelConvert;
 import com.fastbee.scada.domain.ScadaModel;
 import com.fastbee.scada.mapper.ScadaModelMapper;
 import com.fastbee.scada.service.IScadaModelService;
-import com.fastbee.scada.utils.ScadaConstant;
 import com.fastbee.scada.vo.ScadaModelVO;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
-import static com.fastbee.common.extend.utils.SecurityUtils.isAdmin;
-
 
 /**
  * 模型管理Service业务层处理

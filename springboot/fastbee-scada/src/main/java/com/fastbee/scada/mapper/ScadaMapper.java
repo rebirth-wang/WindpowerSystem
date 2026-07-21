@@ -1,16 +1,15 @@
 package com.fastbee.scada.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.fastbee.common.extend.core.domin.entity.SysUser;
 import com.fastbee.common.mybatis.mapper.BaseMapperX;
-import com.fastbee.iot.domain.Device;
-import com.fastbee.iot.model.vo.DeviceVO;
 import com.fastbee.iot.model.vo.EventLogVO;
 import com.fastbee.iot.model.vo.FunctionLogVO;
 import com.fastbee.scada.domain.Scada;
 import com.fastbee.scada.vo.*;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * 组态中心Mapper接口
