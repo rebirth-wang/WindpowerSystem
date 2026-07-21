@@ -1,10 +1,11 @@
 package com.fastbee.scada.service;
 
 import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import com.fastbee.scada.domain.ScadaDeviceShare;
 import com.fastbee.scada.vo.ScadaShareVO;
-import com.fastbee.scada.vo.ScadaVO;
 
 /**
  * shareService接口

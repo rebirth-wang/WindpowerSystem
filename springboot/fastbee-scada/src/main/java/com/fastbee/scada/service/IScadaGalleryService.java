@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fastbee.common.core.domain.AjaxResult;
 import com.fastbee.scada.domain.ScadaGallery;
 import com.fastbee.scada.vo.ScadaGalleryVO;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 图库管理Service接口

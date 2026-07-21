@@ -3,11 +3,12 @@ package com.fastbee.scada.mapper;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
+
 import com.fastbee.common.mybatis.mapper.BaseMapperX;
 import com.fastbee.scada.domain.ScadaDeviceBind;
 import com.fastbee.scada.vo.ScadaBindDeviceSimVO;
 import com.fastbee.scada.vo.ScadaDeviceBindVO;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 组态设备关联Mapper接口

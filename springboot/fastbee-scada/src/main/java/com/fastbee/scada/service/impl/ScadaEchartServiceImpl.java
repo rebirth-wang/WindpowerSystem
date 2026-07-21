@@ -1,10 +1,25 @@
 package com.fastbee.scada.service.impl;
 
+import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
+import static com.fastbee.common.extend.utils.SecurityUtils.getUsername;
+import static com.fastbee.common.extend.utils.SecurityUtils.isAdmin;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.annotation.Resource;
+
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fastbee.common.annotation.DataScope;
 import com.fastbee.common.config.RuoYiConfig;
 import com.fastbee.common.exception.ServiceException;
@@ -22,20 +37,6 @@ import com.fastbee.scada.service.IScadaEchartService;
 import com.fastbee.scada.utils.ScadaFileUploadUtils;
 import com.fastbee.scada.utils.ScadaFileUtils;
 import com.fastbee.scada.vo.ScadaEchartVO;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static com.fastbee.common.extend.utils.SecurityUtils.getLoginUser;
-import static com.fastbee.common.extend.utils.SecurityUtils.getUsername;
-import static com.fastbee.common.extend.utils.SecurityUtils.isAdmin;
-
 
 /**
  * 图表管理Service业务层处理

@@ -1,21 +1,21 @@
 package com.fastbee.scada.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+
 import com.fastbee.common.utils.StringUtils;
 import com.fastbee.scada.convert.ScadaDeviceBindConvert;
 import com.fastbee.scada.domain.ScadaDeviceBind;
 import com.fastbee.scada.mapper.ScadaDeviceBindMapper;
 import com.fastbee.scada.service.IScadaDeviceBindService;
 import com.fastbee.scada.vo.ScadaDeviceBindVO;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * 组态设备关联Service业务层处理

@@ -1,8 +1,8 @@
 package com.fastbee.scada.vo;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 /**
  * @author admin

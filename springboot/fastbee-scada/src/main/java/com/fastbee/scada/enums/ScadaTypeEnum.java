@@ -3,9 +3,6 @@ package com.fastbee.scada.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * 组态类型枚举
  * @author fastb

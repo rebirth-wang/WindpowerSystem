@@ -1,8 +1,8 @@
 package com.fastbee.scada.vo;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * share对象 scada_device_share

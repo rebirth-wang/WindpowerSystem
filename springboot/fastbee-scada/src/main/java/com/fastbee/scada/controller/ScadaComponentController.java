@@ -1,20 +1,17 @@
 package com.fastbee.scada.controller;
 
+import static com.fastbee.common.extend.core.controller.BaseController.getDataTable;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fastbee.common.annotation.Anonymous;
-import com.fastbee.common.annotation.Log;
-import com.fastbee.common.core.domain.AjaxResult;
-import com.fastbee.common.core.page.TableDataInfo;
-import com.fastbee.common.enums.BusinessType;
-import com.fastbee.common.extend.core.controller.BaseController;
-import com.fastbee.common.extend.utils.SecurityUtils;
-import com.fastbee.common.extend.utils.poi.ExcelUtil;
-import com.fastbee.scada.domain.ScadaComponent;
-import com.fastbee.scada.service.IScadaComponentService;
-import com.fastbee.scada.vo.ScadaComponentVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +22,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import jakarta.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.fastbee.common.extend.core.controller.BaseController.getDataTable;
+import com.fastbee.common.annotation.Log;
+import com.fastbee.common.core.domain.AjaxResult;
+import com.fastbee.common.core.page.TableDataInfo;
+import com.fastbee.common.enums.BusinessType;
+import com.fastbee.common.extend.core.controller.BaseController;
+import com.fastbee.common.extend.utils.SecurityUtils;
+import com.fastbee.common.extend.utils.poi.ExcelUtil;
+import com.fastbee.scada.domain.ScadaComponent;
+import com.fastbee.scada.service.IScadaComponentService;
+import com.fastbee.scada.vo.ScadaComponentVO;
 
 /**
  * 组件管理Controller

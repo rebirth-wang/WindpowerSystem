@@ -1,8 +1,9 @@
 package com.fastbee.scada.vo;
 
-import com.fastbee.common.core.domain.PageEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import com.fastbee.common.core.domain.PageEntity;
 
 /**
  * @author zzy

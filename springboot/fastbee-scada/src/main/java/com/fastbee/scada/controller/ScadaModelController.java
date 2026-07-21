@@ -1,6 +1,16 @@
 package com.fastbee.scada.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import com.fastbee.common.annotation.Log;
 import com.fastbee.common.core.domain.AjaxResult;
 import com.fastbee.common.core.page.TableDataInfo;
@@ -11,13 +21,6 @@ import com.fastbee.common.extend.utils.poi.ExcelUtil;
 import com.fastbee.scada.domain.ScadaModel;
 import com.fastbee.scada.service.IScadaModelService;
 import com.fastbee.scada.vo.ScadaModelVO;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import jakarta.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * 模型管理Controller

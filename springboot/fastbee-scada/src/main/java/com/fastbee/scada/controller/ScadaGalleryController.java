@@ -1,6 +1,19 @@
 package com.fastbee.scada.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fastbee.common.annotation.Log;
 import com.fastbee.common.core.domain.AjaxResult;
 import com.fastbee.common.core.page.TableDataInfo;
@@ -12,16 +25,6 @@ import com.fastbee.common.utils.StringUtils;
 import com.fastbee.scada.domain.ScadaGallery;
 import com.fastbee.scada.service.IScadaGalleryService;
 import com.fastbee.scada.vo.ScadaGalleryVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.Resource;
-import jakarta.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * 图库管理Controller

@@ -1,6 +1,18 @@
 package com.fastbee.scada.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import com.fastbee.common.annotation.Log;
 import com.fastbee.common.core.domain.AjaxResult;
 import com.fastbee.common.core.page.TableDataInfo;
@@ -11,15 +23,6 @@ import com.fastbee.common.extend.utils.poi.ExcelUtil;
 import com.fastbee.scada.domain.ScadaEchart;
 import com.fastbee.scada.service.IScadaEchartService;
 import com.fastbee.scada.vo.ScadaEchartVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import jakarta.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * 图表管理Controller

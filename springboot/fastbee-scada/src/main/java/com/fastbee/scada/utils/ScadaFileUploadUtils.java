@@ -1,5 +1,13 @@
 package com.fastbee.scada.utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Objects;
+
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fastbee.common.config.RuoYiConfig;
 import com.fastbee.common.constant.Constants;
 import com.fastbee.common.exception.file.FileNameLengthLimitExceededException;
@@ -9,13 +17,6 @@ import com.fastbee.common.utils.DateUtils;
 import com.fastbee.common.utils.StringUtils;
 import com.fastbee.common.utils.file.MimeTypeUtils;
 import com.fastbee.common.utils.uuid.Seq;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.Objects;
 
 /**
  * 文件上传工具类
