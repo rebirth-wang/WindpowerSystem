@@ -744,6 +744,7 @@ public class ThingsModelServiceImpl extends ServiceImpl<ThingsModelMapper, Thing
                 }
                 succSb.append("第").append(success).append("个物模型：").append(model.getModelName());
             } catch (Exception e) {
+                e.printStackTrace();
                 log.error("导入错误：", e);
                 failure++;
                 String errorMsg = e instanceof IllegalArgumentException ? e.getMessage() : "导入解析失败";
